@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will AI Agents Finish Off SaaS? — Two Views, Explained Simply</title>
+<style>
+  :root{
+    --ink:#16202c; --muted:#5b6473; --line:#e3e7ee; --bg:#f4f6fa;
+    --a:#2b6cb0; --a-bg:#eef5fc; --a-ln:#bcd6ef;       /* Foundation Capital / blue */
+    --b:#9a3412; --b-bg:#fdf2ec; --b-ln:#f0cdb8;        /* Freshworks / warm */
+    --good:#2f855a; --warn:#b7791f; --bad:#c53030; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.6;font-size:15.5px}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 28px 90px}
+  header.top{border-bottom:3px solid var(--ink);padding-bottom:18px;margin-bottom:8px}
+  .kick{display:inline-block;background:#eef0f4;color:var(--ink);font-weight:700;font-size:11px;
+        letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
+  h1{font-size:32px;margin:14px 0 4px;letter-spacing:-.01em;line-height:1.15}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:23px;margin:14px 0 6px;line-height:1.2}
+  h3{font-size:17px;margin:22px 0 8px}
+  h4{font-size:14px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  p{margin:11px 0}
+  .lead{font-size:17px;color:#2a3340}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:20px 0;font-size:14px}
+  .toc a{display:inline-block;margin:3px 16px 3px 0}
+  .section{border-top:1px solid var(--line);margin-top:40px;padding-top:18px}
+  .thesis{border-radius:14px;padding:4px 24px 22px;margin:22px 0;border:1px solid}
+  .thesis.A{background:var(--a-bg);border-color:var(--a-ln)}
+  .thesis.B{background:var(--b-bg);border-color:var(--b-ln)}
+  .badge{display:inline-block;color:#fff;font-weight:700;font-size:12px;padding:5px 12px;border-radius:6px;margin-top:18px}
+  .badge.A{background:var(--a)} .badge.B{background:var(--b)}
+  .tldr{font-size:16px;font-weight:600;margin:10px 0 4px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#eef1f6;font-weight:700}
+  .compare th:nth-child(2){background:var(--a-bg)} .compare th:nth-child(3){background:var(--b-bg)}
+  .callout{border-left:4px solid var(--a);background:var(--a-bg);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.key{border-color:var(--ink);background:#fff7e6}
+  .callout.warn{border-color:var(--warn);background:#fdf6e9}
+  .callout.good{border-color:var(--good);background:#ecf7f0}
+  ul{margin:8px 0;padding-left:22px} li{margin:6px 0}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:14px 0}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;flex:1;min-width:120px;font-size:13px}
+  .step b{display:block;color:var(--a);font-size:12px;margin-bottom:3px}
+  .arrow{align-self:center;color:var(--muted);font-weight:700}
+  .tag{display:inline-block;font-size:11px;background:#eef1f6;border:1px solid var(--line);padding:2px 8px;border-radius:5px;color:var(--muted)}
+  .ex{background:#fff;border:1px dashed var(--a-ln);border-radius:8px;padding:12px 16px;margin:10px 0;font-size:14px}
+  .gl{color:#5b6473;font-style:italic;font-weight:400}
+  .term{position:relative;border-bottom:1.5px dotted var(--a);cursor:help;text-decoration:none}
+  .term::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 11px);
+    transform:translateX(-50%) translateY(5px);width:340px;max-width:80vw;
+    background:#16202c;color:#fff;font:400 13.5px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-style:normal;text-align:left;text-transform:none;letter-spacing:normal;
+    padding:12px 15px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.24);
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;z-index:60;white-space:normal}
+  .term::before{content:"";position:absolute;left:50%;bottom:calc(100% + 4px);
+    transform:translateX(-50%) translateY(5px);border:7px solid transparent;border-top-color:#16202c;
+    opacity:0;visibility:hidden;transition:opacity .16s ease;z-index:61}
+  .term:hover::after,.term:hover::before,.term:focus::after,.term:focus::before{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media (max-width:700px){.term::after{width:250px}}
+  .hint{font-size:13px;color:var(--muted);background:#fffdf5;border:1px solid #ecdfb8;border-radius:8px;padding:9px 14px;margin:14px 0}
+  .jargon{background:#fffdf5;border:1px solid #ecdfb8;border-radius:12px;padding:6px 22px 16px;margin:18px 0}
+  .jargon h3{color:#8a6d1f}
+  .glossary dt{font-weight:700;margin-top:10px}
+  .glossary dd{margin:2px 0 0 0;color:#33414f}
+  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
+  @media print{body{background:#fff}.wrap{max-width:none}.card,table,.thesis,.step{break-inside:avoid}}
+  @media (max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="kick">Explainer · Two opposing views, in simple language</span>
+  <h1>Will AI Agents Finish Off SaaS?</h1>
+  <div class="sub">Two of the sharpest write-ups on this question — Foundation Capital's "Context Graph" view and Mr. Girish Mathrubootham's "Build It Fresh for AI" view — fully explained, side by side, in plain words.</div>
+</header>
+
+<p class="lead">In February 2026, Anthropic (the company behind Claude) released a product called Claude Cowork. Within 48 hours, more than <strong>$285 billion (roughly ₹24 lakh crore)</strong> of value was wiped off the share prices of software companies. People started fearing a "SaaSpocalypse" — i.e. the death of the software industry as we know it. Two important essays came out of this fear. Kindly note: both writers actually agree on the basic diagnosis. They differ only on one point — <em>where the real, long-lasting business advantage will sit in the new world.</em> This page lays out both views, fully and simply.</p>
+
+<div class="toc">
+  <strong>Contents:</strong>
+  <a href="#common">1 · Where both agree</a>
+  <a href="#fc">2 · View A — Context Graphs</a>
+  <a href="#fw">3 · View B — Build It Fresh for AI</a>
+  <a href="#vs">4 · Face-to-face comparison</a>
+  <a href="#synth">5 · Putting both together</a>
+  <a href="#bias">6 · Whose interest is it?</a>
+  <a href="#glossary">7 · Detailed word list</a>
+</div>
+
+<!-- ============ COMMON GROUND ============ -->
+<div class="section" id="common">
+<h2>1 · Where both of them agree (Mr. Girish Mathrubootham of Freshworks &amp; Foundation Capital — Jaya Gupta &amp; Ashu Garg)</h2>
+<p>Before they differ, both writers agree on four points. As of 2026, this is more or less the settled view among serious people in the industry:</p>
+<div class="grid2">
+  <div class="card"><h4>① AI agents will not finish off the "<span class="term" data-tip="The one official master database the whole company trusts as the final truth for a type of information — e.g. the CRM for customers, the HR system for employees.">system of record</span>"</h4>The idea that "Claude will replace Salesforce" is mistaken. An agent still needs a reliable master database — <span class="term" data-tip="The single official version of a piece of information that everyone agrees is correct; no duplicate or conflicting copies.">canonical data</span> — to work on. <span class="tag">The brain still needs a nervous system</span></div>
+  <div class="card"><h4>② Simply pasting AI on top of old software is a dead end</h4>An "AI layer" added on a 2015-era database is only a <em>wrapper</em> — a temporary patch, not the real winner.</div>
+  <div class="card"><h4>③ Moving from "software you operate" to "software that does the work"</h4>Both use almost this exact phrase. The product stops being a tool that a human runs, and becomes a worker that acts on its own.</div>
+  <div class="card"><h4>④ Basic building blocks are not the same as a finished product</h4>Anyone can now join together the AI model, a database and some connectors. But that is only the plumbing — not a defensible business.</div>
+</div>
+<div class="callout key"><strong>The real question both are answering:</strong> if SaaS is <em>not</em> killed by one AI release, then <em>who or what</em> will actually disturb it — and what is the one valuable, ownable asset in this new world? This is exactly where their answers separate.</div>
+</div>
+
+<!-- ============ VIEW A : FOUNDATION CAPITAL ============ -->
+<div class="section" id="fc">
+<span class="badge A">VIEW A · Foundation Capital (a US venture capital firm) — Jaya Gupta &amp; Ashu Garg · Dec 2025</span>
+<h2>The "Context Graph": a master record for <em>decisions</em>, not just data</h2>
+<div class="thesis A">
+
+<p class="tldr">Main point: The previous generation of giants became big by owning the <strong>data</strong> — Salesforce owns customer data, Workday owns employee data, SAP owns operations data. The next generation of giants will become big by owning the <strong>decisions</strong> — that is, the <em>reasoning behind</em> the decisions, which no software stores today.</p>
+
+<h3>The one idea the whole view rests on: "Rules" versus "Decision Traces"</h3>
+<div class="grid2">
+  <div class="card"><h4>A Rule — what should happen, in general</h4>"Use the official revenue figure for reporting." "Do not give more than 10% discount on renewals." This is general policy. Existing software can store this much.</div>
+  <div class="card" style="border-color:var(--a-ln)"><h4>A Decision Trace — what actually happened, in this one case</h4>"In this deal we used definition X, under policy version 3.2, with a special approval from a Vice-President, based on a similar past case Z — and here is what we changed." <strong>This is what is never stored anywhere.</strong></div>
+</div>
+<p>So agents do not just need the rules. They need to see <strong>how the rules were actually applied in the past</strong> — where exceptions were given, how conflicts were settled, who approved what, and which past cases truly govern reality on the ground.</p>
+
+<h3>What today's master systems never capture</h3>
+<p>The wall that agents hit is not <em>missing data</em>. It is <em>missing reasoning</em>. Four kinds of knowledge live only in chat threads and inside people's heads — never saved as proper data:</p>
+<ul>
+  <li><strong>Exception logic in people's heads</strong> — "We always give healthcare clients an extra 10%, because their purchase process is very slow and painful." This is not in the CRM. It is passed on by word of mouth.</li>
+  <li><strong>Lessons from past decisions</strong> — "We structured a similar deal for Company X last quarter — we should stay consistent." No system links these two deals or records why.</li>
+  <li><strong>Joining information across many systems</strong> — a support lead checks the customer's revenue in Salesforce, sees two open complaints in Zendesk, reads a chat message warning that the client may leave, and then decides. All this thinking happens in his head. The ticket only says "escalated to Tier 3." The reasoning is lost.</li>
+  <li><strong>Approvals that happen outside any system</strong> — a Vice-President approves a discount on a Zoom call or a chat message. The record only shows the final price. It does not show who approved the deviation, or why.</li>
+</ul>
+<div class="callout"><strong>What "never captured" really means:</strong> it does not mean the data is dirty or scattered. It means the <em>reasoning that connects the data to the action was never treated as data in the first place.</em></div>
+
+<h3>A worked-out example: the renewal agent</h3>
+<div class="ex">
+A renewal agent proposes a <strong>20% discount</strong>. Company policy allows only 10% on renewals, unless a special "service problem" exception is approved. So the agent does the following:
+<div class="flow">
+  <div class="step"><b>1 · Collect</b>Pulls 3 major outage incidents from the monitoring tool (PagerDuty)</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>2 · Collect</b>Finds an open "fix it or we cancel" complaint in the support tool (Zendesk)</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>3 · Past case</b>Finds last quarter's similar exception approved by a VP</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>4 · Route</b>Sends the exception to the Finance team</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>5 · Approve</b>Finance approves it</div>
+</div>
+<strong>In the end the CRM stores only one fact: "20% discount."</strong> Everything that actually mattered — the why, the inputs, the approval, the past case — would normally be lost. But if the agent <em>saves this full trace</em>, the company now has something it never had before.
+</div>
+<p>Do this thousands of times, and these traces join together into a <strong>"context graph"</strong> <span class="gl">(a connected web of decisions and their reasons)</span> — linking the things the business already cares about (accounts, renewals, tickets, incidents, policies, approvers) through the <em>decision moments</em> and the <em>"why" links</em> between them. Now the company can check, debug and replay how decisions were made — and turn each exception into a reusable past case, instead of re-learning the same thing in chat threads every quarter. <strong>Every automated decision adds one more trace. So the value keeps growing on its own.</strong></p>
+
+<h3>Why the big established players cannot easily build this</h3>
+<div class="grid2">
+  <div class="card"><h4>Operational incumbents (Salesforce, ServiceNow, Workday)</h4>They are built to store only the <strong>present state</strong> — they know what the deal looks like <em>now</em>, not what it looked like at the moment of decision. So they cannot replay the "why." Also, each one sees only its own area, so none of them sees the full cross-system picture. <span class="tag">Their new AI features inherit the same limits</span></div>
+  <div class="card"><h4>Data-warehouse players (Snowflake, Databricks)</h4>These are "data store rooms" that only <em>read</em> data after the event. <span class="gl">(Data is copied into them later through a process called ETL.)</span> By the time the data reaches them, the decision and its context are already over. They can tell you <em>what</em> happened, but not <em>why</em>.</div>
+</div>
+<div class="callout"><strong>Why a startup has the natural advantage here:</strong> the agent <em>is</em> the thing doing the actual work, so it sits right at the moment of action <span class="gl">(the "execution path")</span> — the only place where the "why" is visible. The big players can make data harder to extract, "but they cannot insert themselves into a work-execution layer they were never part of."</div>
+
+<h3>Three routes a startup can take</h3>
+<table>
+  <tr><th>Route</th><th>What it means</th><th>Real example</th></tr>
+  <tr><td><strong>Replace the whole master system</strong></td><td>Build a fully AI-first CRM or ERP from scratch, where decision-capture is built into the foundation. Difficult (big players are deeply rooted) but possible when a company is anyway switching systems.</td><td><strong>Regie</strong> — an AI-first sales tool meant to replace older tools like Outreach / Salesloft</td></tr>
+  <tr><td><strong>Replace just one module</strong></td><td>Take over one decision-heavy sub-process; become the master record for <em>those</em> decisions; send only the final result back to the big system.</td><td><strong>Maximor</strong> — runs the reconciliation logic in finance, while the ERP stays the main ledger</td></tr>
+  <tr><td><strong>Create an entirely new master system</strong></td><td>Start as the work-execution layer, save every decision trace, and over time this becomes the place the business goes to ask "why did we do that?"</td><td><strong>PlayerZero</strong> — handles software support, and builds a living map of why production systems break. Plus <strong>Arize</strong> as the monitoring layer underneath.</td></tr>
+</table>
+
+<h3>Signals for a founder — a practical checklist</h3>
+<div class="grid3">
+  <div class="card"><h4>Many people doing it by hand</h4>If 50 people are manually doing one task, it is a signal — the decision-making is too complex for ordinary software.</div>
+  <div class="card"><h4>Lots of exceptions &amp; judgement</h4>Where "it depends" is the honest answer: deal pricing desks, loan underwriting, compliance checks, complaint escalations. Simple, fixed-rule tasks do not need this.</div>
+  <div class="card"><h4>"Glue" departments</h4>Teams like RevOps / DevOps / SecOps exist <em>only</em> because no single software owns a process that runs across departments. Automate that role and you capture a brand-new category of truth.</div>
+</div>
+</div>
+</div>
+
+<!-- ============ VIEW B : FRESHWORKS ============ -->
+<div class="section" id="fw">
+<span class="badge B">VIEW B · Mr. Girish Mathrubootham — Founder of Freshworks · early 2026 (a 3-part series)</span>
+<h2>"Build It Fresh for AI": redesign the software from the ground up</h2>
+<div class="thesis B">
+
+<p class="tldr">Main point: SaaS will not be killed by any single AI model. It will be disturbed by <strong>whoever rebuilds enterprise software from scratch for the AI era</strong> — where AI is the very foundation of the logic, not an add-on stuck on later.</p>
+
+<h3>Part 1 — Anthropic's agents will not finish off SaaS</h3>
+<div class="grid2">
+  <div class="card"><h4>Will "vibe coding" kill SaaS? No.</h4>Yes, AI tools can now produce a working app in minutes. But that is only a <strong>weekend prototype</strong> — not a real system that can handle 10,000 users at once, pass SOC2 security audits, connect to 17 old systems, and survive a 3 a.m. emergency. And in any case, you would only be re-creating <strong>yesterday's</strong> form-filling software.</div>
+  <div class="card"><h4>Agents versus the master system</h4>If an agent sits on top of Salesforce or Freshworks to add intelligence, how does that kill the platform underneath? As he puts it: <strong>"The agent is the brain. The SaaS platform is the memory and the nervous system."</strong> Agents need both the structured data (from CRM/ERP) and the unstructured data (emails, Zoom, call recordings).</div>
+</div>
+<div class="callout warn"><strong>An important counter-point from him:</strong> Mr. Girish clearly rejects the idea that "you can throw away the master system and just let AI figure out everything from Zoom calls, emails and transcripts." He calls this <strong>"a very flawed assumption"</strong> and promises a separate write-up on why it will fail. (This is exactly the point where he and Foundation Capital pull in opposite directions — kindly see Section 4.)</div>
+<p><strong>So then, who will disturb SaaS?</strong> Not an AI release. Either (a) <em>an existing big player brave enough to disrupt its own old design</em>, or (b) <em>an AI-first startup that builds AI as the core foundation</em> — not as a wrapper.</p>
+
+<h3>Part 2 — Why companies cannot simply "Build" their own</h3>
+<p>Right now, every serious company is assembling its own AI system in-house, because there is no mature ready-made product to buy yet. Mr. Girish argues this is only <strong>temporary</strong>.</p>
+<div class="ex"><strong>His analogy:</strong> "Every data team that set up its own Hadoop cluster in 2013 had moved to Snowflake or Databricks by 2019." The pattern always repeats — the basic open-source pieces become easily available → every company builds its own → then one proper product arrives that absorbs all the complexity → and the build-it-yourself crowd quietly shifts over to it.</div>
+<h4>Three reasons "Build it yourself" eventually loses</h4>
+<div class="grid3">
+  <div class="card"><h4>AI models change every quarter</h4>Software written for last year's model looks nothing like what you will need in 2027.</div>
+  <div class="card"><h4>The surrounding pieces change even faster</h4>The agent frameworks, the memory layers, the testing tools — all are changing faster than the models themselves.</div>
+  <div class="card"><h4>The unglamorous 20% takes years</h4>Scale, security, compliance, monitoring, fine permission controls, serving many clients safely on one system (multi-tenancy) — this is what separates a demo from a real production product.</div>
+</div>
+<p>What will end the "build it yourself" phase is <strong>a new generation of AI-first enterprise products that absorb all this complexity</strong> on the customer's behalf.</p>
+
+<h3>Part 3 — Six features of the next-generation enterprise software</h3>
+<p>His blueprint (explained using CRM as the example, but he says it applies to every category):</p>
+<table>
+  <tr><th>#</th><th>Feature</th><th>What it means, in plain words</th></tr>
+  <tr><td>1</td><td><strong>A "semantic" master system</strong></td><td>Old databases were built for humans to fill in and read. Flip it around — build a store designed for <em>AI to read and understand</em>. This one change affects everything else.</td></tr>
+  <tr><td>2</td><td><strong>A knowledge map of your business</strong></td><td>Today your CRM tracks huge pipeline numbers without understanding what your company does or why you win/lose. A knowledge map turns "give me a list of accounts" into "give me the accounts we lost on price last quarter to Competitor X, where the main contact has since changed jobs."</td></tr>
+  <tr><td>3</td><td><strong>Many specialised agents as the brain</strong></td><td>Not one all-knowing model — instead <em>hundreds of small specialist agents</em> (one watches funding news, one tracks job changes, one extracts promises from Zoom calls), with a master coordinator deciding who does what. The leverage keeps compounding.</td></tr>
+  <tr><td>4</td><td><strong>A conversation-based interface</strong></td><td>Just describe what you want in plain English and the software responds. End of complicated custom fields, if-then rules, and workflow builders that need a certificate course to operate.</td></tr>
+  <tr><td>5</td><td><strong>Digital teammates with real duties</strong></td><td>You don't manage 100 small agents. You work with a handful of digital colleagues — "Rebecca", your research assistant; "Raj", your revenue-operations analyst; "Priya", your customer-success lead. Each has a defined scope, targets, and gets reviewed. Humans are not removed — they are strengthened.</td></tr>
+  <tr><td>6</td><td><strong>Live intelligence, not quarterly reports</strong></td><td>Old way: weekly dashboards, and a fire-drill when the CEO asks "what is our win rate against Competitor X?" New way: ask in the meeting, get the answer in the meeting. The reporting layer simply dissolves into the system.</td></tr>
+</table>
+<div class="callout warn" style="border-color:var(--b)"><strong>His closing line:</strong> "Build it yourself" is winning today only because the mature ready-made option does not exist <em>yet</em> — and that window is closing faster than the big players realise. The winners "will not write AI features into a 2015 design — they will write the 2015 design out of existence."</div>
+</div>
+</div>
+
+<!-- ============ HEAD TO HEAD ============ -->
+<div class="section" id="vs">
+<h2>4 · Face-to-face comparison</h2>
+
+<h3>Where they agree</h3>
+<ul>
+  <li>Agents do not finish off the master system; SaaS survives in some form.</li>
+  <li>An AI layer pasted on old software is only a wrapper — the real winner rebuilds from scratch.</li>
+  <li>The shift is from "software you operate" to "software that does the work."</li>
+  <li>Building blocks are not products; a redesigned, AI-readable master system is central.</li>
+</ul>
+
+<h3>Where they differ — the heart of the matter</h3>
+<table class="compare">
+  <tr><th>Question</th><th>View A · Context Graph</th><th>View B · Build It Fresh for AI</th></tr>
+  <tr><td><strong>What is the lasting advantage (<span class="term" data-tip="A lasting advantage that makes it very hard for competitors to copy you — like the water moat around an old fort.">moat</span>)?</strong></td><td>The <strong>decision-trace data itself</strong> — the stored "why," captured at the moment of action</td><td>A <strong>better AI-first design</strong> — semantic master system + knowledge map + many agents + conversation interface + digital teammates</td></tr>
+  <tr><td><strong>What is "the graph / map"?</strong></td><td>A <strong>web of decision history</strong> — exceptions, overrides, approvals, past cases (the "why")</td><td>A <strong>knowledge map of the business</strong> — your ideal customer profile, why you win/lose, relationships (the "what / who")</td></tr>
+  <tr><td><strong>Who wins?</strong></td><td><strong>Startups</strong> — big players structurally cannot sit at the moment of action</td><td><strong>A big player OR a startup</strong> — whoever is brave enough to rebuild</td></tr>
+  <tr><td><strong>Core mechanism</strong></td><td>Capture the reasoning that <em>was never stored as data before</em></td><td>Redesign the entire software <em>experience and architecture</em></td></tr>
+  <tr><td><strong>On the existing master system</strong></td><td>A <em>new</em> master system (for decisions) is born and could become the giant platform</td><td>The existing master system <em>survives</em> and stays essential; do not try to throw it away</td></tr>
+</table>
+
+<h3>The small but very important difference: two different "maps"</h3>
+<div class="grid2">
+  <div class="card" style="border-color:var(--a-ln)"><h4>Context graph (View A)</h4>A record of <strong>decision history</strong>: "who approved the exception, under which policy, citing which past case." It exists only if you make the agent save a trace on every single run. <em>This is brand-new data that did not exist before.</em></div>
+  <div class="card" style="border-color:var(--b-ln)"><h4>Knowledge map (View B)</h4>A model of <strong>current understanding</strong>: what your business is, who your ideal customer is, what the pipeline looks like — for AI to reason over. <em>This is a smarter view of data you broadly already have.</em></div>
+</div>
+<div class="callout key"><strong>Foundation Capital's sharper claim:</strong> Mr. Girish's knowledge map is still basically about <em>present understanding</em>. The truly new and defensible asset is the <strong>replayable decision history</strong> — and that is the part the big players cannot reach.</div>
+
+<h3>The quiet contradiction between them</h3>
+<p>Mr. Girish <strong>defends</strong> the existing master system (saying "just connect Zoom/emails/calls and let AI figure it out" is "a very flawed assumption"). Foundation Capital leans the <em>other</em> way — that a <strong>new master system for decisions is born from the work-execution layer</strong>, which the old players cannot reach. In short: one says "the master system survives and gets an AI-first younger sibling"; the other says "a new kind of master system is born, which the old guard simply cannot build."</p>
+</div>
+
+<!-- ============ SYNTHESIS ============ -->
+<div class="section" id="synth">
+<h2>5 · Putting both views together</h2>
+<div class="callout good">
+  <p style="margin-top:4px"><strong>Mr. Girish describes the visible product; Foundation Capital describes the hidden advantage underneath it.</strong></p>
+  <ul style="margin-bottom:4px">
+    <li><strong>Mr. Girish (the surface):</strong> what the AI-first winner <em>looks and feels like</em> — semantic master system, conversation interface, digital teammates, instant answers.</li>
+    <li><strong>Foundation Capital (the moat):</strong> why it becomes <em>impossible to dislodge</em> — the private decision-history data that keeps growing with every run.</li>
+  </ul>
+</div>
+<p>The strongest takeaway for a founder is to combine the two: <strong>build Mr. Girish's reimagined product, but make sure its lasting advantage is Foundation Capital's context graph.</strong> A good-looking AI-first CRM with no private decision data is still just a nicer wrapper. The real defensibility comes from the decision traces you collect by sitting at the moment of action — and you can start with a human-in-the-loop model (the agent proposes, collects context, routes approvals and records the trace) and automate more as the past-case library grows.</p>
+<h3>A combined test for any "AI agent for operations" idea</h3>
+<table>
+  <tr><th>Ask yourself…</th><th>From</th></tr>
+  <tr><td>Is this task <strong>full of exceptions and judgement</strong>, with real past-cases — where "it depends" is the honest answer? (Not a simple fixed-rule task.)</td><td>A</td></tr>
+  <tr><td>Is it a cross-department <strong>"glue" function</strong> (like RevOps / DevOps / SecOps) that no single master system owns?</td><td>A</td></tr>
+  <tr><td>By sitting at the moment of action, can I <strong>capture decision history</strong> that nobody else has?</td><td>A</td></tr>
+  <tr><td>Am I building it <strong>AI-first from day one</strong>, and not adding AI onto a 2015 design?</td><td>B</td></tr>
+  <tr><td>Can I handle the <strong>unglamorous 20%</strong> — security, compliance, multi-tenancy, monitoring — so that "buy" beats "build"?</td><td>B</td></tr>
+  <tr><td>Is there a <strong>conversation-based, does-the-work interface</strong> — and not just one more dashboard or workflow builder?</td><td>B</td></tr>
+</table>
+</div>
+
+<!-- ============ BIAS ============ -->
+<div class="section" id="bias">
+<h2>6 · Whose interest is it? (Both are partly talking their own book)</h2>
+<div class="grid2">
+  <div class="card" style="border-color:var(--a-ln)"><h4>Foundation Capital</h4>This is a venture-capital firm <strong>signalling what it wants to invest in</strong>. The "trillion-dollar / big players simply cannot do it" framing is deliberately bold, and it conveniently names companies of the type it backs (Regie, Maximor, PlayerZero, Arize). In reality, Salesforce and others are not as helpless as suggested.</div>
+  <div class="card" style="border-color:var(--b-ln)"><h4>Mr. Girish / Freshworks</h4>This is a <strong>SaaS company founder and investor</strong>, with a strong interest in arguing that "SaaS survives" and that nimble rebuilders (such as a Freshworks) win — rather than the big AI-model labs. His "build always loses to buy" line is also convenient for product vendors.</div>
+</div>
+<div class="callout warn"><strong>Net-net:</strong> trust the <em>overlapping mechanics</em> (capturing data at the moment of action; rebuilding AI-first; software that does the work) more than either author's confident conclusion about who finally wins.</div>
+</div>
+
+<!-- ============ GLOSSARY ============ -->
+<div class="section" id="glossary">
+<h2>7 · Detailed word list</h2>
+<p style="color:var(--muted)">The three terms worth keeping in mind are at the very top of this page. Below are the few <em>new concepts</em> these essays introduce (not common jargon — these are the actual subject matter):</p>
+<dl class="glossary">
+  <dt>System of Record (SoR)</dt><dd>The single official master database the whole company trusts as final truth for a type of information — the CRM for customers, the HR system for employees. Owning it means owning the workflow and the customer lock-in.</dd>
+  <dt>Canonical data</dt><dd>The one official, agreed-upon version of a piece of information — no conflicting duplicate copies.</dd>
+  <dt>Moat</dt><dd>A durable advantage that stops competitors from copying you. The whole debate is about where the next one will sit.</dd>
+  <dt>Decision trace</dt><dd>A saved record of <em>how</em> one specific decision was taken: what inputs were gathered, which policy applied, which exception route was used, who approved, the reasoning, and the final result.</dd>
+  <dt>Context graph (View A's core idea)</dt><dd>The full connected web of decision traces, joined across the business over time — so past cases become searchable. This is the "why" layer.</dd>
+  <dt>Knowledge graph / map (View B's core idea)</dt><dd>A structured model of the business itself (entities, relationships, ideal customer, win/loss logic) that AI can reason over. This is the "what / who" layer.</dd>
+  <dt>Semantic system of record</dt><dd>A data store designed for AI to read and understand, instead of old databases designed for humans to fill in and read.</dd>
+  <dt>Execution (write) path vs. read path</dt><dd>Write path = where the work happens and the result is saved (agents sit here). Read path = where data is simply looked up later, after the event. Only the write path can see the "why" at the moment of decision.</dd>
+</dl>
+</div>
+
+<footer>
+  Explainer prepared 23 June 2026. ₹ figures are rough conversions at about ₹85 per US dollar, given only to convey scale. Sources: "AI's trillion-dollar opportunity: Context graphs" — Jaya Gupta &amp; Ashu Garg, Foundation Capital (22 Dec 2025); a 3-part LinkedIn series by Mr. Girish Mathrubootham, Founder of Freshworks (early 2026), which itself refers to Jamin Ball ("Long Live Systems of Record") and Aaron Levie. Company examples (Regie, Maximor, PlayerZero, Arize) are as cited by the original authors. This is an explanatory summary, not investment advice.
+</footer>
+
+</div>
+</body>
+</html>

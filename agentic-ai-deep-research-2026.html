@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI — Detailed Market Study, Mid-2026 (Explained Simply)</title>
+<style>
+  :root{
+    --ink:#16202c; --muted:#5b6473; --line:#e3e7ee; --bg:#f5f7fb;
+    --accent:#2b6cb0; --accent2:#0b7285; --good:#2f855a; --warn:#b7791f; --bad:#c53030;
+    --card:#ffffff; --chip:#eef3f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.55;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 28px 90px}
+  header.top{border-bottom:3px solid var(--accent);padding-bottom:18px;margin-bottom:6px}
+  .kick{display:inline-block;background:var(--chip);color:var(--accent);border:1px solid #d3e0ee;
+        font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
+  h1{font-size:31px;margin:14px 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:21px;margin:40px 0 6px;padding-top:14px;border-top:1px solid var(--line)}
+  h2 .em{color:var(--muted);font-weight:400;font-size:14px;display:block;margin-top:2px}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:10px 0}
+  .lead{font-size:16px;color:#2a3340}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#eef3f9;font-weight:700}
+  tr:nth-child(even) td{background:#fafbfd}
+  .num{text-align:center;white-space:nowrap}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:16px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .stat{font-size:25px;font-weight:800;color:var(--accent);line-height:1.05}
+  .stat.alt{color:var(--accent2)} .stat.red{color:var(--bad)} .stat.good{color:var(--good)}
+  .lbl{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .src{font-size:10.5px;color:#94a0b0;margin-top:6px}
+  .heat{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .h-hot{background:#fdeaea;color:var(--bad)}
+  .h-open{background:#e7f5ec;color:var(--good)}
+  .h-emrg{background:#eef0f4;color:var(--muted)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:10px 0}
+  .callout{background:#eef6fb;border-left:4px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.win{background:#ecf7f0;border-color:var(--good)}
+  .callout.warn{background:#fdf6e9;border-color:var(--warn)}
+  ul{margin:8px 0;padding-left:22px} li{margin:5px 0}
+  .layerno{display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;
+           background:var(--accent);color:#fff;font-weight:800;font-size:14px;margin-right:8px;vertical-align:middle}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:18px 0;font-size:14px}
+  .toc a{display:inline-block;margin:3px 14px 3px 0}
+  .money{font-weight:700;color:var(--accent2);white-space:nowrap}
+  .gl{color:#5b6473;font-style:italic;font-weight:400}
+  .term{position:relative;border-bottom:1.5px dotted var(--accent);cursor:help;text-decoration:none}
+  .term::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 11px);
+    transform:translateX(-50%) translateY(5px);width:340px;max-width:80vw;
+    background:#16202c;color:#fff;font:400 13.5px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-style:normal;text-align:left;text-transform:none;letter-spacing:normal;
+    padding:12px 15px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.24);
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;z-index:60;white-space:normal}
+  .term::before{content:"";position:absolute;left:50%;bottom:calc(100% + 4px);
+    transform:translateX(-50%) translateY(5px);border:7px solid transparent;border-top-color:#16202c;
+    opacity:0;visibility:hidden;transition:opacity .16s ease;z-index:61}
+  .term:hover::after,.term:hover::before,.term:focus::after,.term:focus::before{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media (max-width:700px){.term::after{width:250px}}
+  .hint{font-size:13px;color:var(--muted);background:#fffdf5;border:1px solid #ecdfb8;border-radius:8px;padding:9px 14px;margin:14px 0}
+  .jargon{background:#fffdf5;border:1px solid #ecdfb8;border-radius:12px;padding:6px 22px 16px;margin:18px 0}
+  .jargon h3{color:#8a6d1f}
+  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--muted)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px}
+  .p-good{background:#e7f5ec;color:var(--good)} .p-warn{background:#fdf3e0;color:var(--warn)} .p-bad{background:#fdeaea;color:var(--bad)}
+  @media print{body{background:#fff}.wrap{max-width:none}.card,table{break-inside:avoid}}
+  @media (max-width:680px){.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="kick">Detailed market study · No constraints · explained simply</span>
+  <h1>Agentic AI — The State of the Market, Mid-2026</h1>
+  <div class="sub">Funding, company values, revenues and open-area analysis across the full industry · prepared 23 June 2026 · all figures gathered via live web search</div>
+</header>
+
+<p class="lead">This is a full sweep of the "agentic AI" opportunity space, taken purely as a theme. Every funding and valuation figure below was pulled from live web search and is referenced. The single big message: <strong>money is concentrating into a few giant companies, raw AI "intelligence" is becoming a cheap commodity, and the lasting value is shifting to the layers that make agents safe enough to actually use in production — trust, identity, memory, governance, testing — and to deep industry-specific products.</strong></p>
+
+<!-- ===== JARGON BOX ===== -->
+<div class="hint">One term — <strong>moat</strong> — recurs throughout (it appears with a <span class="term" data-tip="Like this — hover the dotted term to see its one-line meaning.">dotted underline</span>; kindly hover for the meaning). ₹ figures below are rough, only to convey scale, at about ₹85 per US dollar.</div>
+
+<div class="toc">
+  <strong>Contents:</strong>
+  <a href="#market">1 · The market at a glance</a>
+  <a href="#trust">2 · The "trust gap"</a>
+  <a href="#infra">3 · Infrastructure</a>
+  <a href="#horizontal">4 · Horizontal agents</a>
+  <a href="#vertical">5 · Vertical agents</a>
+  <a href="#payments">6 · Agent commerce &amp; payments</a>
+  <a href="#whitespace">7 · Open areas</a>
+  <a href="#leaderboard">8 · Funding leaderboard</a>
+  <a href="#takeaways">9 · Final takeaways</a>
+</div>
+
+<!-- ============ MARKET ============ -->
+<h2 id="market"><span class="layerno">1</span>The market at a glance</h2>
+<div class="cards">
+  <div class="card"><div class="stat">$9–11B</div><div class="lbl">size of the agentic-AI market in 2026 <span class="gl">(≈ ₹76,000–93,000 cr)</span>; expected to reach ~$199B by 2034</div><div class="src">Tech-Insider / RAYSolute</div></div>
+  <div class="card"><div class="stat alt">$2.66B</div><div class="lbl">raised by agentic-AI companies up to April 2026 — <strong>up 144% over last year</strong> — but across only 44 deals</div><div class="src">AgentMarketCap</div></div>
+  <div class="card"><div class="stat alt">$155M</div><div class="lbl">average deal size now <span class="gl">(≈ ₹1,300 cr)</span> — nearly double last year's $82M</div><div class="src">AgentMarketCap</div></div>
+  <div class="card"><div class="stat">54.6%</div><div class="lbl">of all money goes to <strong>industry-specific (vertical) agents</strong> (48.3% of deals)</div><div class="src">New Market Pitch</div></div>
+  <div class="card"><div class="stat">20.7%</div><div class="lbl">of deals go to <strong>agent supporting-infrastructure</strong></div><div class="src">New Market Pitch</div></div>
+  <div class="card"><div class="stat alt">~43%</div><div class="lbl">of early-2026 money went to <strong>brand-new companies</strong> — investors are still funding fresh entrants in urgent areas</div><div class="src">New Market Pitch</div></div>
+</div>
+<div class="callout">
+  <strong>The main funding pattern: fewer but bigger bets.</strong> The number of deals has fallen while the average cheque size has nearly doubled — investors are concentrating their money into the established leaders. For a new entrant, this means the headline categories (coding, support, legal, medical notes) are practically closed unless you have a war-chest — while genuinely <em>new and urgent</em> categories can still attract first-time investment.
+</div>
+
+<!-- ============ TRUST GAP ============ -->
+<h2 id="trust"><span class="layerno">2</span>The "trust gap" — the opportunity hidden inside the failure numbers</h2>
+<div class="cards">
+  <div class="card"><div class="stat red">86–89%</div><div class="lbl">of agent trials <strong>fail before going live</strong> — due to weak governance, no tracking, no monitoring</div><div class="src">FifthRow</div></div>
+  <div class="card"><div class="stat red">60%</div><div class="lbl">governance gap remains, even though 72% of companies now run agents in production</div><div class="src">Agentic AI Institute</div></div>
+  <div class="card"><div class="stat red">23%</div><div class="lbl">of companies can fully list &amp; trace what their agents are doing</div><div class="src">Strata</div></div>
+  <div class="card"><div class="stat red">7%</div><div class="lbl">believe their current controls could stop a <strong>hacked agent</strong>; 67% suspect agents accessed data beyond their scope</div><div class="src">Akeyless</div></div>
+  <div class="card"><div class="stat red">+340%</div><div class="lbl">rise in "prompt-injection" attacks; the #1 AI risk 3 years running</div><div class="src">Maxim / OWASP</div></div>
+  <div class="card"><div class="stat">60–80%</div><div class="lbl">of an agent's running cost is <strong>"inference"</strong> (running the AI each time)</div><div class="src">0G</div></div>
+</div>
+<p>Read in reverse, these numbers are basically a shopping list: <strong>every failure reason is itself a product opportunity.</strong> The market is willing to pay to make agents <em>trustworthy enough to deploy</em> — and that money is flowing into identity, governance, testing and security (covered next).</p>
+
+<!-- ============ INFRA ============ -->
+<h2 id="infra"><span class="layerno">3</span>Infrastructure — "picks &amp; shovels"<span class="em">20.7% of deals. This is where the trust-gap money is going. (Selling tools to everyone building agents.)</span></h2>
+<div class="legend">
+  <span><span class="heat h-hot">HOT</span> crowded / heavily funded</span>
+  <span><span class="heat h-open">OPEN</span> genuine open area</span>
+  <span><span class="heat h-emrg">EMERGING</span> early / still unproven</span>
+</div>
+<table>
+  <tr><th style="width:22%">Sub-area</th><th class="num">Heat</th><th>Leaders &amp; funding (2026)</th><th>The gap that remains</th></tr>
+  <tr><td><strong>Testing &amp; monitoring</strong> <span class="gl">(eval &amp; observability)</span></td><td class="num"><span class="heat h-hot">HOT</span></td>
+    <td>Braintrust <span class="money">~$80M @ $800M</span>; Arize <span class="money">$70M</span>; + Galileo, Patronus, LangSmith. Together ≈ <span class="money">$2B</span> in value</td>
+    <td>Splitting into many niches; reliable testing is still done manually case-by-case</td></tr>
+  <tr><td><strong>Agent identity</strong> <span class="gl">(login/identity for non-human agents)</span></td><td class="num"><span class="heat h-open">OPEN</span></td>
+    <td>NewCore <span class="money">$66M @ $300M</span>; GitGuardian <span class="money">$50M</span>; Oasis Security <span class="money">$120M</span></td>
+    <td>Agents break normal human login checks; their identities are largely uncontrolled</td></tr>
+  <tr><td><strong>Agent security</strong> <span class="gl">(safety testing / attack defence)</span></td><td class="num"><span class="heat h-hot">HOT</span></td>
+    <td>Armadin (founder of Mandiant) <span class="money">$190M</span>; XBOW <span class="money">$120M</span>; ~<span class="money">$392M</span> in just 2 weeks around the RSAC'26 security event</td>
+    <td>Hidden-instruction attacks, tool misuse — arming fast, but the market is enormous</td></tr>
+  <tr><td><strong>Governance / audit / policy</strong></td><td class="num"><span class="heat h-open">OPEN</span></td>
+    <td>Credo AI <span class="money">$41.3M</span>; market <span class="money">$418M → $3.6B by '33</span> (36%/yr growth)</td>
+    <td>Real-time control &amp; policy enforcement are scarce; the EU's new AI Law adds demand</td></tr>
+  <tr><td><strong>Long-term memory</strong> <span class="gl">(so agents "remember" across sessions)</span></td><td class="num"><span class="heat h-emrg">EMERGING</span></td>
+    <td>Mem0 <span class="money">$24M</span> (48k GitHub stars); + Letta, Zep, LangMem</td>
+    <td>Remembering correctly across time, handling stale facts, privacy/consent — all unsolved</td></tr>
+  <tr><td><strong>Coordination engine</strong> <span class="gl">(managing many agents together — "orchestration")</span></td><td class="num"><span class="heat h-hot">HOT</span></td>
+    <td>LangChain, CrewAI, AutoGen, LlamaIndex; analysts call it the most acute cloud pressure point</td>
+    <td>Coordinating many agents and giving instant responses, at scale</td></tr>
+  <tr><td><strong>Inference cost reduction</strong></td><td class="num"><span class="heat h-open">OPEN</span></td>
+    <td>Fragmented; tools for routing/caching to cut AI running costs</td>
+    <td>This is 60–80% of running cost — a direct, measurable saving to chase</td></tr>
+  <tr><td><strong>Web/computer-use reliability</strong></td><td class="num"><span class="heat h-hot">HOT</span></td>
+    <td>Browserbase and others; built into the big labs' agents</td>
+    <td>Agents that browse the web break constantly; a reliability layer is valuable</td></tr>
+</table>
+<div class="callout warn"><strong>AI-cybersecurity is the big tailwind here:</strong> analysts (Gartner) expect the AI-security segment to grow from <span class="money">$10.82B in 2024 to $172B by 2029</span> <span class="gl">(≈ ₹14.6 lakh crore)</span> — which is why the agent-identity and agent-security deals are the largest in the whole infrastructure layer.</div>
+
+<!-- ============ HORIZONTAL ============ -->
+<h2 id="horizontal"><span class="layerno">4</span>Horizontal agents (used across all industries)<span class="em">"Gorilla" territory — huge revenues, huge valuations. Practically closed to new small players.</span></h2>
+<table>
+  <tr><th style="width:20%">Category</th><th class="num">Heat</th><th>Leaders</th><th>Valuation / yearly revenue (ARR)</th></tr>
+  <tr><td><strong>Coding</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Cursor (Anysphere)</td><td><span class="money">$2B ARR</span> (Feb'26); SpaceX has an option to buy it at <span class="money">$60B</span>; fastest ever to $2B revenue</td></tr>
+  <tr><td></td><td class="num"></td><td>Cognition (Devin)</td><td><span class="money">$1B raised @ $26B value</span>; <span class="money">$492M ARR</span>; 89% of its own code is AI-written</td></tr>
+  <tr><td><strong>Customer support</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Sierra</td><td><span class="money">$950M raised @ $15.8B</span> (May'26); <span class="money">$200M ARR</span></td></tr>
+  <tr><td></td><td class="num"></td><td>Decagon</td><td><span class="money">$4.5B value</span> (Jan'26); <span class="money">$35M ARR</span></td></tr>
+  <tr><td><strong>Voice agents</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>ElevenLabs</td><td><span class="money">$500M @ $11B</span> (Feb'26); <span class="money">&gt;$500M ARR</span></td></tr>
+  <tr><td></td><td class="num"></td><td>Vapi / Retell</td><td>Vapi <span class="money">$50M @ $500M</span>, 1 billion+ calls; Retell <span class="money">$50M ARR</span></td></tr>
+  <tr><td><strong>Sales agents (SDR)</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>11x / Artisan</td><td>11x <span class="money">~$350M value</span>; a trust-sensitive category</td></tr>
+  <tr><td><strong>Data-analyst agents</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>scattered, no clear leader</td><td>Turning plain questions into database queries → still rough = room to enter</td></tr>
+  <tr><td><strong>Personal assistant agents</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td><td>many attempts</td><td>Inbox/scheduling/travel — chronic problem keeping users hooked</td></tr>
+</table>
+<div class="callout warn"><strong>Do not fight head-on here.</strong> A category where the leader has $2B in revenue and a $60B buyout offer is not an opening — it is a wall. For a small team, the only horizontal plays are (a) an <em>under-served slice</em> (e.g. coding for one regulated industry, one niche support task) or (b) selling <em>to</em> these giants as a supporting tool.</div>
+
+<!-- ============ VERTICAL ============ -->
+<h2 id="vertical"><span class="layerno">5</span>Vertical agents (built for one industry) — where the money is<span class="em">54.6% of all capital. But each big industry already has two funded leaders; depth &amp; less-glamorous niches still remain.</span></h2>
+<table>
+  <tr><th style="width:20%">Industry</th><th class="num">Heat</th><th>Leaders &amp; funding</th><th>Reading</th></tr>
+  <tr><td><strong>Legal</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Harvey <span class="money">$200M @ $11B</span>, $190M ARR; Legora <span class="money">$550M @ $5.6B</span>, $100M ARR</td><td>Billion-dollar two-horse race; only small niches (litigation, IP, small firms) left</td></tr>
+  <tr><td><strong>Healthcare — medical note-taking</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Abridge <span class="money">$5.3B</span> ($800M+ raised), 250+ hospitals; Ambience <span class="money">$1.25B</span></td><td>Note-taking is solved &amp; funded; nearby operations work still open</td></tr>
+  <tr><td><strong>Healthcare — billing / approvals</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Thoughtful, Latent, Aegis, Quill</td><td>Crowded + heavy medical-privacy law — hard for a lean offshore team</td></tr>
+  <tr><td><strong>Insurance</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>FurtherAI <span class="money">$25M (a16z)</span>; Harper; Kinro; Fuse</td><td>Application-processing is the "most-deployed 2026 use case"; hot money</td></tr>
+  <tr><td><strong>Cybersecurity operations</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>TENEX.AI <span class="money">$250M</span>; Armadin <span class="money">$190M</span>; Qevlar, RunSybil</td><td>Enormous market ($172B by '29) but arming very fast</td></tr>
+  <tr><td><strong>Finance / accounting</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Basis <span class="money">$100M @ $1.15B</span>; Accrual <span class="money">$75M</span>; Pilot</td><td>Book-closing / bookkeeping is crowded</td></tr>
+  <tr><td><strong>Procurement / supply chain</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>Lio <span class="money">$30M (a16z)</span>; 80% of manufacturing bosses plan agentic spend</td><td>Earlier-stage; scattered buyers = openings</td></tr>
+  <tr><td><strong>Logistics / freight</strong></td><td class="num"><span class="heat h-hot">HOT</span></td><td>Raft, Expedock, Shipamax, Descartes</td><td>Document processing is crowded</td></tr>
+  <tr><td><strong>Retail / commerce operations</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>scattered; big systems adding features</td><td>Stock replenishment, supplier issues, product content</td></tr>
+  <tr><td><strong>Construction / field services</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>scattered</td><td>Cost estimation, measurements, approvals — unglamorous = open</td></tr>
+  <tr><td><strong>Manufacturing / industrial</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td><td>SAP/Microsoft adding features; few independents</td><td>Quality documents, supplier quality — under-explored</td></tr>
+  <tr><td><strong>Government / public sector</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td><td>very early</td><td>Procurement, benefits, compliance — slow, huge, and sticky once won</td></tr>
+</table>
+
+<!-- ============ PAYMENTS ============ -->
+<h2 id="payments"><span class="layerno">6</span>Agent commerce &amp; payments<span class="em">A 2026 land-grab — but the basic "rails" are being laid by the giants.</span></h2>
+<p>The standards for agents that buy and pay on their own are forming fast — and being led by the big platforms, not by startups:</p>
+<table>
+  <tr><th>Standard / product</th><th>Backed by</th><th>What it is</th></tr>
+  <tr><td><strong>ACP</strong> (Agentic Commerce Protocol)</td><td>Stripe + OpenAI</td><td>A standard for agent-driven checkout/buying</td></tr>
+  <tr><td><strong>AP2</strong> (Agent Payments Protocol)</td><td>Google (+ Coinbase, MetaMask)</td><td>How an agent gets <em>permission</em> to pay (not the money-movement itself)</td></tr>
+  <tr><td><strong>x402</strong></td><td>Coinbase (Stripe joined Feb'26)</td><td>Instant digital-currency payments over the web</td></tr>
+  <tr><td><strong>Bedrock AgentCore Payments</strong></td><td>Amazon Web Services (trial, May'26)</td><td>Managed wallets, spending limits and audit trail for agents</td></tr>
+</table>
+<div class="callout warn"><strong>A word of caution:</strong> when Stripe, Google, Coinbase and Amazon are setting the standard, the basic "rail" itself is not a startup opportunity. The openings are <em>around</em> it — verification ("check first, pay later"), spending control, reconciliation, fraud detection, and buying-tools for merchants.</div>
+
+<!-- ============ WHITESPACE ============ -->
+<h2 id="whitespace"><span class="layerno">7</span>Open areas — where money is NOT yet piled up</h2>
+<table>
+  <tr><th style="width:30%">Opportunity</th><th class="num">Heat</th><th>Why it is interesting (with evidence)</th></tr>
+  <tr><td><strong>Agents on old "legacy" systems</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>Described as "an untapped goldmine"; Toyota replaced 50–100 old mainframe screens with one agent. Deep <span class="term" data-tip="A lasting advantage that makes it very hard for competitors to copy you — like the water moat around an old fort.">moat</span> (no modern connectors exist), unglamorous, and very sticky. IBM is pushing a tool for exactly this.</td></tr>
+  <tr><td><strong>"Agent-as-a-service" for small businesses</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>A managed agent that runs one back-office task end-to-end, sold as a <em>result</em>, not as software. Under-served below the big-enterprise level.</td></tr>
+  <tr><td><strong>Governance for industry agents</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>Governance market growing $418M → $3.6B by '33; real-time control scarce; regulated-industry compliance (healthcare/finance) is under-built.</td></tr>
+  <tr><td><strong>"Make the pilot succeed" tooling</strong></td><td class="num"><span class="heat h-open">OPEN</span></td><td>Directly attacks the 86% trial-failure rate — the single biggest blocker to adoption.</td></tr>
+  <tr><td><strong>Trust layer for agent payments</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td><td>"Check first, pay later," spending control, reconciliation around the new payment standards.</td></tr>
+  <tr><td><strong>Manufacturing / industrial operations</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td><td>80% of manufacturing bosses plan agentic spend, yet very few independent products exist — mostly just SAP/Microsoft features.</td></tr>
+  <tr><td><strong>Physical-world / robotics agents</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td><td>A capital-heavy frontier; agents driving machines / field hardware.</td></tr>
+</table>
+
+<!-- ============ LEADERBOARD ============ -->
+<h2 id="leaderboard"><span class="layerno">8</span>Funding leaderboard — the "gorillas"<span class="em">Selected verified deals/values, mid-2026. Shows where the money has already locked in.</span></h2>
+<table>
+  <tr><th>Company</th><th>Segment</th><th class="num">Valuation</th><th class="num">Yearly revenue</th><th>Latest round</th></tr>
+  <tr><td>Cursor (Anysphere)</td><td>Coding</td><td class="num"><span class="money">$60B*</span></td><td class="num">$2B</td><td>$60B SpaceX buyout option (Apr'26)</td></tr>
+  <tr><td>Cognition (Devin)</td><td>Coding</td><td class="num"><span class="money">$26B</span></td><td class="num">$492M</td><td>$1B Series D</td></tr>
+  <tr><td>Sierra</td><td>Support</td><td class="num"><span class="money">$15.8B</span></td><td class="num">$200M</td><td>$950M Series E (May'26)</td></tr>
+  <tr><td>Harvey</td><td>Legal</td><td class="num"><span class="money">$11B</span></td><td class="num">$190M</td><td>$200M (Mar'26)</td></tr>
+  <tr><td>ElevenLabs</td><td>Voice</td><td class="num"><span class="money">$11B</span></td><td class="num">$500M+</td><td>$500M (Feb'26)</td></tr>
+  <tr><td>Legora</td><td>Legal</td><td class="num"><span class="money">$5.6B</span></td><td class="num">$100M</td><td>$550M Series D (Mar'26)</td></tr>
+  <tr><td>Abridge</td><td>Medical notes</td><td class="num"><span class="money">$5.3B</span></td><td class="num">$100M+</td><td>$300M Series E + $316M</td></tr>
+  <tr><td>Decagon</td><td>Support</td><td class="num"><span class="money">$4.5B</span></td><td class="num">$35M</td><td>$250M Series D (Jan'26)</td></tr>
+  <tr><td>Ambience</td><td>Medical notes</td><td class="num"><span class="money">$1.25B</span></td><td class="num">—</td><td>$243M</td></tr>
+  <tr><td>Basis</td><td>Accounting</td><td class="num"><span class="money">$1.15B</span></td><td class="num">—</td><td>$100M Series B</td></tr>
+  <tr><td>TENEX.AI</td><td>Cyber-security ops</td><td class="num">—</td><td class="num">—</td><td>$250M Series B (Mar'26)</td></tr>
+  <tr><td>Armadin</td><td>Agent security</td><td class="num">—</td><td class="num">—</td><td>$190M seed + A</td></tr>
+</table>
+<p class="src">* Cursor's $60B is a buyout <em>offer/option</em>, not a completed priced round (it was priced at $29.3B in Nov'25). Revenue (ARR) figures are third-party estimates (Sacra and others). The price-to-revenue multiples are extreme (Cognition ≈ 53×, Cursor ≈ 30×) — a sign of late-stage over-excitement in the headline categories.</p>
+
+<!-- ============ TAKEAWAYS ============ -->
+<h2 id="takeaways"><span class="layerno">9</span>Final takeaways</h2>
+<div class="callout win">
+  <ol style="margin:4px 0">
+    <li><strong>Money is concentrating.</strong> Fewer but bigger deals (avg $155M) into the leaders. The headline categories (coding, support, voice, legal, medical notes) are closed to small teams.</li>
+    <li><strong>The "trust gap" is the richest infrastructure opening.</strong> 86% trial failure, 60% governance gap, only 7% confident in their agent controls → identity, governance, testing and security are funded <em>and</em> still have open niches (especially governance &amp; agent-identity).</li>
+    <li><strong>Industry depth beats industry breadth.</strong> 54.6% of money is industry-specific, but each big industry already has two leaders. The room is in <em>unglamorous, scattered, or old-system-bound</em> industries (manufacturing, construction, procurement, retail operations, companies stuck on legacy systems).</li>
+    <li><strong>Do not build the "rail" — build beside it.</strong> The payment standards and the buying side are owned by Stripe/Google/Coinbase/Amazon. Verification, governance and merchant tools around them are open.</li>
+    <li><strong>The single best risk-adjusted shape for a lean team:</strong> a deep agent in a boring/old-system/regulated industry (a strong moat behind friction) — or a trust-gap supporting tool that the big players above will want to buy.</li>
+  </ol>
+</div>
+
+<footer>
+  Study prepared 23 June 2026 via live web search. ₹ figures are rough conversions at about ₹85 per US dollar, given only to convey scale. Market sizes are analyst estimates and vary by method; revenue (ARR) figures are third-party estimates (Sacra, AgentMarketCap, New Market Pitch) unless confirmed by the company; "heat" ratings are directional readings of funding density, not exact market shares. Not investment advice.<br><br>
+  <strong>Sources:</strong> AgentMarketCap · New Market Pitch · Tech-Insider · RAYSolute · FifthRow · Strata · Akeyless · 0G · Maxim/OWASP · Braintrust · Arize · Mem0 · TechCrunch · SiliconANGLE · CNBC · The Next Web · Sacra · CMSWire · Fierce Healthcare · STAT News · Software Strategies Blog · Help Net Security · Google Cloud · AWS · Coinbase · Gartner · Deloitte · IBM · Intelligent CIO · Agentic AI Institute · Grand View Research (all accessed via live search, June 2026).
+</footer>
+
+</div>
+</body>
+</html>
