@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Opportunity Map — Where the Money Moves</title>
+<style>
+  :root{
+    --ink:#16202c; --muted:#5b6473; --line:#e3e7ee; --bg:#f4f6fa;
+    --a:#2b6cb0; --a-bg:#eef5fc; --a-ln:#bcd6ef;
+    --hot:#9a3412; --hot-bg:#fdf2ec; --hot-ln:#f0cdb8;
+    --good:#2f855a; --warn:#b7791f; --bad:#c53030; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.6;font-size:15.5px}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 28px 90px}
+  header.top{border-bottom:3px solid var(--ink);padding-bottom:18px;margin-bottom:8px}
+  .kick{display:inline-block;background:#eef0f4;color:var(--ink);font-weight:700;font-size:11px;
+        letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
+  h1{font-size:32px;margin:14px 0 4px;letter-spacing:-.01em;line-height:1.15}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:23px;margin:14px 0 6px;line-height:1.2}
+  h3{font-size:17px;margin:22px 0 8px}
+  h4{font-size:14px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  p{margin:11px 0}
+  .lead{font-size:17px;color:#2a3340}
+  a{color:var(--a)}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:20px 0;font-size:14px}
+  .toc a{display:inline-block;margin:3px 16px 3px 0}
+  .section{border-top:1px solid var(--line);margin-top:40px;padding-top:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  figure{margin:18px 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  figcaption{font-size:12.5px;color:var(--muted);margin-top:8px}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#eef1f6;font-weight:700}
+  .callout{border-left:4px solid var(--a);background:var(--a-bg);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.key{border-color:var(--ink);background:#fff7e6}
+  .callout.good{border-color:var(--good);background:#ecf7f0}
+  .callout.warn{border-color:var(--warn);background:#fdf6e9}
+  ul{margin:8px 0;padding-left:22px} li{margin:6px 0}
+  .tag{display:inline-block;font-size:11px;background:#eef1f6;border:1px solid var(--line);padding:2px 8px;border-radius:5px;color:var(--muted)}
+
+  /* 2x2 quadrant board */
+  .axis-x{display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin:6px 2px}
+  .board{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ylab{position:absolute;left:-26px;top:50%;transform:rotate(-90deg) translateX(50%);transform-origin:left center;
+        font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+  .ylab.top{top:24%} .ylab.bot{top:76%}
+  .quad{border-radius:12px;padding:12px 16px;border:1px solid}
+  .quad h3{margin:2px 0 4px;font-size:16px}
+  .quad .meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .quad ul{padding-left:18px;margin:6px 0;font-size:13px}
+  .quad li b{font-weight:700}
+  .q-auto{background:var(--hot-bg);border-color:var(--hot-ln)} .q-auto h3{color:var(--hot)}
+  .q-copilot{background:var(--a-bg);border-color:var(--a-ln)} .q-copilot h3{color:var(--a)}
+  .q-watch{background:#f6f7f9;border-color:var(--line)} .q-watch h3{color:var(--ink)}
+  .q-next{background:#ecf7f0;border-color:#bfe3cd} .q-next h3{color:var(--good)}
+
+  /* Z47 grid */
+  .gridwrap{overflow-x:auto;margin:16px 0}
+  table.z47{font-size:11px;min-width:760px}
+  table.z47 td{padding:6px 7px;line-height:1.3;width:11.1%}
+  table.z47 td.ai{background:var(--hot-bg);border-color:var(--hot-ln);font-weight:600;color:var(--hot)}
+  table.z47 td.center{background:var(--hot);color:#fff;font-weight:700;text-align:center}
+  table.z47 small{color:var(--muted);font-weight:400;font-style:italic}
+  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
+  @media print{body{background:#fff}.wrap{max-width:none}.card,table,figure{break-inside:avoid}}
+  @media (max-width:760px){.board{grid-template-columns:1fr}.ylab{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="kick">Market Map · Two visual frameworks for where AI value lands</span>
+  <h1>The AI Opportunity Map — Where the Money Moves</h1>
+  <div class="sub">Two widely-shared maps of the AI-services opportunity, transcribed in full. One sizes the markets being eaten ("Services-as-Software"); the other lays out the sector landscape and the foundational layers that lead to a category-defining company.</div>
+</header>
+
+<p class="lead">A huge share of the economy is <em>labour sold as a service</em> — consulting, claims processing, bookkeeping, recruitment. The AI-agent thesis is that a large slice of this work turns into <strong>software you buy by the outcome</strong> ("services-as-software"). These two maps are useful because they answer two different questions: <strong>which markets are biggest and most ready</strong>, and <strong>where in the technology stack a new entrant should plant its flag.</strong></p>
+
+<div class="toc">
+  <strong>Contents:</strong>
+  <a href="#sas">1 · The Services-as-Software map (TAM by quadrant)</a>
+  <a href="#z47">2 · The Evolving AI Opportunity Map (Z47)</a>
+  <a href="#read">3 · How to read both together</a>
+</div>
+
+<!-- ===================== SERVICES-AS-SOFTWARE ===================== -->
+<div class="section" id="sas">
+<h2>1 · The Services-as-Software map</h2>
+<p>Every market here is an existing <strong>services</strong> industry, plotted on two axes and tagged with its rough annual market size (TAM). The position tells you <em>how soon and how fully</em> AI is likely to take the work over.</p>
+<ul>
+  <li><strong>Top ↔ Bottom — Outsourced vs Insourced:</strong> is this work normally bought from outside providers, or done in-house? Outsourced work has a clean budget line and an easy buyer, so it is easier to attack.</li>
+  <li><strong>Left ↔ Right — Judgement vs Intelligence:</strong> is the work mostly human judgement and relationships, or mostly codifiable processing? The more it leans to "intelligence", the more fully an agent can own it.</li>
+</ul>
+
+<figure>
+  <img src="images/services-as-software-map.png" alt="A 2x2 matrix plotting professional-services markets by Outsourced vs Insourced and Judgement vs Intelligence, into Copilot, Autopilot, Watch and Next Wave quadrants.">
+  <figcaption>The original map. Transcribed below with the same figures.</figcaption>
+</figure>
+
+<div class="axis-x"><span>◄ Judgement-heavy</span><span>Intelligence-heavy ►</span></div>
+<div class="board">
+  <span class="ylab top">Outsourced</span>
+  <span class="ylab bot">Insourced</span>
+
+  <div class="quad q-copilot">
+    <h3>Copilot Territory</h3>
+    <div class="meta">Outsourced × Judgement — AI <b>augments</b> the human; it rarely replaces them.</div>
+    <ul>
+      <li>Management consulting — <b>$300B+</b></li>
+      <li>Graphic / UX design — <b>$30B+</b></li>
+      <li>Executive search — <b>$20B+</b></li>
+      <li>PR &amp; comms — <b>$20B+</b></li>
+    </ul>
+  </div>
+
+  <div class="quad q-auto">
+    <h3>Autopilot Territory</h3>
+    <div class="meta">Outsourced × Intelligence — the hot zone: codifiable work with a budget already leaving the building.</div>
+    <ul>
+      <li>Insurance brokerage — <b>$140–200B</b></li>
+      <li>IT managed services — <b>$100B+</b></li>
+      <li>Claims adjusting — <b>$50–80B</b></li>
+      <li>Accounting &amp; audit — <b>$50–80B</b></li>
+      <li>Healthcare rev cycle — <b>$80B+</b></li>
+      <li>Payroll &amp; compliance — <b>$50–70B</b></li>
+      <li>Mortgage origination — <b>$30–50B</b></li>
+      <li>KYC / AML — <b>$30–50B</b></li>
+      <li>Paralegal / LPO — <b>$36B</b></li>
+      <li>Tax advisory — <b>$30–35B</b></li>
+      <li>Legal transactional — <b>$20–25B</b></li>
+      <li>Real estate closing — <b>$20–25B</b></li>
+      <li>Cost estimation — <b>$16B</b></li>
+    </ul>
+  </div>
+
+  <div class="quad q-watch">
+    <h3>Watch</h3>
+    <div class="meta">Insourced × Judgement — done in-house and judgement-led; slower to flip, worth watching.</div>
+    <ul>
+      <li>Recruitment — <b>$200B+</b></li>
+      <li>Advertising — <b>$100B+</b></li>
+      <li>Freight brokerage — <b>$100B+</b></li>
+      <li>Admin assistants — <b>$80B+</b></li>
+      <li>Clinical trials / CRO — <b>$80B+</b></li>
+      <li>SEO / SEM — <b>$50B+</b></li>
+      <li>ERP implementation — <b>$50B+</b></li>
+      <li>Corporate training — <b>$50B+</b></li>
+      <li>Market research — <b>$45B</b></li>
+      <li>Cybersecurity — <b>$30B+</b></li>
+      <li>Architecture — <b>$25B+</b></li>
+      <li>Patent / IP — <b>$15–20B</b></li>
+      <li>Travel mgmt — <b>$15B+</b></li>
+    </ul>
+  </div>
+
+  <div class="quad q-next">
+    <h3>Next Wave</h3>
+    <div class="meta">Insourced × Intelligence — codifiable but currently kept in-house; the emerging frontier.</div>
+    <ul>
+      <li>Supply chain &amp; procurement — <b>$200B+</b></li>
+      <li>Pharmacy back-office — <b>$30B+</b></li>
+      <li>Wealth mgmt ops — <b>$30B+</b></li>
+      <li>Medical admin — <b>$20B+</b></li>
+      <li>Fund administration — <b>$15–20B</b></li>
+    </ul>
+  </div>
+</div>
+<div class="axis-x" style="margin-top:8px"><span>&nbsp;</span><span>&nbsp;</span></div>
+
+<div class="callout key"><strong>The one read:</strong> the <em>Autopilot</em> quadrant is where the biggest, most attackable budgets sit — outsourced, intelligence-heavy work where "buy the outcome" beats "hire a firm". That is exactly the zone an agentic-ops startup wants to fish in. <em>Copilot</em> work resists full automation (judgement + relationships); <em>Watch</em> and <em>Next Wave</em> are real but either slower to flip or still locked inside companies.</div>
+</div>
+
+<!-- ===================== Z47 MAP ===================== -->
+<div class="section" id="z47">
+<h2>2 · The Evolving AI Opportunity Map (Z47)</h2>
+<p>Where the first map sizes the <em>markets</em>, this one lays out the <em>landscape</em>: a grid of AI opportunity areas spanning hard infrastructure on the left through to applied, vertical software on the right. The highlighted cells are the <strong>foundational "&times;AI" layers</strong>, and the arrows converge on the middle — the message being that stacking these layers is the route to <strong>"Build an AI Unicorn."</strong></p>
+
+<figure>
+  <img src="images/ai-opportunity-map-z47.png" alt="The Evolving AI Opportunity Map by Z47: a grid of AI opportunity areas across sectors, with foundational layers highlighted and arrows pointing to a central 'Build an AI Unicorn' cell.">
+  <figcaption>"The Evolving AI Opportunity Map" — Z47. Highlighted cells = foundational layers; centre = the goal.</figcaption>
+</figure>
+
+<p>The full grid, transcribed. Highlighted cells are the foundational <strong>&times;AI</strong> layers the map points toward; the dark centre cell is the goal they feed into.</p>
+<div class="gridwrap">
+<table class="z47">
+  <tr>
+    <td>AI-optimized hardware</td><td>Foundation models</td><td>Humanoids / Industrial robots</td><td>Revenue Cycle Management</td><td>Front-office automation</td><td>Ambient scribes / EHR</td><td>Ambient commerce</td><td>Shopping agents</td><td>Conversational AI <small>/ Classifieds (property search etc)</small></td>
+  </tr>
+  <tr>
+    <td>Energy &amp; Components</td><td class="ai">Physical &times;AI</td><td>Autonomous vehicles</td><td>Clinical decision support</td><td class="ai">Healthcare &times;AI</td><td>Remote patient monitoring / health concierge</td><td>Autonomous supply chains</td><td class="ai">Commerce &times;AI</td><td>AI-driven fulfillment</td>
+  </tr>
+  <tr>
+    <td>Space &amp; Defense</td><td>Drones &amp; Aerial mobility</td><td class="ai">Sensing, Perception &amp; Digital Twins</td><td>Drug / Vaccine discovery</td><td>Diagnostic / Imaging</td><td>Robotics for surgery</td><td class="ai">Agent-to-agent commerce <small>(B2B)</small></td><td>Discovery <small>(AEO)</small></td><td>Contextual commerce</td>
+  </tr>
+  <tr>
+    <td>Power generation</td><td>Neoclouds / Hyperscalers</td><td>Datacenters</td><td class="ai">Physical &times;AI</td><td class="ai">Healthcare &times;AI</td><td>Hyper-personalization w/ AI agents</td><td class="ai">Commerce &times;AI</td><td>AI Middle-office OS</td><td>Claims &amp; Fraud automation</td>
+  </tr>
+  <tr>
+    <td>Renewables</td><td class="ai">Infrastructure &times;AI</td><td>Semi-conductors</td><td class="ai">Infrastructure &times;AI</td><td class="center">Build an AI Unicorn</td><td class="ai">Financial Services &times;AI</td><td>AI-first insurance</td><td class="ai">Financial Services &times;AI</td><td>Real-time Risk &amp; Compliance</td>
+  </tr>
+  <tr>
+    <td>Industrial equipment</td><td>Networking / servers / storage</td><td>Edge AI</td><td class="ai">Developers &times;AI</td><td class="ai">Digital Public Infrastructure &times;AI</td><td class="ai">Enterprise &times;AI</td><td>AI Asset Management</td><td>Agentic payments</td><td>CFO office</td>
+  </tr>
+  <tr>
+    <td>Frontier / Foundation models</td><td>Autonomous coding systems</td><td>Agentic IDEs</td><td>Public datasets</td><td>Skilling</td><td>Voice — Language &amp; accessibility</td><td>Professional services automation</td><td>Onboarding FDE <small>(Forward Deployed Eng)</small></td><td>AIOps — IT Service Mgmt</td>
+  </tr>
+  <tr>
+    <td>Autonomous security ops</td><td class="ai">Developers &times;AI</td><td>AI application development / testing</td><td>Identity &amp; consent</td><td class="ai">Digital Public Infrastructure &times;AI</td><td>E-governance</td><td>Vertical co-pilots <small>(e.g. legal, supply chain)</small></td><td class="ai">Enterprise &times;AI</td><td>Voice agents / Customer support</td>
+  </tr>
+  <tr>
+    <td>Agentic observability</td><td>AI tools for content generation</td><td class="ai">AI-native integration</td><td>Judiciary &times;AI</td><td>AI advisory</td><td>AI in education</td><td>Workforce intelligence</td><td>Sales enablement</td><td>Agentic CRM</td>
+  </tr>
+</table>
+</div>
+<div class="callout"><strong>How to read it:</strong> the further <em>left</em>, the more it is deep-tech and infrastructure (chips, energy, foundation models); the further <em>right</em>, the more it is applied vertical software (CRM, customer support, claims). The orange <strong>&times;AI</strong> cells — Physical, Infrastructure, Developers, Enterprise, Financial Services, Digital Public Infrastructure, Commerce — are the reusable layers the map argues you should build <em>on top of</em> to reach a category-defining ("unicorn") outcome at the centre.</div>
+</div>
+
+<!-- ===================== SYNTHESIS ===================== -->
+<div class="section" id="read">
+<h2>3 · How to read both maps together</h2>
+<div class="callout good">
+  <p style="margin-top:4px"><strong>The first map says <em>which</em> market; the second says <em>which layer</em>.</strong></p>
+  <ul style="margin-bottom:4px">
+    <li><strong>Pick the market from Map 1:</strong> aim at the <em>Autopilot</em> quadrant — outsourced, intelligence-heavy work with a large, already-leaving budget (claims, rev-cycle, KYC/AML, tax, legal transactional).</li>
+    <li><strong>Pick the layer from Map 2:</strong> build on a reusable <strong>&times;AI</strong> foundation (Enterprise, Financial Services, Vertical co-pilots) rather than a one-off feature, so the work compounds toward a defensible category.</li>
+  </ul>
+</div>
+<table>
+  <tr><th>Use this map…</th><th>…to answer</th><th>Best signal it gives</th></tr>
+  <tr><td><strong>Services-as-Software (Map 1)</strong></td><td>Which services market is biggest <em>and</em> most ready to flip to "buy the outcome"?</td><td>The Autopilot quadrant — sized, outsourced, codifiable.</td></tr>
+  <tr><td><strong>Z47 Opportunity Map (Map 2)</strong></td><td>Where in the stack should I plant my flag so the work compounds?</td><td>The highlighted &times;AI foundational layers that feed the centre.</td></tr>
+</table>
+<div class="callout warn"><strong>Caveat on the numbers:</strong> the TAM figures are the original authors' rough estimates, and the Z47 grid is a qualitative framework, not a ranked list. Use them to <em>narrow</em> the search, then validate any specific market with bottoms-up demand evidence before committing.</div>
+</div>
+
+<footer>
+  Prepared 24 June 2026. Map 1 ("Services-as-Software" Copilot/Autopilot/Watch/Next-Wave matrix) and Map 2 ("The Evolving AI Opportunity Map", Z47) are reproduced from the source images; market-size figures are the original authors' estimates. Quadrant and layer commentary added for this explainer.
+</footer>
+
+</div>
+</body>
+</html>
