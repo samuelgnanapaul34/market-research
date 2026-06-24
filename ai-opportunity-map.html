@@ -59,13 +59,6 @@
   .q-watch{background:#f6f7f9;border-color:var(--line)} .q-watch h3{color:var(--ink)}
   .q-next{background:#ecf7f0;border-color:#bfe3cd} .q-next h3{color:var(--good)}
 
-  /* Z47 grid */
-  .gridwrap{overflow-x:auto;margin:16px 0}
-  table.z47{font-size:11px;min-width:760px}
-  table.z47 td{padding:6px 7px;line-height:1.3;width:11.1%}
-  table.z47 td.ai{background:var(--hot-bg);border-color:var(--hot-ln);font-weight:600;color:var(--hot)}
-  table.z47 td.center{background:var(--hot);color:#fff;font-weight:700;text-align:center}
-  table.z47 small{color:var(--muted);font-weight:400;font-style:italic}
   footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
   @media print{body{background:#fff}.wrap{max-width:none}.card,table,figure{break-inside:avoid}}
   @media (max-width:760px){.board{grid-template-columns:1fr}.ylab{display:none}}
@@ -77,15 +70,15 @@
 <header class="top">
   <span class="kick">Market Map · Two visual frameworks for where AI value lands</span>
   <h1>The AI Opportunity Map — Where the Money Moves</h1>
-  <div class="sub">Two widely-shared maps of the AI-services opportunity, transcribed in full. One sizes the markets being eaten ("Services-as-Software"); the other lays out the sector landscape and the foundational layers that lead to a category-defining company.</div>
+  <div class="sub">Two ways of looking at the same AI opportunity. One sizes the markets being eaten ("Services-as-Software"); the other shows how much AI <em>could</em> do a job versus how much it is <em>actually</em> being used for that job today.</div>
 </header>
 
-<p class="lead">A huge share of the economy is <em>labour sold as a service</em> — consulting, claims processing, bookkeeping, recruitment. The AI-agent thesis is that a large slice of this work turns into <strong>software you buy by the outcome</strong> ("services-as-software"). These two maps are useful because they answer two different questions: <strong>which markets are biggest and most ready</strong>, and <strong>where in the technology stack a new entrant should plant its flag.</strong></p>
+<p class="lead">A huge share of the economy is <em>labour sold as a service</em> — consulting, claims processing, bookkeeping, recruitment. The AI-agent thesis is that a large slice of this work turns into <strong>software you buy by the outcome</strong> ("services-as-software"). These two maps are useful because they answer two different questions: <strong>which markets are biggest and most ready</strong>, and <strong>where is AI's potential furthest ahead of where it's actually being used.</strong></p>
 
 <div class="toc">
   <strong>Contents:</strong>
   <a href="#sas">1 · The Services-as-Software map (TAM by quadrant)</a>
-  <a href="#z47">2 · The Evolving AI Opportunity Map (Z47)</a>
+  <a href="#gap">2 · AI's Potential vs. Actual Use, by Occupation</a>
   <a href="#read">3 · How to read both together</a>
 </div>
 
@@ -176,71 +169,45 @@
 <div class="callout key"><strong>The one read:</strong> the <em>Autopilot</em> quadrant is where the biggest, most attackable budgets sit — outsourced, intelligence-heavy work where "buy the outcome" beats "hire a firm". That is exactly the zone an agentic-ops startup wants to fish in. <em>Copilot</em> work resists full automation (judgement + relationships); <em>Watch</em> and <em>Next Wave</em> are real but either slower to flip or still locked inside companies.</div>
 </div>
 
-<!-- ===================== Z47 MAP ===================== -->
-<div class="section" id="z47">
-<h2>2 · The Evolving AI Opportunity Map (Z47)</h2>
-<p>Where the first map sizes the <em>markets</em>, this one lays out the <em>landscape</em>: a grid of AI opportunity areas spanning hard infrastructure on the left through to applied, vertical software on the right. The highlighted cells are the <strong>foundational "&times;AI" layers</strong>, and the arrows converge on the middle — the message being that stacking these layers is the route to <strong>"Build an AI Unicorn."</strong></p>
+<!-- ===================== CAPABILITY VS USAGE GAP ===================== -->
+<div class="section" id="gap">
+<h2>2 · AI's Potential vs. Actual Use, by Occupation</h2>
+<p>Where the first map sizes the <em>markets</em>, this one measures the <em>gap</em>: for each occupation, how much of the work AI could in theory handle, versus how much AI is actually being used for that work today, based on real usage data.</p>
 
 <figure>
-  <img src="images/ai-opportunity-map-z47.png" alt="The Evolving AI Opportunity Map by Z47: a grid of AI opportunity areas across sectors, with foundational layers highlighted and arrows pointing to a central 'Build an AI Unicorn' cell.">
-  <figcaption>"The Evolving AI Opportunity Map" — Z47. Highlighted cells = foundational layers; centre = the goal.</figcaption>
+  <img src="images/ai-capability-vs-usage.png" alt="Radar chart comparing theoretical AI capability to observed AI usage across occupational categories such as legal, healthcare, sales, construction, and office and admin.">
+  <figcaption>Theoretical AI capability vs. observed AI usage, by occupational category.</figcaption>
 </figure>
 
-<p>The full grid, transcribed. Highlighted cells are the foundational <strong>&times;AI</strong> layers the map points toward; the dark centre cell is the goal they feed into.</p>
-<div class="gridwrap">
-<table class="z47">
-  <tr>
-    <td>AI-optimized hardware</td><td>Foundation models</td><td>Humanoids / Industrial robots</td><td>Revenue Cycle Management</td><td>Front-office automation</td><td>Ambient scribes / EHR</td><td>Ambient commerce</td><td>Shopping agents</td><td>Conversational AI <small>/ Classifieds (property search etc)</small></td>
-  </tr>
-  <tr>
-    <td>Energy &amp; Components</td><td class="ai">Physical &times;AI</td><td>Autonomous vehicles</td><td>Clinical decision support</td><td class="ai">Healthcare &times;AI</td><td>Remote patient monitoring / health concierge</td><td>Autonomous supply chains</td><td class="ai">Commerce &times;AI</td><td>AI-driven fulfillment</td>
-  </tr>
-  <tr>
-    <td>Space &amp; Defense</td><td>Drones &amp; Aerial mobility</td><td class="ai">Sensing, Perception &amp; Digital Twins</td><td>Drug / Vaccine discovery</td><td>Diagnostic / Imaging</td><td>Robotics for surgery</td><td class="ai">Agent-to-agent commerce <small>(B2B)</small></td><td>Discovery <small>(AEO)</small></td><td>Contextual commerce</td>
-  </tr>
-  <tr>
-    <td>Power generation</td><td>Neoclouds / Hyperscalers</td><td>Datacenters</td><td class="ai">Physical &times;AI</td><td class="ai">Healthcare &times;AI</td><td>Hyper-personalization w/ AI agents</td><td class="ai">Commerce &times;AI</td><td>AI Middle-office OS</td><td>Claims &amp; Fraud automation</td>
-  </tr>
-  <tr>
-    <td>Renewables</td><td class="ai">Infrastructure &times;AI</td><td>Semi-conductors</td><td class="ai">Infrastructure &times;AI</td><td class="center">Build an AI Unicorn</td><td class="ai">Financial Services &times;AI</td><td>AI-first insurance</td><td class="ai">Financial Services &times;AI</td><td>Real-time Risk &amp; Compliance</td>
-  </tr>
-  <tr>
-    <td>Industrial equipment</td><td>Networking / servers / storage</td><td>Edge AI</td><td class="ai">Developers &times;AI</td><td class="ai">Digital Public Infrastructure &times;AI</td><td class="ai">Enterprise &times;AI</td><td>AI Asset Management</td><td>Agentic payments</td><td>CFO office</td>
-  </tr>
-  <tr>
-    <td>Frontier / Foundation models</td><td>Autonomous coding systems</td><td>Agentic IDEs</td><td>Public datasets</td><td>Skilling</td><td>Voice — Language &amp; accessibility</td><td>Professional services automation</td><td>Onboarding FDE <small>(Forward Deployed Eng)</small></td><td>AIOps — IT Service Mgmt</td>
-  </tr>
-  <tr>
-    <td>Autonomous security ops</td><td class="ai">Developers &times;AI</td><td>AI application development / testing</td><td>Identity &amp; consent</td><td class="ai">Digital Public Infrastructure &times;AI</td><td>E-governance</td><td>Vertical co-pilots <small>(e.g. legal, supply chain)</small></td><td class="ai">Enterprise &times;AI</td><td>Voice agents / Customer support</td>
-  </tr>
-  <tr>
-    <td>Agentic observability</td><td>AI tools for content generation</td><td class="ai">AI-native integration</td><td>Judiciary &times;AI</td><td>AI advisory</td><td>AI in education</td><td>Workforce intelligence</td><td>Sales enablement</td><td>Agentic CRM</td>
-  </tr>
-</table>
-</div>
-<div class="callout"><strong>How to read it:</strong> the further <em>left</em>, the more it is deep-tech and infrastructure (chips, energy, foundation models); the further <em>right</em>, the more it is applied vertical software (CRM, customer support, claims). The orange <strong>&times;AI</strong> cells — Physical, Infrastructure, Developers, Enterprise, Financial Services, Digital Public Infrastructure, Commerce — are the reusable layers the map argues you should build <em>on top of</em> to reach a category-defining ("unicorn") outcome at the centre.</div>
+<p>It's a radar chart: each spoke around the circle is a job category. The further a point sits from the centre, the higher the coverage for that category.</p>
+<ul>
+  <li><strong>Blue shape — theoretical AI coverage:</strong> how much of that job's tasks an AI model could plausibly do.</li>
+  <li><strong>Red shape — observed AI coverage:</strong> how much AI is actually being used for that job, measured from real usage data.</li>
+</ul>
+
+<div class="callout key"><strong>The one read:</strong> the gap between the two shapes is the opportunity. On desk jobs — legal, computer &amp; math, business &amp; finance, office &amp; admin, architecture &amp; engineering — the blue shape stretches way out, but the red shape is still small almost everywhere except computer &amp; math and office &amp; admin. AI <em>could</em> do far more of this work than it's currently being used for. On physical, hands-on jobs — construction, agriculture, transportation, food service, grounds maintenance — both shapes stay small near the centre, because AI can't yet do much of that work at all.</div>
 </div>
 
 <!-- ===================== SYNTHESIS ===================== -->
 <div class="section" id="read">
 <h2>3 · How to read both maps together</h2>
 <div class="callout good">
-  <p style="margin-top:4px"><strong>The first map says <em>which</em> market; the second says <em>which layer</em>.</strong></p>
+  <p style="margin-top:4px"><strong>The first map says <em>which</em> market; the second says <em>how far ahead</em> AI's potential is of its actual use there.</strong></p>
   <ul style="margin-bottom:4px">
     <li><strong>Pick the market from Map 1:</strong> aim at the <em>Autopilot</em> quadrant — outsourced, intelligence-heavy work with a large, already-leaving budget (claims, rev-cycle, KYC/AML, tax, legal transactional).</li>
-    <li><strong>Pick the layer from Map 2:</strong> build on a reusable <strong>&times;AI</strong> foundation (Enterprise, Financial Services, Vertical co-pilots) rather than a one-off feature, so the work compounds toward a defensible category.</li>
+    <li><strong>Check the gap from Map 2:</strong> the biggest blue-minus-red gaps sit in desk jobs like legal, finance, and admin — confirming those are markets where AI can do far more than it's currently doing, i.e. genuine white space rather than already-saturated demand.</li>
   </ul>
 </div>
 <table>
   <tr><th>Use this map…</th><th>…to answer</th><th>Best signal it gives</th></tr>
   <tr><td><strong>Services-as-Software (Map 1)</strong></td><td>Which services market is biggest <em>and</em> most ready to flip to "buy the outcome"?</td><td>The Autopilot quadrant — sized, outsourced, codifiable.</td></tr>
-  <tr><td><strong>Z47 Opportunity Map (Map 2)</strong></td><td>Where in the stack should I plant my flag so the work compounds?</td><td>The highlighted &times;AI foundational layers that feed the centre.</td></tr>
+  <tr><td><strong>Capability vs. Usage gap (Map 2)</strong></td><td>Where is AI's potential furthest ahead of how much it's actually used today?</td><td>Occupations where the blue shape is large but the red shape is still small.</td></tr>
 </table>
-<div class="callout warn"><strong>Caveat on the numbers:</strong> the TAM figures are the original authors' rough estimates, and the Z47 grid is a qualitative framework, not a ranked list. Use them to <em>narrow</em> the search, then validate any specific market with bottoms-up demand evidence before committing.</div>
+<div class="callout warn"><strong>Caveat on the numbers:</strong> the TAM figures are the original authors' rough estimates, and the capability/usage chart reflects one usage dataset at one point in time — both will shift as adoption catches up. Use them to <em>narrow</em> the search, then validate any specific market with bottoms-up demand evidence before committing.</div>
 </div>
 
 <footer>
-  Prepared 24 June 2026. Map 1 ("Services-as-Software" Copilot/Autopilot/Watch/Next-Wave matrix) and Map 2 ("The Evolving AI Opportunity Map", Z47) are reproduced from the source images; market-size figures are the original authors' estimates. Quadrant and layer commentary added for this explainer.
+  Prepared 24 June 2026. Map 1 ("Services-as-Software" Copilot/Autopilot/Watch/Next-Wave matrix) and Map 2 (theoretical AI capability vs. observed AI usage, by occupation) are reproduced from the source images; market-size figures are the original authors' estimates. Commentary added for this explainer.
 </footer>
 
 </div>
