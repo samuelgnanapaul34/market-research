@@ -59,6 +59,15 @@
   .q-watch{background:#f6f7f9;border-color:var(--line)} .q-watch h3{color:var(--ink)}
   .q-next{background:#ecf7f0;border-color:#bfe3cd} .q-next h3{color:var(--good)}
 
+  /* per-sector opportunity cards */
+  .opp{padding:14px 18px}
+  .opp .ot{font-size:15.5px;font-weight:700;color:var(--ink);margin:0 0 3px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .opp .gap{font-size:11px;font-weight:600;background:var(--hot-bg);border:1px solid var(--hot-ln);color:var(--hot);padding:2px 8px;border-radius:5px;white-space:nowrap}
+  .opp .why{font-size:13px;color:var(--muted);margin:2px 0 8px}
+  .opp .lbl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--a);margin:8px 0 2px}
+  .opp ul{margin:4px 0;font-size:13.5px}
+  .opp .proof{font-size:12.5px;color:var(--muted);margin:10px 0 0;border-top:1px dashed var(--line);padding-top:8px}
+
   footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
   @media print{body{background:#fff}.wrap{max-width:none}.card,table,figure{break-inside:avoid}}
   @media (max-width:760px){.board{grid-template-columns:1fr}.ylab{display:none}}
@@ -187,22 +196,138 @@
 
 <div class="callout key"><strong>The one read:</strong> the gap between the two shapes is the opportunity — work AI <em>could</em> do but isn't yet being used for. Anthropic's headline finding is that observed usage trails theoretical capability <strong>everywhere, by roughly 48–74 percentage points</strong>; no occupation is close to its ceiling. The blue shape stretches furthest on the <strong>right-hand, white-collar knowledge jobs</strong> (legal, finance, computer &amp; math, architecture, arts &amp; media) plus office &amp; admin on the left — yet red stays small for almost all of them. On the physical, hands-on jobs at the bottom-left (construction, agriculture, transportation, food service) both shapes stay near the centre, because AI can't yet do much of that work at all.</div>
 
-<h3>The right-hand opportunity areas, one by one</h3>
-<p>Reading down the right side of the chart — the knowledge-work cluster where the blue balloons out and the red stays near the centre. Bold figures are from Anthropic's report; "low" reflects where the red shape sits on the chart where an exact number wasn't published.</p>
-<table>
-  <tr><th>Opportunity area</th><th>Theoretical (blue)</th><th>Observed (red)</th><th>What the gap means</th></tr>
-  <tr><td><strong>Business &amp; finance</strong></td><td>94.3%</td><td>~28.4%</td><td>Highest capability on the chart. Analysis, modelling, reporting, reconciliation — almost all codifiable, barely deployed.</td></tr>
-  <tr><td><strong>Computer &amp; math</strong></td><td>94.3%</td><td>~33%</td><td>The most-used category (programmers hit 74.5% individually) — proof the gap <em>can</em> close, yet two-thirds still untapped.</td></tr>
-  <tr><td><strong>Architecture &amp; engineering</strong></td><td>84.8%</td><td>low</td><td>Design calculation, documentation, spec-writing and review are codifiable; adoption has barely started.</td></tr>
-  <tr><td><strong>Life &amp; social sciences</strong></td><td>~80%</td><td>low</td><td>Research synthesis, data analysis, literature review — well-suited to AI, few products target it.</td></tr>
-  <tr><td><strong>Social services</strong></td><td>moderate</td><td>low</td><td>Opportunity is the paperwork layer — case notes, intake, eligibility — not the human contact.</td></tr>
-  <tr><td><strong>Legal</strong></td><td>89%</td><td>~20.4%</td><td>One of the widest gaps on the chart (~69 pts). Held back by liability and regulation, not capability.</td></tr>
-  <tr><td><strong>Education &amp; library</strong></td><td>moderate–high</td><td>low</td><td>Lesson planning, content, grading, tutoring — large task volume, little deployment.</td></tr>
-  <tr><td><strong>Arts &amp; media</strong></td><td>83.7%</td><td>low–moderate</td><td>Real use is mostly <em>assistive</em>, which the measure half-weights — so observed understates day-to-day use.</td></tr>
-  <tr><td><strong>Healthcare practitioners</strong></td><td>moderate</td><td>low</td><td>Clinical core is judgment + physical + regulated; opportunity is the documentation shell (records, coding).</td></tr>
-</table>
+<h3>The opportunity areas, one by one — with what to actually build</h3>
+<p>Ordered roughly by attractiveness (size of the gap &times; how ready the market is today). For each: the capability-vs-usage gap, concrete things a team could build, and proof that it's already a real, funded market — so these aren't hypotheticals.</p>
 
-<div class="callout"><strong>The one big exception on the left:</strong> <strong>Office &amp; administrative support</strong> sits on the left of the chart but behaves like the right-hand cluster — 90% theoretical, only ~25% observed. Data-entry keyers (67.1%) and customer-service reps (70.1%) are among the most-exposed individual jobs. Treat it as an honorary member of the opportunity cluster.</div>
+<div class="card opp">
+  <div class="ot">1 · Legal <span class="gap">89% could · ~20% used · ~69-pt gap</span></div>
+  <div class="why">The widest gap on the chart. The work — reading, drafting, reviewing documents — is textbook-codifiable; what holds it back is liability and regulation, not capability. That makes it the single most attackable area.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Contract review &amp; redlining</strong> against a firm's own playbook (NDAs, MSAs, vendor and employment contracts) — flag off-market terms, suggest fallback language.</li>
+    <li><strong>M&amp;A due diligence</strong> — bulk question-answering across thousands of documents in a data room, surfacing risks with citations.</li>
+    <li><strong>Cited legal research</strong> — answers grounded in case law and regulation, with sources, inside the tools lawyers already use (Word, DMS).</li>
+    <li><strong>Drafting agents</strong> for repeatable matters — briefs, memos, fund-formation packets — and multi-step workflow agents that run a whole matter type end to end.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Harvey raised at an $11B valuation (Mar 2026), with 100k+ lawyers and 25k+ custom agents running M&amp;A, diligence and drafting; competitors include Legora, Spellbook (contract drafting), EvenUp (personal injury), Darrow (class actions). Legal-tech raised ~$2.3B in Q1 2026 alone.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">2 · Business &amp; finance / accounting <span class="gap">94.3% could · ~28% used · ~66-pt gap</span></div>
+  <div class="why">Highest theoretical capability on the entire chart. The work is reconciling, modelling, reporting and drafting — almost entirely codifiable — yet barely a quarter is deployed.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Autonomous bookkeeping</strong> — transaction categorisation and reconciliation that learns a business's patterns.</li>
+    <li><strong>Month-end close acceleration</strong> — collapse a 12-day close to ~3 days with automated schedules and reconciliations.</li>
+    <li><strong>FP&amp;A</strong> — forecasts, variance analysis and board decks generated from the ledger.</li>
+    <li><strong>Order-to-cash and internal audit agents</strong> — invoicing, collections and exception handling; or pulling evidence, testing controls and producing audit-ready workpapers.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Puzzle auto-processes ~98% of transactions; Zeni and Finlens (YC/Accel) target startups; Rex runs order-to-cash agents; Arden does internal-audit/SOX; LiveFlow unifies ERP + FP&amp;A. The AI-accounting market is projected near $10.9B in 2026.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">3 · Computer &amp; math (software) <span class="gap">94.3% could · ~33% used · most-adopted</span></div>
+  <div class="why">Tied for highest capability and the <em>most</em> deployed category — individual programmers hit 74.5% observed exposure, the single most-exposed job in the study. It's the proof that the gap can close fast; even so, two-thirds of the potential is untapped.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Delegated engineering</strong> — hand an agent whole issues, tests, migrations, refactors and cleanup, not just autocomplete.</li>
+    <li><strong>Code review &amp; PR automation</strong> — first-pass review, test generation, changelog and doc updates.</li>
+    <li><strong>Legacy modernisation</strong> — translate and refactor old codebases (COBOL→Java, framework upgrades).</li>
+    <li><strong>Internal-tool scaffolding</strong> for non-engineers, and vertical agent tooling tied to a specific stack via MCP.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Claude Code reached an estimated ~$2.5B annualised revenue by Mar 2026; Cursor, OpenAI Codex (3M+ weekly users), Devin and Replit Agent round out the field. 2026 is the "agent engineering" phase — delegation, not completion.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">4 · Office &amp; admin + back-office ops <span class="gap">90% could · ~25% used</span></div>
+  <div class="why">Sits on the <em>left</em> of the chart but behaves like the right-hand cluster — huge codifiable volume, lightly deployed. Data-entry keyers (67%) and customer-service reps (70%) are among the most-exposed individual jobs.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>LLM-native document processing</strong> — parse messy PDFs, emails and intake forms into structured data, reasoning over them rather than brittle OCR.</li>
+    <li><strong>Insurance claims adjudication</strong> — auto-approve straightforward claims, route exceptions to human adjusters.</li>
+    <li><strong>KYC/AML</strong> — customer due-diligence, screening and case write-ups.</li>
+    <li><strong>Customer-support agents</strong> resolving tickets end to end, plus inbox triage, scheduling and status updates.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Sedgwick's "Sidekick" runs claims workflows; Moody's ships agentic KYC; health insurers already auto-process 80–85% of claims. Support agents — Sierra ($15.8B valuation, May 2026), Decagon ($4.5B), Intercom Fin (71% avg resolution) — hit 55–70% automation. Insurer full-scale AI adoption jumped 8%→34% in a year.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">5 · Healthcare practitioners <span class="gap">documentation shell — clinical core stays human</span></div>
+  <div class="why">The category looks low because diagnosis and treatment are judgment-led, physical and regulated. But the <em>paperwork</em> around care is wide open — medical-record specialists already show 66.7% observed exposure.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Ambient scribing</strong> — turn the patient conversation into a structured clinical note straight into the EHR.</li>
+    <li><strong>Medical coding &amp; records</strong> — assign codes and assemble records from the encounter.</li>
+    <li><strong>Prior-authorisation and claims paperwork</strong> — draft and submit the administrative load that burns clinician time.</li>
+    <li><strong>Patient messaging, referrals and discharge summaries</strong> drafted for clinician sign-off.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Abridge (~$208/provider/mo, Epic-native) and Nuance DAX Copilot cut note time meaningfully (one study: 10.3→8.2 min/visit). The opportunity is the documentation, not the diagnosis.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">6 · Architecture &amp; engineering <span class="gap">84.8% could · low used</span></div>
+  <div class="why">Design calculation, documentation and review are codifiable, but adoption is earlier-stage than legal or finance — which means less crowded.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Generative design</strong> — produce multiple code-compliant options from constraints (cost, materials, space), cutting space-planning from weeks to minutes.</li>
+    <li><strong>Automated clash detection &amp; BIM model checking.</strong></li>
+    <li><strong>Drawing, spec and submittal generation</strong> from the model.</li>
+    <li><strong>Predictive performance</strong> — structural, cost and energy outcomes forecast before detailed drawings; plus cost estimation and quantity takeoff.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> generative design is being folded into BIM workflows and "agentic BIM" is emerging, with new roles like AI Coordinator appearing in AEC firms.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">7 · Arts &amp; media / marketing <span class="gap">83.7% could · low–moderate used</span></div>
+  <div class="why">High capability; real usage is higher than the chart suggests because much of it is <em>assistive</em>, which the measure deliberately half-weights.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>On-brand content pipelines</strong> — blogs, ads and social posts generated from a single brief, voice-consistent across channels.</li>
+    <li><strong>Product imagery generation</strong> at scale (reportedly ~10x faster, ~50% cheaper than traditional production).</li>
+    <li><strong>Campaign variations</strong> for A/B testing, plus short-form video scripts and clips.</li>
+    <li><strong>Localisation and translation</strong> across markets.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Jasper serves 100k+ teams with marketing agents, content pipelines, image pipelines and enterprise governance; agencies use it to spin campaign variations per client.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">8 · Education &amp; library <span class="gap">moderate–high could · low used</span></div>
+  <div class="why">Large task volume (planning, grading, tutoring, admin) with little deployment — and strong bottoms-up adoption via free tiers.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Lesson planning &amp; differentiation</strong> — teachers report saving ~10 hours/week.</li>
+    <li><strong>Auto-grading and inline feedback</strong> on student work.</li>
+    <li><strong>1:1 Socratic tutoring</strong> that guides with questions rather than handing over answers.</li>
+    <li><strong>IEP, behaviour-plan and parent-communication drafting</strong>; assessment and content generation.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> MagicSchool ships 80+ teacher tools; Khanmigo scaled from 40k to 700k K-12 students in one school year; Brisk and Gradescope speed grading. Free tiers are driving fast adoption.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">9 · Life &amp; social sciences (research) <span class="gap">~80% could · low used</span></div>
+  <div class="why">Research-heavy work AI suits well, with deep technical moats — longer cycles and more capital, but defensible.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Literature review &amp; synthesis</strong> across thousands of papers.</li>
+    <li><strong>Data analysis and statistical workflows.</strong></li>
+    <li><strong>Lab automation</strong> — agents that run the design-make-test-analyse cycle.</li>
+    <li><strong>Compound and target design</strong> (TechBio), plus grant and paper drafting.</li>
+  </ul>
+  <div class="proof"><strong>Already real:</strong> Recursion OS ("self-driving biology") and Insitro pair automated experimentation with ML; Eli Lilly's TuneLab integrated with Schrödinger in Jan 2026.</div>
+</div>
+
+<div class="card opp">
+  <div class="ot">10 · Social services <span class="gap">moderate could · low used</span></div>
+  <div class="why">Earliest-stage of the set. The human-contact core stays human; the opportunity is the paperwork layer around it — and it's a large, under-served public-sector and nonprofit market.</div>
+  <div class="lbl">Practical things to build</div>
+  <ul>
+    <li><strong>Case-note and documentation automation.</strong></li>
+    <li><strong>Intake and eligibility determination.</strong></li>
+    <li><strong>Benefits-navigation and form-filling assistants</strong> for clients.</li>
+    <li><strong>Resource matching, referral and compliance reporting.</strong></li>
+  </ul>
+  <div class="proof"><strong>Status:</strong> mostly greenfield — fewer category leaders than legal/finance, which is the opportunity if you can navigate public-sector procurement.</div>
+</div>
 
 <div class="callout warn"><strong>Read it honestly:</strong> this measures usage on one platform, so "observed" is a floor, not a census; half-weighting assistance deliberately shrinks the red shape; and task-level capability is not whole-job replacement. Tellingly, the same report found <strong>no measurable rise in unemployment</strong> in the most-exposed occupations so far — only tentative signs of slower hiring for 22–25-year-olds. The gap is an opportunity that hasn't closed, not evidence of jobs already lost.</div>
 </div>
