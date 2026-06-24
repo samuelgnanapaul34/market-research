@@ -176,16 +176,35 @@
 
 <figure>
   <img src="images/ai-capability-vs-usage.png" alt="Radar chart comparing theoretical AI capability to observed AI usage across occupational categories such as legal, healthcare, sales, construction, and office and admin.">
-  <figcaption>Theoretical AI capability vs. observed AI usage, by occupational category.</figcaption>
+  <figcaption>Theoretical AI capability vs. observed AI usage, by occupational category. Source: Anthropic, <em>"Labor market impacts of AI: A new measure and early evidence"</em> (March 2026), part of the Anthropic Economic Index.</figcaption>
 </figure>
 
-<p>It's a radar chart: each spoke around the circle is a job category. The further a point sits from the centre, the higher the coverage for that category.</p>
+<p>It's a radar chart: each of the 22 spokes is a U.S. Bureau of Labor Statistics occupational group, built on the Labor Department's O*NET database of ~20,000 work tasks. The further a point sits from the centre, the higher the coverage for that category.</p>
 <ul>
-  <li><strong>Blue shape — theoretical AI coverage:</strong> how much of that job's tasks an AI model could plausibly do.</li>
-  <li><strong>Red shape — observed AI coverage:</strong> how much AI is actually being used for that job, measured from real usage data.</li>
+  <li><strong>Blue shape — theoretical AI capability:</strong> the share of that occupation's tasks an AI model <em>could</em> plausibly do.</li>
+  <li><strong>Red shape — observed AI usage ("exposure"):</strong> the share of tasks that actually show up in real, work-related AI usage. It is <em>weighted</em>: full automation (AI does the task) counts full, while assistance (AI helps, a human still does the substantive work) counts half.</li>
 </ul>
 
-<div class="callout key"><strong>The one read:</strong> the gap between the two shapes is the opportunity. On desk jobs — legal, computer &amp; math, business &amp; finance, office &amp; admin, architecture &amp; engineering — the blue shape stretches way out, but the red shape is still small almost everywhere except computer &amp; math and office &amp; admin. AI <em>could</em> do far more of this work than it's currently being used for. On physical, hands-on jobs — construction, agriculture, transportation, food service, grounds maintenance — both shapes stay small near the centre, because AI can't yet do much of that work at all.</div>
+<div class="callout key"><strong>The one read:</strong> the gap between the two shapes is the opportunity — work AI <em>could</em> do but isn't yet being used for. Anthropic's headline finding is that observed usage trails theoretical capability <strong>everywhere, by roughly 48–74 percentage points</strong>; no occupation is close to its ceiling. The blue shape stretches furthest on the <strong>right-hand, white-collar knowledge jobs</strong> (legal, finance, computer &amp; math, architecture, arts &amp; media) plus office &amp; admin on the left — yet red stays small for almost all of them. On the physical, hands-on jobs at the bottom-left (construction, agriculture, transportation, food service) both shapes stay near the centre, because AI can't yet do much of that work at all.</div>
+
+<h3>The right-hand opportunity areas, one by one</h3>
+<p>Reading down the right side of the chart — the knowledge-work cluster where the blue balloons out and the red stays near the centre. Bold figures are from Anthropic's report; "low" reflects where the red shape sits on the chart where an exact number wasn't published.</p>
+<table>
+  <tr><th>Opportunity area</th><th>Theoretical (blue)</th><th>Observed (red)</th><th>What the gap means</th></tr>
+  <tr><td><strong>Business &amp; finance</strong></td><td>94.3%</td><td>~28.4%</td><td>Highest capability on the chart. Analysis, modelling, reporting, reconciliation — almost all codifiable, barely deployed.</td></tr>
+  <tr><td><strong>Computer &amp; math</strong></td><td>94.3%</td><td>~33%</td><td>The most-used category (programmers hit 74.5% individually) — proof the gap <em>can</em> close, yet two-thirds still untapped.</td></tr>
+  <tr><td><strong>Architecture &amp; engineering</strong></td><td>84.8%</td><td>low</td><td>Design calculation, documentation, spec-writing and review are codifiable; adoption has barely started.</td></tr>
+  <tr><td><strong>Life &amp; social sciences</strong></td><td>~80%</td><td>low</td><td>Research synthesis, data analysis, literature review — well-suited to AI, few products target it.</td></tr>
+  <tr><td><strong>Social services</strong></td><td>moderate</td><td>low</td><td>Opportunity is the paperwork layer — case notes, intake, eligibility — not the human contact.</td></tr>
+  <tr><td><strong>Legal</strong></td><td>89%</td><td>~20.4%</td><td>One of the widest gaps on the chart (~69 pts). Held back by liability and regulation, not capability.</td></tr>
+  <tr><td><strong>Education &amp; library</strong></td><td>moderate–high</td><td>low</td><td>Lesson planning, content, grading, tutoring — large task volume, little deployment.</td></tr>
+  <tr><td><strong>Arts &amp; media</strong></td><td>83.7%</td><td>low–moderate</td><td>Real use is mostly <em>assistive</em>, which the measure half-weights — so observed understates day-to-day use.</td></tr>
+  <tr><td><strong>Healthcare practitioners</strong></td><td>moderate</td><td>low</td><td>Clinical core is judgment + physical + regulated; opportunity is the documentation shell (records, coding).</td></tr>
+</table>
+
+<div class="callout"><strong>The one big exception on the left:</strong> <strong>Office &amp; administrative support</strong> sits on the left of the chart but behaves like the right-hand cluster — 90% theoretical, only ~25% observed. Data-entry keyers (67.1%) and customer-service reps (70.1%) are among the most-exposed individual jobs. Treat it as an honorary member of the opportunity cluster.</div>
+
+<div class="callout warn"><strong>Read it honestly:</strong> this measures usage on one platform, so "observed" is a floor, not a census; half-weighting assistance deliberately shrinks the red shape; and task-level capability is not whole-job replacement. Tellingly, the same report found <strong>no measurable rise in unemployment</strong> in the most-exposed occupations so far — only tentative signs of slower hiring for 22–25-year-olds. The gap is an opportunity that hasn't closed, not evidence of jobs already lost.</div>
 </div>
 
 <!-- ===================== SYNTHESIS ===================== -->
@@ -195,7 +214,7 @@
   <p style="margin-top:4px"><strong>The first map says <em>which</em> market; the second says <em>how far ahead</em> AI's potential is of its actual use there.</strong></p>
   <ul style="margin-bottom:4px">
     <li><strong>Pick the market from Map 1:</strong> aim at the <em>Autopilot</em> quadrant — outsourced, intelligence-heavy work with a large, already-leaving budget (claims, rev-cycle, KYC/AML, tax, legal transactional).</li>
-    <li><strong>Check the gap from Map 2:</strong> the biggest blue-minus-red gaps sit in desk jobs like legal, finance, and admin — confirming those are markets where AI can do far more than it's currently doing, i.e. genuine white space rather than already-saturated demand.</li>
+    <li><strong>Check the gap from Map 2:</strong> the biggest blue-minus-red gaps sit in desk jobs like <strong>legal (~69 pts), finance (~66 pts), and admin</strong> — confirming those are markets where AI can do far more than it's currently doing, i.e. genuine white space rather than already-saturated demand.</li>
   </ul>
 </div>
 <table>
