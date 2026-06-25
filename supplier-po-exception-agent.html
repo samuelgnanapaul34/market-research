@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Supplier / PO Exception Agent — A Detailed, Plain-Language Write-Up</title>
+<style>
+  :root{
+    --ink:#16202c; --muted:#5b6473; --line:#e3e7ee; --bg:#f5f7fb;
+    --accent:#2b6cb0; --accent2:#0b7285; --good:#2f855a; --warn:#b7791f; --bad:#c53030;
+    --card:#ffffff; --chip:#eef3f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.6;font-size:15.5px}
+  .wrap{max-width:1000px;margin:0 auto;padding:34px 28px 90px}
+  header.top{border-bottom:3px solid var(--accent);padding-bottom:18px;margin-bottom:6px}
+  .kick{display:inline-block;background:var(--chip);color:var(--accent);border:1px solid #d3e0ee;
+        font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
+  h1{font-size:31px;margin:14px 0 4px;letter-spacing:-.01em;line-height:1.15}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:22px;margin:40px 0 6px;padding-top:14px;border-top:1px solid var(--line)}
+  h3{font-size:17px;margin:24px 0 8px}
+  h4{font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  p{margin:11px 0}
+  .lead{font-size:17px;color:#2a3340}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:20px 0;font-size:14px}
+  .toc a{display:inline-block;margin:3px 16px 3px 0;color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#eef3f9;font-weight:700}
+  tr:nth-child(even) td{background:#fafbfd}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:16px 0}
+  .stat{font-size:24px;font-weight:800;color:var(--accent);line-height:1.05}
+  .stat.red{color:var(--bad)} .stat.good{color:var(--good)} .stat.alt{color:var(--accent2)}
+  .lbl{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .callout{background:#eef6fb;border-left:4px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.key{border-color:var(--ink);background:#fff7e6}
+  .callout.good{border-color:var(--good);background:#ecf7f0}
+  .callout.warn{border-color:var(--warn);background:#fdf6e9}
+  .callout.bad{border-color:var(--bad);background:#fdeaea}
+  ul{margin:8px 0;padding-left:22px} li{margin:6px 0}
+  .pain{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:0 10px 10px 0;padding:12px 18px;margin:14px 0}
+  .pain h3{margin:2px 0 6px;font-size:16px;color:var(--bad)}
+  .pain .cost{font-size:13px;color:var(--muted);margin-top:8px}
+  .pain .cost b{color:var(--ink)}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:16px 0}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 13px;flex:1;min-width:120px;font-size:13px}
+  .step b{display:block;color:var(--accent);font-size:12px;margin-bottom:3px}
+  .arrow{align-self:center;color:var(--muted);font-weight:700;font-size:18px}
+  .ex{background:#fff;border:1px dashed #bcd6ef;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:14.5px}
+  .ex .who{font-weight:700;color:var(--accent2)}
+  .tag{display:inline-block;font-size:11px;background:var(--chip);border:1px solid var(--line);padding:2px 8px;border-radius:5px;color:var(--muted)}
+  .term{position:relative;border-bottom:1.5px dotted var(--accent);cursor:help;text-decoration:none}
+  .term::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 11px);
+    transform:translateX(-50%) translateY(5px);width:330px;max-width:80vw;
+    background:#16202c;color:#fff;font:400 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    text-align:left;padding:11px 14px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.24);
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;z-index:60;white-space:normal}
+  .term::before{content:"";position:absolute;left:50%;bottom:calc(100% + 4px);
+    transform:translateX(-50%) translateY(5px);border:7px solid transparent;border-top-color:#16202c;
+    opacity:0;visibility:hidden;transition:opacity .16s ease;z-index:61}
+  .term:hover::after,.term:hover::before,.term:focus::after,.term:focus::before{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media (max-width:700px){.term::after{width:240px}}
+  .glossary dt{font-weight:700;margin-top:12px;color:var(--ink)}
+  .glossary dd{margin:2px 0 0 0;color:#33414f}
+  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
+  @media print{body{background:#fff}.wrap{max-width:none}.card,table,.pain,.ex,.step{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="kick">Product write-up · Explained simply · for mid-market retailers</span>
+  <h1>The Supplier &amp; Purchase-Order Exception Agent</h1>
+  <div class="sub">An AI worker that watches every order a retailer places with its suppliers, catches the ones going wrong, chases the supplier, sorts out the paperwork, and only bothers a human when real judgement is needed. This is a full, plain-language explanation: how retail buying works, exactly where it breaks, what it costs, and what the agent does about it.</div>
+</header>
+
+<p class="lead">Every retailer buys stock from suppliers. Thousands of orders go out; most arrive fine. But a steady slice go wrong — late, short, mis-priced, or simply never confirmed. Today, a small team of people fixes these by hand, mostly through email and spreadsheets, and the misses quietly cost the business money: empty shelves, lost sales, overpaid invoices, and wasted hours. This document explains that problem in full, then explains the product that fixes it.</p>
+
+<div class="toc">
+  <strong>Contents:</strong>
+  <a href="#tldr">1 · The short version</a>
+  <a href="#how">2 · How retail buying actually works</a>
+  <a href="#breaks">3 · Where it breaks — the exact pain points</a>
+  <a href="#who">4 · Who feels this pain (and a day in their life)</a>
+  <a href="#tools">5 · Why today's tools don't fix it</a>
+  <a href="#agent">6 · What the agent actually does</a>
+  <a href="#example">7 · A worked example</a>
+  <a href="#outcomes">8 · The outcomes — pain by pain</a>
+  <a href="#scope">9 · What it deliberately does NOT do</a>
+  <a href="#measure">10 · How you'd prove it works</a>
+  <a href="#moat">11 · Why it gets stronger over time</a>
+  <a href="#glossary">Glossary</a>
+</div>
+
+<!-- ============ TLDR ============ -->
+<h2 id="tldr">1 · The short version</h2>
+<p>Picture the most reliable person in a retailer's buying office — the one who knows which supplier always ships late, who chases the missing delivery before anyone notices, who spots that an invoice is £400 too high, and who never forgets to follow up. Now imagine that person as software that never sleeps, watches <em>every single order</em> at once, and does the chasing and checking automatically.</p>
+<p>That is the product. It is not a dashboard that shows you problems and leaves you to fix them. It is a <strong>worker that does the work</strong>: it finds the order that is going wrong, gathers the facts, writes and sends the email to the supplier, reconciles the paperwork when they reply, and escalates to a human only when a real decision is needed — recording everything it did so the business gets smarter each time.</p>
+<div class="cards">
+  <div class="card"><div class="stat red">60–90 min</div><div class="lbl">to key one large purchase order by hand today — the agent does the matching in seconds</div></div>
+  <div class="card"><div class="stat red">#1</div><div class="lbl">cause of supplier "chargebacks" is a late or wrong shipment notice — the exact thing the agent catches early</div></div>
+  <div class="card"><div class="stat good">~45%</div><div class="lbl">less time spent on exception-handling reported where AI ops agents are used</div></div>
+  <div class="card"><div class="stat alt">Every week</div><div class="lbl">these problems recur — it is a daily workflow, not a once-a-year clean-up</div></div>
+</div>
+<p class="sub">Figures are directional industry estimates (see sources), used to show the shape of the problem — not guarantees.</p>
+
+<!-- ============ HOW IT WORKS ============ -->
+<h2 id="how">2 · How retail buying actually works (the "happy path")</h2>
+<p>To see where things break, you first need the normal flow. When a retailer restocks a product, six things happen in order. Each step usually produces a standard electronic document (the codes in brackets are the <span class="term" tabindex="0" role="button" data-tip="EDI = Electronic Data Interchange. A decades-old standard format that lets a retailer's computer and a supplier's computer swap order paperwork automatically, without a human re-typing it. Each document type has a number.">EDI</span> numbers the industry uses — you don't need to memorise them):</p>
+
+<div class="flow">
+  <div class="step"><b>1 · Order</b>Retailer sends a <span class="term" tabindex="0" role="button" data-tip="Purchase Order: the retailer's official request to a supplier — 'send me 500 of item X, by this date, at this price.'">Purchase Order</span> to the supplier <span class="tag">EDI 850</span></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>2 · Confirm</b>Supplier acknowledges it — agrees the items, date, price <span class="tag">EDI 855</span></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>3 · Ship</b>Supplier sends an <span class="term" tabindex="0" role="button" data-tip="Advance Ship Notice: a heads-up that says exactly what is on its way, in which boxes/pallets, and when it will arrive. The warehouse uses it to plan receiving.">Advance Ship Notice</span> <span class="tag">EDI 856</span></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>4 · Receive</b>Goods arrive; warehouse records what actually turned up <span class="tag">Goods receipt</span></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>5 · Bill</b>Supplier sends an invoice <span class="tag">EDI 810</span></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>6 · Match &amp; pay</b>Retailer checks order vs delivery vs invoice, then pays</div>
+</div>
+
+<p>Step 6 is the important one. It is called the <strong><span class="term" tabindex="0" role="button" data-tip="Checking three documents against each other: what you ordered (PO), what you actually received (goods receipt), and what you're being billed for (invoice). They should all agree before you pay.">three-way match</span></strong>: the retailer checks that <em>what was ordered</em> = <em>what arrived</em> = <em>what is being billed</em>. If all three agree, the order is clean and the supplier gets paid. If any of them disagree — wrong quantity, wrong price, missing items — that order becomes an <strong>"exception."</strong></p>
+
+<div class="callout key"><strong>The one idea to hold onto:</strong> the whole business of this product is <em>exceptions</em> — the orders where the happy path didn't happen. On a good day exceptions are a small percentage of orders. But a mid-market retailer places so many orders that even a small percentage is a daily flood of problems, each one needing a human to notice it, understand it, and fix it.</p></div>
+
+<!-- ============ WHERE IT BREAKS ============ -->
+<h2 id="breaks">3 · Where it breaks — the exact pain points</h2>
+<p>Here is every common way an order goes wrong, what actually happens inside the retailer, and what it costs. These are the problems the agent exists to solve.</p>
+
+<div class="pain">
+  <h3>① The order is never confirmed</h3>
+  <p>The retailer sends the PO… and hears nothing. The supplier hasn't acknowledged it. Did they get it? Can they fulfil it? Is the stock coming or not? Nobody knows. Often this is only discovered <em>weeks later</em> when the shelf is empty and someone asks "where's that order?"</p>
+  <div class="cost"><b>Cost:</b> a silent gap in the supply chain. The retailer is blind to a problem until it has already become a stockout.</div>
+</div>
+
+<div class="pain">
+  <h3>② The supplier confirms something different from what you ordered</h3>
+  <p>You ordered 500 units for the 1st; they confirm 300 units for the 15th, at a higher price. This is a "discrepancy on acknowledgement." Someone has to notice the change, decide whether it's acceptable, and either accept it, push back, or find the missing stock elsewhere.</p>
+  <div class="cost"><b>Cost:</b> if nobody catches it, you've planned your shelves and promotions around stock that was quietly cut in half.</div>
+</div>
+
+<div class="pain">
+  <h3>③ The shipping notice (ASN) is late, missing, or wrong</h3>
+  <p>The Advance Ship Notice is the single most error-prone document in the whole chain, and a late or wrong one is the <strong>number-one compliance problem across major retailers.</strong> When it's wrong, the warehouse doesn't know what's arriving, can't plan labour, and can't check the delivery properly when it lands.</p>
+  <div class="cost"><b>Cost:</b> chaos at the loading dock, delayed put-away, and — when the retailer is strict — automatic financial penalties (see ⑦).</div>
+</div>
+
+<div class="pain">
+  <h3>④ The delivery doesn't match the paperwork (short, over, wrong, or damaged)</h3>
+  <p>The boxes arrive but the contents don't match the ASN or the PO: 460 units instead of 500 (a "short ship"), the wrong variant, extra unordered stock, or damaged goods. Someone in receiving has to spot the gap, document it, and start a conversation with the supplier about credit or a re-ship.</p>
+  <div class="cost"><b>Cost:</b> you either pay for stock you didn't get, or you sell stock you can't replace, or you spend hours arguing the difference.</div>
+</div>
+
+<div class="pain">
+  <h3>⑤ The invoice doesn't match (price or quantity)</h3>
+  <p>The bill says £10.50 a unit; the PO said £9.80. Or it bills for 500 when only 460 arrived. The finance team can't pay it cleanly. They either hold it up (annoying the supplier) or — far too often, because checking is slow — they just <strong>pay it and quietly overpay.</strong></p>
+  <div class="cost"><b>Cost:</b> direct money lost. Industry studies put the leakage from price/quantity mismatches and deductions at <b>several percent of purchasing spend</b> — pure margin, gone.</div>
+</div>
+
+<div class="pain">
+  <h3>⑥ Late deliveries turn into empty shelves — the lost-sale problem</h3>
+  <p>The most expensive failure of all. A late or missing order means the product isn't on the shelf (or the website) when a customer wants it. The customer doesn't wait — they buy from a competitor. This is worst at <strong>peak season</strong>, when both demand and supplier strain are highest, and when one empty shelf on the busiest week wipes out a disproportionate share of the year's profit.</p>
+  <div class="cost"><b>Cost:</b> lost revenue you never even see — there's no record of the sale that didn't happen. For seasonal retailers this is the single biggest hidden leak.</div>
+</div>
+
+<div class="pain">
+  <h3>⑦ Compliance penalties left on the table (and avoidable ones paid)</h3>
+  <p>Big retailers fine their suppliers automatically when the supplier ships late or sends a bad ASN. Mid-market retailers <em>could</em> do the same to recover the cost of supplier mistakes — but most don't have the systems to track who breached what, so they swallow the cost. (And when <em>they</em> supply other retailers, they get fined for the same mistakes and don't dispute the invalid ones.)</p>
+  <div class="cost"><b>Cost:</b> money you're entitled to recover from under-performing suppliers, never claimed — and invalid penalties you pay without challenge.</div>
+</div>
+
+<div class="pain">
+  <h3>⑧ The knowledge lives in people's heads, not the system</h3>
+  <p>"That supplier always ships two days late — order early." "For this brand, call Maria, don't email." None of this is written down. It lives in the memory of one or two experienced staff. When they're on holiday, or they leave, the knowledge leaves with them and the team re-learns the same lessons the hard way.</p>
+  <div class="cost"><b>Cost:</b> the business never compounds what it learns; every season feels like starting over; a key person leaving is a real risk.</div>
+</div>
+
+<div class="pain">
+  <h3>⑨ At peak, the whole thing drowns</h3>
+  <p>All of the above is manageable at normal volume. But order volume can triple in the run-up to a peak season, while the team stays the same size. Exceptions pile up faster than humans can work them, so they get triaged by panic — the loudest supplier gets chased, the quiet stockout gets missed — exactly when mistakes are most expensive.</p>
+  <div class="cost"><b>Cost:</b> the failures cluster on the highest-stakes weeks of the year, when there's no slack to absorb them.</div>
+</div>
+
+<div class="callout bad"><strong>The pattern across all nine:</strong> the retailer's main system (its ERP) can usually <em>show</em> you that something is off if you go and run a report — but it does nothing about it. It won't chase the supplier, won't read the reply, won't reconcile the mismatch, won't remember the lesson. As one industry guide puts it bluntly: <em>"ERP-native reporting is passive — it shows what the data says now, but doesn't chase down missing information or act when an exception is detected."</em> The doing is left entirely to people.</div>
+
+<!-- ============ WHO ============ -->
+<h2 id="who">4 · Who feels this pain (and a day in their life)</h2>
+<p>The buyer of this product is whoever owns the flow of stock from suppliers into the business. At a mid-market retailer that's usually one clear person — a <strong>Head of Supply Chain</strong>, <strong>Merchandising / Buying Operations Manager</strong>, or <strong>Inventory Control Lead</strong>. They have the authority to say yes, and they feel the pain directly in their numbers (availability, margin, team workload).</p>
+<p>Under them sits a small team of <strong>buying / supply-chain administrators</strong> — the people who actually do the chasing. This is their day:</p>
+<div class="ex">
+  <p><span class="who">8:30am</span> — Open the ERP, run the "open purchase orders" report, export to a spreadsheet. Two hundred lines. Which ones are at risk? No way to tell at a glance, so start scanning.</p>
+  <p><span class="who">9:00am</span> — Begin emailing suppliers one by one. "Hi, chasing PO 44821, can you confirm ship date?" Copy, paste, change the number, send. Forty times.</p>
+  <p><span class="who">11:00am</span> — Receiving flags a short delivery. Dig out the PO, dig out the ASN, count the difference, email the supplier, start a credit claim. Update the spreadsheet.</p>
+  <p><span class="who">2:00pm</span> — Finance forwards three invoices that "don't match." Go line by line against the orders and the receipts to find the discrepancy. One is a genuine overcharge; two are fine but took 20 minutes each to prove.</p>
+  <p><span class="who">4:30pm</span> — A supplier finally replies to this morning's chase: shipment delayed a week. Now decide — wait, expedite, or source elsewhere? Ask the manager. Update the spreadsheet again.</p>
+  <p><span class="who">5:30pm</span> — Half the morning's chases still have no reply. They roll to tomorrow's list. The spreadsheet is the only record of any of it.</p>
+</div>
+<p>It's robotic, repetitive, reactive work — and the business depends on it being done well, every day, without anything slipping.</p>
+
+<!-- ============ TOOLS ============ -->
+<h2 id="tools">5 · Why today's tools don't already fix this</h2>
+<table>
+  <tr><th>What they use today</th><th>What it does</th><th>Why it doesn't solve the problem</th></tr>
+  <tr><td><strong>Their ERP</strong> (the main stock/finance system — e.g. NetSuite, Microsoft Dynamics, an older system)</td><td>Stores the orders, receipts and invoices. Can produce reports.</td><td>It's <em>passive</em>. It shows the data but takes no action — no chasing, no reading replies, no reconciling, no remembering. It's a filing cabinet, not a worker.</td></tr>
+  <tr><td><strong>EDI providers</strong> (e.g. SPS Commerce, Crstl)</td><td>Move the standard documents between retailer and supplier reliably; some catch formatting errors.</td><td>They run the "pipes." They make sure a document is <em>sent</em> correctly — but they don't own the messy human follow-up when an order goes wrong, and their newer recovery tools are built for <em>brands selling into</em> big retailers, not for a retailer managing its own inbound suppliers.</td></tr>
+  <tr><td><strong>Enterprise supply-chain suites</strong> (RELEX, Blue Yonder)</td><td>Powerful planning, forecasting and (now) AI agents for the very largest retailers.</td><td>Priced and scoped for tier-1 giants. For a mid-market retailer they're too big, too costly, and too slow to put in — so this segment is left out.</td></tr>
+  <tr><td><strong>Spreadsheets + email + phone</strong></td><td>The real "system" most mid-market teams run on.</td><td>It works only as fast as the people. It doesn't scale at peak, keeps no shared memory, and every exception needs a human from start to finish.</td></tr>
+</table>
+<div class="callout"><strong>The gap, in one line:</strong> the big systems either just <em>store</em> the data (ERP) or just <em>move</em> it (EDI), and the powerful agentic tools are aimed at giant retailers. Nobody is doing the actual exception <em>work</em> for the mid-market retailer — so people do it by hand. That gap is the opening.</div>
+
+<!-- ============ AGENT ============ -->
+<h2 id="agent">6 · What the agent actually does</h2>
+<p>The agent sits quietly on top of the systems the retailer already has — it reads their orders, the supplier documents, and the supplier email inbox — and it works the exception queue the way a great ops person would, but continuously and across every order at once. Six jobs:</p>
+
+<table>
+  <tr><th>#</th><th>What it does</th><th>In plain words</th></tr>
+  <tr><td>1</td><td><strong>Watches every order</strong></td><td>It tracks the full life of every PO — ordered, confirmed, shipped, received, invoiced — and knows at all times which stage each one is at.</td></tr>
+  <tr><td>2</td><td><strong>Catches the exception early</strong></td><td>The moment an order drifts off the happy path — no confirmation by day 2, no shipping notice, a mismatch, a short delivery — it flags it instantly, instead of weeks later.</td></tr>
+  <tr><td>3</td><td><strong>Gathers the full context</strong></td><td>It automatically pulls together everything about that order: the PO, the shipping notice, the receipt, past emails, and the supplier's track record — so the situation is understood, not just detected.</td></tr>
+  <tr><td>4</td><td><strong>Takes the action</strong></td><td>It writes and sends the right message to the supplier ("PO 44821 isn't confirmed — please confirm ship date for 500 units"), asks the right question, and proposes a resolution. When the supplier replies, it reads the reply and continues the conversation.</td></tr>
+  <tr><td>5</td><td><strong>Reconciles the paperwork</strong></td><td>It does the three-way match automatically — order vs delivery vs invoice — and surfaces only the genuine discrepancies, with the numbers already worked out, so nothing gets overpaid by default.</td></tr>
+  <tr><td>6</td><td><strong>Escalates &amp; records</strong></td><td>When a real judgement call is needed (accept a delay? approve a price change?), it hands a human a clear recommendation, not a blank problem. Then it <strong>records what was decided and why</strong> — building the memory the business never had.</td></tr>
+</table>
+
+<div class="callout good"><strong>The key difference from everything that exists today:</strong> it doesn't just tell a person there's a problem and wait. It <em>does the work</em> — the watching, the chasing, the reading, the matching, the remembering — and brings a human in only for the small share of decisions that genuinely need one.</div>
+
+<h4>Human-in-the-loop, by design</h4>
+<p>It doesn't go rogue. Early on, it can be set to <em>draft</em> every supplier email for a quick human "send" — building trust. As it proves itself on the routine cases, more of them become fully automatic ("touchless"), while the judgement calls always route to a person. The retailer chooses how much rope to give it, and widens that as confidence grows.</p>
+
+<!-- ============ EXAMPLE ============ -->
+<h2 id="example">7 · A worked example</h2>
+<p>A mid-sized toy retailer, six weeks before Christmas. A best-selling item is due in from a supplier on a PO placed three weeks ago.</p>
+<div class="ex">
+  <p><span class="who">Day 0 —</span> The agent notices the PO has not been acknowledged. Old way: nobody would spot this until the stock failed to arrive. New way: the agent emails the supplier the same day asking for confirmation.</p>
+  <p><span class="who">Day 1 —</span> Supplier replies: they can only ship 60% of the order, and a week late. The agent reads this, recognises it as a shortfall on a high-demand seasonal line, and — because it knows this item is selling fast — escalates to the buying manager with a clear summary and a recommendation: <em>"60% confirmed, one week late. At current sell-through this risks a stockout on the peak weekend. Options: (a) accept and re-order the gap from the alternate supplier, (b) push this supplier for full quantity."</em></p>
+  <p><span class="who">Day 1, 2 minutes later —</span> The manager picks option (a) with one click. The agent drafts the top-up order to the second supplier and the reply to the first.</p>
+  <p><span class="who">Day 9 —</span> Goods arrive. The agent matches the delivery to the shipping notice: 12 units short. It opens a credit claim with the supplier automatically and notes it.</p>
+  <p><span class="who">Day 14 —</span> The invoice comes in billing for the full original quantity. The agent catches the overcharge against the actual receipt, holds the payment, and sends the supplier the corrected figure with the evidence attached.</p>
+  <p><span class="who">The result —</span> The shelf stays full through peak. The retailer didn't overpay. And the agent has <strong>recorded the whole episode</strong>: this supplier under-ships seasonal lines, so next year it can flag that risk before the order even goes out.</p>
+</div>
+<p>The old way, the same story ends with an empty shelf on the busiest weekend, an overpaid invoice, and no record of why — and the lesson forgotten by next Christmas.</p>
+
+<!-- ============ OUTCOMES ============ -->
+<h2 id="outcomes">8 · The outcomes — pain by pain</h2>
+<p>Here is the whole problem list from Section 3, mapped to what changes when the agent is doing the work — and how you'd measure each one.</p>
+<table>
+  <tr><th>Pain today</th><th>Outcome with the agent</th><th>How you measure it</th></tr>
+  <tr><td>Orders sit unconfirmed; problems found late</td><td>Every unconfirmed order is chased within a day; risks surface early</td><td>Average time to detect &amp; chase an exception</td></tr>
+  <tr><td>Quantity / date / price changes slip through</td><td>Caught and flagged automatically with a recommended response</td><td>% of acknowledgement discrepancies caught before receiving</td></tr>
+  <tr><td>Late / wrong shipping notices cause dock chaos &amp; penalties</td><td>Bad notices flagged before the truck arrives; receiving plans cleanly</td><td>On-time/accurate ASN rate; penalty incidents avoided</td></tr>
+  <tr><td>Short / wrong deliveries quietly absorbed</td><td>Differences caught at receipt; credit claims opened automatically</td><td>£ of credits recovered; short-ship resolution time</td></tr>
+  <tr><td>Mismatched invoices overpaid</td><td>Three-way match done automatically; overcharges held before payment</td><td>£ of overpayments prevented; invoices auto-matched %</td></tr>
+  <tr><td><strong>Late orders → empty shelves → lost sales</strong></td><td>Fewer supplier-caused stockouts, especially at peak</td><td>Supplier-driven stockouts; estimated recovered sales</td></tr>
+  <tr><td>Supplier penalties left unclaimed</td><td>Under-performance tracked; recoverable costs surfaced</td><td>£ of supplier non-compliance identified / recovered</td></tr>
+  <tr><td>Knowledge trapped in people's heads</td><td>Every decision recorded; the system remembers each supplier's quirks</td><td>Size &amp; reuse of the decision history; lower key-person risk</td></tr>
+  <tr><td>Team drowns at peak</td><td>The routine flood is handled automatically; people focus on judgement calls</td><td>Exceptions per person; % resolved "touchless"</td></tr>
+</table>
+<div class="cards">
+  <div class="card"><div class="stat good">Recovered sales</div><div class="lbl">Fewer supplier-caused empty shelves — the biggest, most hidden win, largest at peak</div></div>
+  <div class="card"><div class="stat good">Recovered cash</div><div class="lbl">Overpayments stopped + supplier credits claimed that used to be swallowed</div></div>
+  <div class="card"><div class="stat good">Hours back</div><div class="lbl">The robotic chasing and matching is automated; the team does the thinking</div></div>
+  <div class="card"><div class="stat good">A memory</div><div class="lbl">The business finally compounds what it learns about its suppliers, season after season</div></div>
+</div>
+
+<!-- ============ SCOPE ============ -->
+<h2 id="scope">9 · What it deliberately does NOT do</h2>
+<p>A big reason this is buildable by a small team — and easy for a retailer to say yes to — is that it stays in one lane. It is <em>not</em> a giant platform. To be clear about the edges:</p>
+<ul>
+  <li><strong>It does not decide what or how much to buy.</strong> That's demand forecasting and replenishment — already owned by big suites and a different, deeper problem. The agent takes the orders that have <em>already</em> been placed and makes sure they actually happen correctly.</li>
+  <li><strong>It does not replace the ERP.</strong> It sits on top of the existing system and writes the clean result back to it. Low risk, fast to adopt, nothing ripped out.</li>
+  <li><strong>It is not a new EDI network.</strong> It uses the documents flowing through whatever the retailer already has.</li>
+  <li><strong>It is not a dashboard.</strong> Reports are a by-product; the point is the work it does, not another screen to watch.</li>
+</ul>
+<div class="callout"><strong>One problem, solved to the core:</strong> "make sure every order a retailer places actually arrives correctly, on time, and is billed correctly — with as little human effort as possible." Narrow on purpose. That narrowness is what makes it easy to buy and hard to do badly.</div>
+
+<!-- ============ MEASURE ============ -->
+<h2 id="measure">10 · How you'd prove it works — a two-week pilot</h2>
+<p>The product earns trust by being measurable from day one. A simple, low-risk first test:</p>
+<ul>
+  <li><strong>Scope:</strong> pick one slice — say the retailer's top 50 suppliers, or one product category — so the blast radius is tiny.</li>
+  <li><strong>Access:</strong> read-only to start — the open orders, the shipping notices, the goods receipts, and the supplier emails for that slice. Nothing it can break.</li>
+  <li><strong>What it does in the test:</strong> detect the exceptions, draft the supplier chases, do the three-way matches, and surface each issue with a recommended action.</li>
+  <li><strong>The number that decides it:</strong> the <strong>"touchless resolution rate"</strong> — what share of exceptions it can handle end-to-end with no human keystrokes — plus the time saved and the £ of stockouts and overpayments it would have prevented, measured against two weeks of doing it the old way.</li>
+  <li><strong>Green light:</strong> if it cleanly handles ~40–50%+ of that slice's exceptions on its own, the case to roll it wider makes itself.</li>
+</ul>
+
+<!-- ============ MOAT ============ -->
+<h2 id="moat">11 · Why it gets stronger over time</h2>
+<p>A simple AI tool that drafts emails is easy to copy. What's hard to copy is the thing this agent quietly builds: <strong>a private record of how this retailer's supplier problems actually get solved.</strong> Every chased order, every accepted delay, every approved price change, every "this supplier always does X" — all of it is captured.</p>
+<p>That record does two things. It makes the agent <em>better</em> — next season it can predict which suppliers will slip and act before the order is even placed. And it makes the agent <em>sticky</em> — the longer a retailer uses it, the more of their hard-won operational memory lives inside it, and the less they'd ever want to go back to spreadsheets and the knowledge walking out the door with a departing employee.</p>
+<div class="callout key"><strong>The compounding loop:</strong> more orders worked → more decisions recorded → smarter predictions and a deeper memory → more trust → more of the work handled automatically → and a moat that grows with every order, not something a competitor can clone in a weekend.</div>
+
+<!-- ============ GLOSSARY ============ -->
+<h2 id="glossary">Glossary — the few terms used</h2>
+<dl class="glossary">
+  <dt>Purchase Order (PO)</dt>
+  <dd>The retailer's official order to a supplier: which items, how many, by when, at what price.</dd>
+  <dt>Advance Ship Notice (ASN)</dt>
+  <dd>The supplier's heads-up of what's being shipped, in which boxes, arriving when. The most error-prone document, and the most common cause of penalties when it's wrong.</dd>
+  <dt>Goods receipt</dt>
+  <dd>The record the warehouse makes of what actually turned up when a delivery arrives.</dd>
+  <dt>Three-way match</dt>
+  <dd>Checking the order, the delivery, and the invoice against each other before paying. If they don't all agree, it's an exception.</dd>
+  <dt>Exception</dt>
+  <dd>Any order that didn't go smoothly — late, short, mis-priced, unconfirmed. Exceptions are the entire focus of this product.</dd>
+  <dt>Chargeback / deduction</dt>
+  <dd>A financial penalty for a supply-chain mistake (e.g. a late or wrong shipment), or a deduction taken off an invoice. Retailers can levy these on suppliers; mid-market retailers often fail to track and recover them.</dd>
+  <dt>EDI (Electronic Data Interchange)</dt>
+  <dd>The long-standing standard that lets retailer and supplier computers exchange order paperwork automatically. The numbers (850, 855, 856, 810) are just the codes for each document type.</dd>
+  <dt>ERP</dt>
+  <dd>The retailer's central system for stock, orders and finance. Good at storing data; does nothing on its own about exceptions.</dd>
+  <dt>Touchless resolution</dt>
+  <dd>An exception fully handled by the agent with no human action needed. The headline measure of how much work it's actually taking off people's plates.</dd>
+</dl>
+
+<footer>
+  Plain-language product write-up, prepared June 2026. Industry figures (manual PO entry time, ASN error rates, AI-ops time savings, deduction-leakage percentages) are directional estimates drawn from public retail-supply-chain sources and used to illustrate the shape and size of the problem, not as guarantees.<br><br>
+  <strong>Sources consulted:</strong> SPS Commerce (SupplierWiki, Revenue Recovery) · Crstl (EDI compliance guides) · Leverage (procurement exception management for mid-market) · WizCommerce (purchase-order automation guide) · RELEX Solutions &amp; Blue Yonder (retail AI agents) · Digiqt (AI agents in inventory management). All accessed via public web search, June 2026.
+</footer>
+
+</div>
+</body>
+</html>
