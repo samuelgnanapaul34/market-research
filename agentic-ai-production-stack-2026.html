@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Production-Grade Agentic AI Stack, Mid-2026 (Explained Simply)</title>
+<style>
+  :root{
+    --ink:#16202c; --muted:#5b6473; --line:#e3e7ee; --bg:#f5f7fb;
+    --accent:#2b6cb0; --accent2:#0b7285; --good:#2f855a; --warn:#b7791f; --bad:#c53030;
+    --card:#ffffff; --chip:#eef3f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.55;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 28px 90px}
+  header.top{border-bottom:3px solid var(--accent);padding-bottom:18px;margin-bottom:6px}
+  .kick{display:inline-block;background:var(--chip);color:var(--accent);border:1px solid #d3e0ee;
+        font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
+  h1{font-size:31px;margin:14px 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:21px;margin:40px 0 6px;padding-top:14px;border-top:1px solid var(--line)}
+  h2 .em{color:var(--muted);font-weight:400;font-size:14px;display:block;margin-top:2px}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:10px 0}
+  .lead{font-size:16px;color:#2a3340}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#eef3f9;font-weight:700}
+  tr:nth-child(even) td{background:#fafbfd}
+  .num{text-align:center;white-space:nowrap}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:16px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .stat{font-size:25px;font-weight:800;color:var(--accent);line-height:1.05}
+  .stat.alt{color:var(--accent2)} .stat.red{color:var(--bad)} .stat.good{color:var(--good)}
+  .lbl{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .src{font-size:10.5px;color:#94a0b0;margin-top:6px}
+  .heat{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .h-hot{background:#fdeaea;color:var(--bad)}
+  .h-open{background:#e7f5ec;color:var(--good)}
+  .h-emrg{background:#eef0f4;color:var(--muted)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:10px 0}
+  .callout{background:#eef6fb;border-left:4px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.win{background:#ecf7f0;border-color:var(--good)}
+  .callout.warn{background:#fdf6e9;border-color:var(--warn)}
+  ul{margin:8px 0;padding-left:22px} li{margin:5px 0}
+  .layerno{display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;
+           background:var(--accent);color:#fff;font-weight:800;font-size:14px;margin-right:8px;vertical-align:middle}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:18px 0;font-size:14px}
+  .toc a{display:inline-block;margin:3px 14px 3px 0}
+  .money{font-weight:700;color:var(--accent2);white-space:nowrap}
+  .gl{color:#5b6473;font-style:italic;font-weight:400}
+  .term{position:relative;border-bottom:1.5px dotted var(--accent);cursor:help;text-decoration:none}
+  .term::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 11px);
+    transform:translateX(-50%) translateY(5px);width:340px;max-width:80vw;
+    background:#16202c;color:#fff;font:400 13.5px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-style:normal;text-align:left;text-transform:none;letter-spacing:normal;
+    padding:12px 15px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.24);
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease;z-index:60;white-space:normal}
+  .term::before{content:"";position:absolute;left:50%;bottom:calc(100% + 4px);
+    transform:translateX(-50%) translateY(5px);border:7px solid transparent;border-top-color:#16202c;
+    opacity:0;visibility:hidden;transition:opacity .16s ease;z-index:61}
+  .term:hover::after,.term:hover::before,.term:focus::after,.term:focus::before{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media (max-width:700px){.term::after{width:250px}}
+  .hint{font-size:13px;color:var(--muted);background:#fffdf5;border:1px solid #ecdfb8;border-radius:8px;padding:9px 14px;margin:14px 0}
+  .jargon{background:#fffdf5;border:1px solid #ecdfb8;border-radius:12px;padding:6px 22px 16px;margin:18px 0}
+  .jargon h3{color:#8a6d1f}
+  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--muted)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px}
+  .p-good{background:#e7f5ec;color:var(--good)} .p-warn{background:#fdf3e0;color:var(--warn)} .p-bad{background:#fdeaea;color:var(--bad)}
+  @media print{body{background:#fff}.wrap{max-width:none}.card,table{break-inside:avoid}}
+  @media (max-width:680px){.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="kick">Reference architecture · explained simply</span>
+  <h1>The Production-Grade Agentic AI Stack, Mid-2026</h1>
+  <div class="sub">Layer-by-layer picks — model, orchestration, tools, memory, guardrails, identity, eval, runtime — with what's actually deployed today · prepared 27 June 2026 · gathered via live web research</div>
+</header>
+
+<p class="lead">"Agentic AI stack" is not one product — it is nine layers stacked on top of each other, and a shaky lower layer breaks everything above it. Most failed pilots (the companion study on this site found <strong>86–89%</strong> of agent trials never reach production) fail not because the model is weak, but because the layers <em>around</em> the model — tools, memory, guardrails, identity, evaluation — were skipped. This page is a buyer's-guide-style map of what a team actually wires together today to ship an agent that survives contact with real users and real data.</p>
+
+<div class="toc">
+  <strong>Contents:</strong>
+  <a href="#model">1 · Model layer</a>
+  <a href="#orchestration">2 · Orchestration</a>
+  <a href="#tools">3 · Tool use &amp; interop</a>
+  <a href="#memory">4 · Memory &amp; RAG</a>
+  <a href="#guardrails">5 · Guardrails &amp; security</a>
+  <a href="#identity">6 · Identity &amp; governance</a>
+  <a href="#eval">7 · Evaluation &amp; observability</a>
+  <a href="#runtime">8 · Runtime &amp; cost</a>
+  <a href="#recipe">9 · Recommended stack by stage</a>
+  <a href="#takeaways">10 · Takeaways</a>
+</div>
+
+<!-- ============ MODEL ============ -->
+<h2 id="model"><span class="layerno">1</span>The model layer — pick by task, not by brand<span class="em">No single model wins every benchmark; production teams route across two or three.</span></h2>
+<div class="cards">
+  <div class="card"><div class="stat">Opus 4.8</div><div class="lbl">Anthropic — leads agentic coding &amp; long tool-use chains; the default "does the actual work" model</div><div class="src">LM Council</div></div>
+  <div class="card"><div class="stat alt">GPT-5.5</div><div class="lbl">OpenAI — strongest at messy, multi-step ambiguity: plans, calls tools, checks its own work, keeps going</div><div class="src">LM Council</div></div>
+  <div class="card"><div class="stat alt">Gemini 3.1 Pro</div><div class="lbl">Google — best price-to-performance at the frontier; strong for high-volume, lower-stakes calls</div><div class="src">LM Council</div></div>
+  <div class="card"><div class="stat">SWE-bench Pro</div><div class="lbl">+ Toolathlon, BrowseComp, OSWorld-Verified — the newer benchmarks that actually predict agent reliability, not chat quality</div><div class="src">Scale AI</div></div>
+</div>
+<div class="callout"><strong>The pattern teams converge on: a model <span class="term" tabindex="0" role="button" data-tip="Sending different sub-tasks to whichever model is cheapest/best for that specific job, instead of one model doing everything.">policy</span>, not one model.</strong> Example split seen across 2026 production stacks: a frontier reasoning model for the core agent loop and tool-use, a cheaper/faster model for high-volume summarisation or classification sub-steps, and a specialist coding model for any code-writing step. The model matters less than the system wrapped around it — which is the rest of this page.</div>
+
+<!-- ============ ORCHESTRATION ============ -->
+<h2 id="orchestration"><span class="layerno">2</span>Orchestration — the layer that decides what happens next<span class="em">Graph-based control flow has become the production default; lightweight frameworks still win for simple agents.</span></h2>
+<table>
+  <tr><th style="width:20%">Framework</th><th class="num">Best for</th><th>Production signal</th><th>The catch</th></tr>
+  <tr><td><strong>LangGraph</strong></td><td class="num">Complex, stateful, multi-agent</td><td>v1.0 (Oct 2025); live at Uber, JPMorgan, LinkedIn, Klarna; explicit graphs + strong human-in-the-loop interrupts</td><td>More setup than a single provider SDK if the agent is simple</td></tr>
+  <tr><td><strong>Microsoft Agent Framework</strong></td><td class="num">Enterprise / .NET shops</td><td>1.0 stabilises single-agent + multi-agent patterns; supports Anthropic, Bedrock, Gemini, Ollama (not Microsoft-only)</td><td>Newer; smaller community than LangGraph</td></tr>
+  <tr><td><strong>CrewAI</strong></td><td class="num">Prototypes, small teams</td><td>Fastest to a working demo; role-based multi-agent crews</td><td>Prioritises simplicity over deep memory and production controls</td></tr>
+  <tr><td><strong>Semantic Kernel</strong></td><td class="num">Existing Microsoft/enterprise stacks</td><td>Open-source, integrates with legacy enterprise systems</td><td>Best when you're already inside the Microsoft ecosystem</td></tr>
+  <tr><td><strong>No framework</strong> <span class="gl">(provider SDK + tool loop)</span></td><td class="num">Single-agent, few tools</td><td>Fastest path to production for a simple "model + a few tool calls" agent</td><td>Re-implements state/retry/HITL by hand once complexity grows</td></tr>
+</table>
+<div class="callout warn"><strong>The honest rule of thumb from practitioners:</strong> "if your agent calls a model and a few tools, you don't need LangGraph." Reach for a graph framework only once you have branching logic, multiple agents, or need durable state across long-running tasks.</div>
+
+<!-- ============ TOOLS ============ -->
+<h2 id="tools"><span class="layerno">3</span>Tool use &amp; interoperability — how an agent reaches the outside world<span class="em">Two standards now sit on top of plain function calling: MCP (agent → tools) and A2A (agent → agent).</span></h2>
+<div class="cards">
+  <div class="card"><div class="stat">97M+</div><div class="lbl">monthly SDK downloads for <span class="term" tabindex="0" role="button" data-tip="Model Context Protocol — a standard, published by Anthropic, for how an AI agent discovers and calls external tools/data sources consistently across vendors, instead of every product inventing its own format.">MCP</span> (Python + TypeScript)</div><div class="src">Digital Applied</div></div>
+  <div class="card"><div class="stat alt">10,000+</div><div class="lbl">active public MCP servers; adopted across ChatGPT, Claude, Gemini, Copilot, VS Code</div><div class="src">MCP ecosystem reports</div></div>
+  <div class="card"><div class="stat">41%</div><div class="lbl">of surveyed software orgs already run MCP servers in limited-or-broad production</div><div class="src">Stacklok 2026</div></div>
+  <div class="card"><div class="stat alt">A2A</div><div class="lbl"><span class="term" tabindex="0" role="button" data-tip="Agent2Agent — a protocol, started by Google and now under the Linux Foundation, for how independent agents discover each other's capabilities and hand off tasks, over HTTPS + JSON-RPC.">Agent2Agent</span> protocol — now Linux-Foundation-governed; the interop layer once you have more than one agent talking to another vendor's agent</div><div class="src">Google / Linux Foundation</div></div>
+</div>
+<p>Practical read: <strong>MCP standardises the agent-to-tool edge</strong> (it wraps function calling, doesn't replace it) — wire your internal APIs and data sources behind MCP servers once, and every agent framework can reach them the same way. <strong>A2A standardises the agent-to-agent edge</strong> — needed only once agents from different teams or vendors must delegate work to each other. For a single-team product, plain function calling + a couple of MCP servers covers nearly everything in 2026.</p>
+
+<!-- ============ MEMORY ============ -->
+<h2 id="memory"><span class="layerno">4</span>Memory &amp; retrieval — making an agent remember<span class="em">A separate production discipline now: 21+ frameworks, 20+ vector stores, three hosting models.</span></h2>
+<table>
+  <tr><th style="width:18%">Layer</th><th class="num">Heat</th><th>Leaders</th><th>What it's for / the gap</th></tr>
+  <tr><td><strong>Memory frameworks</strong></td><td class="num"><span class="heat h-emrg">EMERGING</span></td>
+    <td>Mem0 (vector-first, 48k+ GitHub stars), Zep/Graphiti (temporal knowledge graph), Letta (full self-editing agent runtime, the MemGPT successor), LangMem (LangChain-native)</td>
+    <td>Mem0 = fastest cross-session personalisation; Zep wins "what was true in Q1?" questions (63.8% vs Mem0's 49.0% on the LongMemEval benchmark); Letta fits long-running autonomous agents</td></tr>
+  <tr><td><strong>Vector databases</strong></td><td class="num"><span class="heat h-hot">HOT</span></td>
+    <td>Pinecone (zero-ops managed), Weaviate/Qdrant (hybrid search, self-host), pgvector (if already on Postgres), Vespa/Milvus (&gt;1B vectors)</td>
+    <td>Pure vector search underperforms <span class="term" tabindex="0" role="button" data-tip="Combining semantic vector search with classic keyword search (BM25) and metadata filters — needed because vectors are bad at exact matches like IDs, version numbers or proper nouns.">hybrid search</span> on real workloads; for agent tool-calls (vs. dedicated RAG endpoints) the DB choice matters less, since query latency is a small slice of total agent run time</td></tr>
+  <tr><td><strong>Retrieval pipeline</strong> <span class="gl">(RAG)</span></td><td class="num"><span class="heat h-hot">HOT</span></td>
+    <td>Chunking + embedding + hybrid retrieval + re-ranking, wired as an agent <em>tool</em> rather than a fixed pipeline</td>
+    <td>Stale or wrong "remembered" facts and privacy/consent over what an agent is allowed to retain remain unsolved in general</td></tr>
+</table>
+
+<!-- ============ GUARDRAILS ============ -->
+<h2 id="guardrails"><span class="layerno">5</span>Guardrails &amp; security — defence in depth, not a single filter<span class="em">Indirect prompt injection (instructions hidden inside a document, email or web page the agent reads) is now the #1 agent-specific risk.</span></h2>
+<div class="cards">
+  <div class="card"><div class="stat red">+340%</div><div class="lbl">rise in prompt-injection attacks; #1 AI risk three years running</div><div class="src">Maxim / OWASP</div></div>
+  <div class="card"><div class="stat red">7%</div><div class="lbl">of security teams believe their current controls could stop a hacked agent</div><div class="src">Akeyless</div></div>
+  <div class="card"><div class="stat">2</div><div class="lbl">mandatory checkpoints in 2026 best practice: validate every input/prompt <em>and</em> every output/tool-call before it executes</div><div class="src">Maxim AI</div></div>
+</div>
+<table>
+  <tr><th style="width:22%">Component</th><th>What it does</th><th>Examples</th></tr>
+  <tr><td><strong>AI gateway with built-in guardrails</strong></td><td>Sits between the agent and the model/tools; blocks injected instructions and unsafe tool calls before they execute</td><td>Bifrost (Apache-2.0, ~20μs added latency), Portkey (open-sourced fully in 2026), LiteLLM</td></tr>
+  <tr><td><strong>Managed content/safety filters</strong></td><td>PII detection, content moderation, jailbreak/prompt-attack detection — plugged into the gateway</td><td>AWS Bedrock Guardrails, Azure AI Content Safety, GraySwan, Patronus AI</td></tr>
+  <tr><td><strong>Tool-call allow-listing</strong></td><td>Every proposed tool invocation is checked against a pre-approved action list <em>before</em> it runs — the most concrete defence against "agent did something it shouldn't"</td><td>Implemented at the orchestration or gateway layer, not the model</td></tr>
+</table>
+<div class="callout warn"><strong>Industry consensus for 2026:</strong> assume one layer of defence will eventually be bypassed and design so the blast radius stays small — short-lived credentials, scoped tool permissions, and human approval on irreversible actions (sending money, deleting data, emailing a customer) rather than trying to make any single filter perfect.</div>
+
+<!-- ============ IDENTITY ============ -->
+<h2 id="identity"><span class="layerno">6</span>Identity &amp; governance — agents need their own login, not yours<span class="em">The fastest-growing and least-solved layer; legacy human-IAM tools were never built for this.</span></h2>
+<div class="cards">
+  <div class="card"><div class="stat red">82:1</div><div class="lbl">machine identities (incl. AI agents) per human identity in the enterprise, and rising with every new agent deployed</div><div class="src">SailPoint / industry data</div></div>
+  <div class="card"><div class="stat red">92%</div><div class="lbl">of organisations not confident their legacy IAM tools can manage agent-identity risk</div><div class="src">SailPoint</div></div>
+  <div class="card"><div class="stat">Q1–Q2 2026</div><div class="lbl">window in which Okta, Microsoft Entra, SailPoint and Ping Identity all shipped dedicated agentic-IAM products</div><div class="src">vendor announcements</div></div>
+</div>
+<p>The emerging best practice: give every agent a unique, cryptographically-verifiable identity the moment it goes live (no anonymous service accounts), then replace standing credentials with <strong>short-lived tokens, just-in-time provisioning, and task-scoped permissions</strong> — an agent should only be able to do, for only as long as, what the specific task requires. Wrap this with an audit trail of every action so an incident is traceable to one agent run, not "something in production." This is the same "trust gap" identified as the largest open infrastructure opportunity in the companion <a href="agentic-ai-deep-research-2026.html">market-study page</a> on this site.</p>
+
+<!-- ============ EVAL ============ -->
+<h2 id="eval"><span class="layerno">7</span>Evaluation &amp; observability — you cannot ship what you cannot trace<span class="em">Three platforms have pulled away: each optimised for a different question.</span></h2>
+<table>
+  <tr><th style="width:18%">Platform</th><th>Best question it answers</th><th>Trade-off</th></tr>
+  <tr><td><strong>LangSmith</strong></td><td>"What exactly did my LangGraph agent do, step by step?" — deepest LangChain/LangGraph tracing</td><td>Proprietary; pricing scales with volume; most value if you're already in that ecosystem</td></tr>
+  <tr><td><strong>Arize (Phoenix)</strong></td><td>"Is quality drifting in production?" — open-source, 50+ built-in metrics (faithfulness, hallucination, toxicity, drift)</td><td>Classical-ML monitoring heritage shows; less opinionated about agent-specific workflows</td></tr>
+  <tr><td><strong>Braintrust</strong></td><td>"Did this change make the product better or worse?" — evaluation and observability treated as one connected loop, good for non-technical stakeholders</td><td>Proprietary SaaS, no self-host option</td></tr>
+  <tr><td><strong>Patronus AI / Galileo / Credo AI / Fiddler</strong></td><td>Governance-leaning: eval-time scoring, production audit trail, RBAC, runtime policy enforcement</td><td>Positioned more for regulated/compliance use than day-to-day debugging</td></tr>
+</table>
+<p class="hint">Rule of thumb: wire <strong>tracing from day one</strong> (even a free/open-source tracer) — most of the 86% pilot-failure rate cited earlier traces back to teams that had no visibility into what their agent actually did until something broke in front of a customer.</p>
+
+<!-- ============ RUNTIME ============ -->
+<h2 id="runtime"><span class="layerno">8</span>Runtime, gateway &amp; cost — where the agent actually executes<span class="em">Inference is 60–80% of an agent's running cost; the gateway and runtime layer is where that gets controlled.</span></h2>
+<table>
+  <tr><th style="width:20%">Component</th><th>Role</th><th>Examples</th></tr>
+  <tr><td><strong>LLM gateway / router</strong></td><td>One API in front of every model provider; handles fallbacks, budgets, caching, and (per above) guardrails</td><td>LiteLLM (self-hosted, 100+ providers, free), Portkey (open-sourced 2026, strong PII/jailbreak guardrails), Bifrost (fastest, Apache-2.0), OpenRouter/Cloudflare (managed, zero-ops)</td></tr>
+  <tr><td><strong>Agent runtime / hosting</strong></td><td>Purpose-built serverless execution for long-running, stateful agent processes (not a generic web server)</td><td>Amazon Bedrock AgentCore Runtime — no cold starts, supports sessions up to 8 hours, per-second consumption billing, framework-agnostic (LangGraph, Strands, CrewAI), model-agnostic (Bedrock, Anthropic, Gemini, OpenAI)</td></tr>
+  <tr><td><strong>MCP / tool gateway</strong></td><td>Central registry &amp; RBAC for which agents may call which internal tools over MCP</td><td>TrueFoundry MCP Gateway, Bifrost's MCP tool connections</td></tr>
+  <tr><td><strong>Cost control</strong> <span class="gl">(FinOps for agents)</span></td><td>Routing cheap models to easy sub-tasks, caching repeated calls, capping per-task spend</td><td>Built into the gateway layer above; still the single highest-leverage, least-automated cost lever in most stacks</td></tr>
+</table>
+
+<!-- ============ RECIPE ============ -->
+<h2 id="recipe"><span class="layerno">9</span>A recommended stack, by stage<span class="em">Not every team needs every layer on day one — but every layer below eventually gets built or bought.</span></h2>
+<table>
+  <tr><th style="width:16%">Stage</th><th>Model + orchestration</th><th>Memory / tools</th><th>Guardrails / identity / eval</th></tr>
+  <tr><td><strong>MVP / single agent</strong></td><td>One frontier model via its own SDK; no graph framework yet</td><td>A couple of MCP servers for the tools that matter; pgvector if retrieval is needed at all</td><td>One open-source tracer wired in from day one (even minimal); short-lived API keys, not standing credentials</td></tr>
+  <tr><td><strong>Scaling / multiple agents</strong></td><td>LangGraph or CrewAI; 2-model policy (frontier + cheap-and-fast)</td><td>Mem0 or Zep for cross-session memory; dedicated vector DB (Weaviate/Qdrant) if retrieval volume grows</td><td>LLM gateway with guardrails (Portkey/Bifrost); LangSmith or Arize Phoenix tracing; tool-call allow-listing</td></tr>
+  <tr><td><strong>Enterprise / regulated</strong></td><td>Multi-model routing across vendors; A2A if agents cross team/vendor boundaries</td><td>Letta or Zep for auditable long-term memory; managed vector DB at scale (Pinecone/Vespa)</td><td>Dedicated agent-identity platform (Okta/Entra/SailPoint agentic IAM); Bedrock AgentCore or equivalent managed runtime; governance platform (Credo AI/Galileo) for audit + RBAC</td></tr>
+</table>
+
+<!-- ============ TAKEAWAYS ============ -->
+<h2 id="takeaways"><span class="layerno">10</span>Final takeaways</h2>
+<div class="callout win">
+  <ol style="margin:4px 0">
+    <li><strong>The model is the least differentiating layer.</strong> Production teams route across 2–3 models by task; none of the frontier labs is far enough ahead to justify single-vendor lock-in.</li>
+    <li><strong>Skip a layer, pay for it later in incident response.</strong> The 86% pilot-failure rate traces almost entirely to missing guardrails, identity, or tracing — not to a weak model.</li>
+    <li><strong>Two standards are now load-bearing, not optional:</strong> MCP for agent→tool calls, A2A for agent→agent handoffs. Wiring tools behind MCP once pays off the moment you add a second framework or vendor.</li>
+    <li><strong>Identity is the layer most teams build last and need first.</strong> 82 machine identities per human and a 92% confidence gap in legacy IAM means an unmanaged agent identity is the most likely source of an embarrassing incident, not a model hallucination.</li>
+    <li><strong>Buy the commodity layers, build the differentiated one.</strong> Gateway, tracing, vector DB and memory are all available off-the-shelf in 2026 — the only layer worth custom-building is the domain logic and data integrations specific to the product.</li>
+  </ol>
+</div>
+
+<footer>
+  Prepared 27 June 2026 via live web search. Vendor names, benchmark rankings and figures reflect public reporting as of that date and change quickly in this market; this page is a structural map of the stack, not a procurement recommendation for any single vendor. Not investment advice.<br><br>
+  <strong>Sources:</strong> LangChain · O'Reilly Radar ("The AI Agents Stack, 2026 Edition") · JetBrains Blog · LM Council benchmarks · Scale AI (SWE-bench Pro) · MCP project blog · Digital Applied · Stacklok 2026 software report · IBM (A2A) · Linux Foundation · mem0.ai · Atlan · AgentMarketCap · Maxim AI (Bifrost, guardrails guides) · Portkey · OpenRouter · SailPoint · AWS Bedrock AgentCore docs · Arize · Braintrust · LangSmith (all accessed via live search, June 2026).
+</footer>
+
+</div>
+</body>
+</html>
