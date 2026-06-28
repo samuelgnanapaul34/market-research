@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Dive · The Retail Buyer Agent</title>
+<style>
+  :root{--bg:#f6f8fb;--panel:#ffffff;--panel2:#eef3f9;--line:#e3e7ee;--ink:#1a1f2b;--muted:#5b6473;--soft:#3a4452;--accent:#2b6cb0;--accent2:#6d28d9;--green:#2f855a;--amber:#b7791f;--red:#c53030}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  a.back{display:inline-block;margin:18px 0 0;color:var(--accent);text-decoration:none;font-size:13px}
+  header.hero{padding:14px 22px 30px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#eef3f9,var(--bg))}
+  .tag{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11.5px;font-weight:600;background:rgba(110,168,254,.14);color:var(--accent);border:1px solid rgba(110,168,254,.3)}
+  h1{font-size:30px;margin:12px 0 8px;letter-spacing:-.02em}
+  .one{color:var(--soft);font-size:18px;max-width:780px}
+  .scorestrip{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .pill{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:7px 13px;font-size:13px}.pill b{color:var(--ink);font-variant-numeric:tabular-nums}
+  nav.toc{position:sticky;top:0;z-index:5;background:rgba(246,248,251,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:8px 0}
+  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;font-size:12.5px}
+  nav.toc a{color:var(--muted);text-decoration:none;padding:4px 9px;border-radius:6px}nav.toc a:hover{color:var(--ink);background:var(--panel)}
+  section{padding:30px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:21px;margin:0 0 8px;letter-spacing:-.01em}h2 .n{color:var(--accent);margin-right:9px;font-variant-numeric:tabular-nums}
+  h3{font-size:15.5px;margin:18px 0 6px}p,li{color:var(--soft)}.lead{color:var(--soft);max-width:820px}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel2);color:var(--soft);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:none}
+  td.n,th.n{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px;margin:10px 0}
+  .grid{display:grid;gap:13px}.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:760px){.c2,.c3{grid-template-columns:1fr}}
+  ul.t{margin:6px 0 0;padding-left:18px}ul.t li{margin:5px 0;font-size:14px}
+  .step{display:flex;gap:12px;margin:12px 0}.step .num{flex:none;width:30px;height:30px;border-radius:8px;background:rgba(110,168,254,.14);color:var(--accent);border:1px solid rgba(110,168,254,.3);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step h3{margin:2px 0 4px}
+  .callout{border-left:3px solid var(--accent);background:var(--panel);padding:11px 15px;border-radius:0 10px 10px 0;margin:11px 0;font-size:14px;color:var(--soft)}
+  .win{border-left-color:var(--green)}.risk{border-left-color:var(--red)}
+  .tl{margin:10px 0 0;padding-left:18px;border-left:2px solid var(--line)}.tl .ev{margin:0 0 14px}.tl .ev b{color:var(--accent)}
+  .legend{font-size:12px;color:var(--muted)}
+  footer{padding:26px 22px 50px;color:var(--muted);font-size:12px}
+  @media print{nav.toc{display:none}body{background:#fff;color:#111}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <a class="back" href="opportunity-scorecard.html">← Back to the ranking</a>
+  <div style="margin-top:10px"><span class="tag">#2 in the ranking · Retail · the top idea in retail</span></div>
+  <h1>The Retail Buyer Agent</h1>
+  <div class="one">One AI assistant for a retailer's buying team. It does the manual desk work a buyer does all day — chasing suppliers when orders come back wrong, setting up new products, and onboarding new suppliers — so the team can spend its time buying, not on admin.</div>
+  <div class="scorestrip">
+    <span class="pill">Score <b>48</b>/60</span>
+    <span class="pill">Weighted <b>67</b>/85</span>
+    <span class="pill">Verdict <b style="color:var(--green)">Strong</b></span>
+    <span class="pill">Starts at <b>£35k</b>/yr</span>
+    <span class="pill">Grows to <b>£120k</b>/yr</span>
+  </div>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#problem">The problem</a><a href="#what">What it does</a><a href="#who">Who buys it</a><a href="#market">Market size</a><a href="#competition">Competition</a><a href="#build">How to build it</a><a href="#timeline">Timeline</a><a href="#pricing">Pricing</a><a href="#risks">Risks</a>
+</div></nav>
+
+<div class="wrap">
+
+<section id="problem">
+  <h2><span class="n">01</span>The problem — what a buying team's day really looks like</h2>
+  <p class="lead">A retailer's buying team places thousands of orders with suppliers and looks after thousands of products. A huge amount of that work is repetitive, manual, and never-ending. Three jobs eat most of the time:</p>
+  <ul class="t">
+    <li><b>Orders come back wrong.</b> Suppliers ship less than ordered, charge a different price, deliver late, or never confirm. Someone has to spot each problem and chase the supplier by email and phone. A single 100-line order can take an hour or more to sort out — and there are hundreds of suppliers.</li>
+    <li><b>New products take ages to set up.</b> When a supplier sends a new range, someone keys each product into the system by hand — description, codes, price, category. It's slow and error-prone, and products miss their on-shelf date.</li>
+    <li><b>New suppliers are slow to bring on.</b> Collecting documents, checking insurance and compliance, and setting the supplier up in the system is all manual chasing.</li>
+  </ul>
+  <div class="callout">The retailer's main system (its ERP — usually SAP) <b>shows</b> these problems but doesn't <b>do</b> anything about them. So people do it all by hand, every day.</div>
+</section>
+
+<section id="what">
+  <h2><span class="n">02</span>What the Retail Buyer Agent does</h2>
+  <p class="lead">One assistant that actually does these jobs end-to-end — with a person approving the important steps — right inside the system the team already uses. Nothing to re-key, no new system to learn.</p>
+  <div class="step"><div class="num">1</div><div><h3>Chases order problems <span style="color:var(--muted);font-weight:400">(the place to start)</span></h3><p style="margin:0">Reads every incoming order against what was actually delivered, spots the mismatch (short, late, wrong price), drafts and sends the chase to the supplier, tracks it until it's fixed, and updates the system. This stops penalties, claws back overpayments, and keeps shelves from going empty.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Sets up new products</h3><p style="margin:0">Takes a supplier's product sheet (a PDF, spreadsheet or email), pulls out each product, fills in the details, and prepares a ready-to-approve record in the system. Hours per product become seconds, and new lines hit the shelf on time.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Onboards new suppliers</h3><p style="margin:0">Collects the documents, checks insurance and compliance certificates, sets the supplier up in the system, and chases anything that's missing.</p></div></div>
+  <div class="callout win"><b>The point:</b> it's not a dashboard that tells the team what to do — it's an assistant that does the work and hands back a finished result for a quick yes/no.</div>
+</section>
+
+<section id="who">
+  <h2><span class="n">03</span>Who buys it</h2>
+  <div class="grid c2">
+    <div class="card"><h3 style="margin-top:0">The buyer</h3><ul class="t">
+      <li><b>One clear owner:</b> the <b>Head of Buying</b> (or Supply Chain Director) runs the whole buying desk — so there's one obvious person to sell to.</li>
+      <li><b>The team that feels the pain:</b> the buyers and buying-admin staff who do the manual chasing today.</li>
+    </ul></div>
+    <div class="card"><h3 style="margin-top:0">The kind of retailer</h3><ul class="t">
+      <li>Mid-sized retailers and wholesalers (roughly $50M–$5B in sales).</li>
+      <li>Run a real ERP system (such as SAP) and deal with lots of suppliers.</li>
+      <li>Too small for the giant enterprise tools, but big enough to feel the pain badly.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="market">
+  <h2><span class="n">04</span>How big is the market</h2>
+  <p class="lead">Plain, bottom-up numbers — how many could buy it, what they'd pay, and a realistic target.</p>
+  <table>
+    <tr><th>Question</th><th>Answer</th><th class="n">Number</th></tr>
+    <tr><td><b>How many could buy it?</b></td><td>Mid-sized retailers &amp; wholesalers in the UK, EU and US</td><td class="n">~5,000–15,000</td></tr>
+    <tr><td><b>What would they pay?</b></td><td>Starts with the order-chasing job; grows to the full assistant</td><td class="n">£35k → £120k/yr</td></tr>
+    <tr><td><b>Total if everyone bought it</b></td><td>The first job alone → the full assistant</td><td class="n"><b>~£300M → £1bn+</b></td></tr>
+    <tr><td><b>Realistic 3–5 year target</b></td><td>About 115 retailers paying for it</td><td class="n">~£4–5M/yr</td></tr>
+  </table>
+  <p class="legend">The growth comes from the same customer: land with order-chasing, then add product-setup and supplier-onboarding to the same buyer — so the yearly price per retailer climbs from ~£35k toward ~£120k.</p>
+</section>
+
+<section id="competition">
+  <h2><span class="n">05</span>Who else is out there</h2>
+  <table>
+    <tr><th>Who</th><th>What they do</th><th>Why it isn't this</th></tr>
+    <tr><td>Supplier-side tools (SPS Commerce, SupplyPike)</td><td>Help <b>suppliers</b> fight penalties from retailers</td><td>That's the opposite customer. Crowded, but a different business.</td></tr>
+    <tr><td>Giant enterprise suites (RELEX, Blue Yonder)</td><td>Big planning systems for the largest retailers</td><td>Priced for tier-1; mid-sized retailers can't afford them, and they don't do this specific chasing.</td></tr>
+    <tr><td>The retailer's own ERP (e.g. SAP)</td><td>The system of record</td><td>It shows the problem but doesn't act on it.</td></tr>
+  </table>
+  <div class="callout"><b>The opening:</b> no well-funded company owns the <b>mid-sized, retailer-side</b> version of this. It's open precisely because it's narrow and unglamorous — and the more the agent runs, the more it learns about how each supplier's problems get fixed, which is hard for a newcomer to copy.</div>
+</section>
+
+<section id="build">
+  <h2><span class="n">06</span>How to build it — and where to start</h2>
+  <p class="lead">Don't try to build all three jobs at once. Start with the one that's cheapest to prove and faces no real competitor: <b>chasing order problems</b>.</p>
+  <div class="grid c2">
+    <div class="card"><h3 style="margin-top:0">The way in: a money-back audit</h3><ul class="t">
+      <li>Read a few months of the retailer's orders and show them, in pounds, <b>exactly how much these problems are costing</b> — a number most teams can't work out for themselves.</li>
+      <li>It's a low-risk first "yes" (you're just showing them the money). Then the agent that recovers it is an easy next step.</li>
+      <li>Once you're in, add product-setup and supplier-onboarding to the same customer.</li>
+    </ul></div>
+    <div class="card"><h3 style="margin-top:0">How it's built</h3><ul class="t">
+      <li><b>Connect read-only first</b> — the agent watches the orders and shipments without changing anything. Low risk, easy for IT to allow.</li>
+      <li><b>Propose, then act</b> — the agent drafts the supplier chase for a person to approve, then takes over once it's trusted.</li>
+      <li>The tricky part is connecting to the retailer's system — which is also what makes it hard for others to copy.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="timeline">
+  <h2><span class="n">07</span>Timeline</h2>
+  <div class="tl">
+    <div class="ev"><b>0–3 months · the audit.</b> Connect read-only; show a retailer the money they're losing; sign up 3 early partners.</div>
+    <div class="ev"><b>3–6 months · the agent.</b> Turn on automatic order-chasing for the first paying retailers.</div>
+    <div class="ev"><b>6–12 months · scale.</b> Add a second system connector; reach 15–30 retailers.</div>
+    <div class="ev"><b>12–24 months · the full assistant.</b> Add product-setup and supplier-onboarding; reach 80–115 retailers and ~£4–5M a year.</div>
+  </div>
+</section>
+
+<section id="pricing">
+  <h2><span class="n">08</span>Pricing</h2>
+  <table>
+    <tr><th>What</th><th>How it's priced</th><th class="n">Price</th></tr>
+    <tr><td>Money-back audit</td><td>One-off, pay only if it finds money</td><td class="n">£5–15k</td></tr>
+    <tr><td>Order-chasing agent</td><td>Yearly subscription</td><td class="n">~£35k/yr</td></tr>
+    <tr><td>Full assistant (all three jobs)</td><td>Yearly subscription</td><td class="n">£75–120k/yr</td></tr>
+  </table>
+  <div class="callout win"><b>The path to a real business:</b> about £35k a year × ~115 retailers ≈ <b>£4–5M a year</b> — a small slice of the market. Adding the other two jobs to each customer is what pushes it well beyond that.</div>
+</section>
+
+<section id="risks">
+  <h2><span class="n">09</span>The risks (and what to do about them)</h2>
+  <table>
+    <tr><th>Risk</th><th class="n">How serious</th><th>What to do</th></tr>
+    <tr><td>The retailer can't see how much they're losing</td><td class="n">High</td><td>Lead with the paid audit that puts a pound figure on it.</td></tr>
+    <tr><td>They're nervous about an agent emailing their suppliers</td><td class="n">Medium</td><td>It proposes, a person approves — then it acts on its own once trusted.</td></tr>
+    <tr><td>Connecting to their system is slow, or IT says no</td><td class="n">Medium</td><td>Start read-only; reuse the same connector for each system you support.</td></tr>
+    <tr><td>A big software vendor adds this themselves</td><td class="n">Medium</td><td>Win the unglamorous mid-sized retailer side first, and build up the memory of how each supplier's problems get fixed.</td></tr>
+  </table>
+  <div class="callout">Want the detail on the first and most important job? See the dedicated write-up: <a href="supplier-po-exception-agent.html" style="color:var(--accent)">The Supplier &amp; Purchase-Order Exception Agent</a>.</div>
+</section>
+
+</div>
+<footer><div class="wrap">Deep dive · The Retail Buyer Agent · 27 June 2026. Estimates for prioritising ideas, not guarantees. <a href="opportunity-scorecard.html" style="color:var(--accent)">← Back to the ranking</a></div></footer>
+</body>
+</html>
