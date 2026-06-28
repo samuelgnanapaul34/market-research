@@ -3,240 +3,845 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scoring 17 Agentic-AI Ideas — One Honest Ranking</title>
+<title>Agentic-AI Opportunities — Top 25 Scored (2026)</title>
 <style>
   :root{
-    --ink:#1a1f2b; --muted:#5b6473; --line:#e3e7ee; --bg:#f6f8fb;
-    --accent:#2b6cb0; --accent2:#0b7285; --good:#2f855a; --warn:#b7791f; --bad:#c53030;
-    --card:#ffffff; --chip:#eef3f9;
+    --bg:#0f1117; --panel:#171a23; --panel2:#1d212c; --line:#2a2f3c;
+    --ink:#e7e9ee; --muted:#9aa3b2; --soft:#c5cad4;
+    --accent:#6ea8fe; --accent2:#8b7bf7; --green:#3ecf8e; --amber:#f5b14c; --red:#ef6f6f;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-       color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px}
-  .wrap{max-width:1080px;margin:0 auto;padding:32px 28px 80px}
-  header.top{border-bottom:3px solid var(--accent);padding-bottom:18px;margin-bottom:6px}
-  .kick{display:inline-block;background:#eef0f4;color:var(--ink);font-weight:700;font-size:11px;
-        letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
-  h1{font-size:30px;margin:14px 0 4px;letter-spacing:-.01em}
-  .sub{color:var(--muted);font-size:14px}
-  h2{font-size:21px;margin:38px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
-  h3{font-size:16px;margin:22px 0 8px}
-  p{margin:10px 0}
-  .lead{font-size:16px;color:#2c3340}
-  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:18px 0;font-size:14px}
-  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
-  .toc a:hover{text-decoration:underline}
-  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px;background:var(--card)}
-  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
-  th{background:#eef3f9;font-weight:700}
-  tr:nth-child(even) td{background:#fafbfd}
-  .num{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .rank{font-weight:800;color:var(--muted);text-align:center;width:34px}
-  .pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
-  .p-good{background:#e7f5ec;color:var(--good)}
-  .p-warn{background:#fdf3e0;color:var(--warn)}
-  .p-bad{background:#fdeaea;color:var(--bad)}
-  .p-mut{background:#eef0f4;color:var(--muted)}
-  .modules{margin-top:7px;font-size:12px;color:#3a4452;line-height:1.5}
-  .modules > div{margin:3px 0}
-  .mscore{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .xref a{font-size:11px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid #cdd9e8;border-radius:5px;padding:0 5px;margin-left:5px}
-  .xref a:hover{background:#eef3f9}
-  .bar{background:#eaeef4;border-radius:5px;height:14px;position:relative;overflow:hidden;min-width:90px;display:inline-block;width:100%;vertical-align:middle}
-  .bar > span{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,#3b82c4,#2b6cb0)}
-  .bar.win > span{background:linear-gradient(90deg,#37a06a,#2f855a)}
-  .bar.lo > span{background:linear-gradient(90deg,#d98b8b,#c53030)}
-  .barwrap{display:flex;align-items:center;gap:8px}
-  .barwrap b{font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
-  .winrow td{background:#eaf4ec!important}
-  .callout{background:#eef6fb;border-left:4px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
-  .callout.warn{background:#fdf6e9;border-color:var(--warn)}
-  .callout.win{background:#ecf7f0;border-color:var(--good)}
-  .callout.key{background:#fff7e6;border-color:var(--ink)}
-  ul{margin:8px 0;padding-left:22px} li{margin:5px 0}
-  .muted{color:var(--muted)}
-  .src{font-size:11px;color:#8a93a3}
-  .back{font-size:13px;margin-bottom:4px}
-  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
-  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-  @media print{body{background:#fff}.wrap{max-width:none}table{break-inside:avoid}}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  header.hero{padding:54px 22px 38px;background:radial-gradient(1200px 420px at 18% -10%,rgba(110,168,254,.18),transparent),radial-gradient(900px 380px at 88% 0%,rgba(139,123,247,.16),transparent);border-bottom:1px solid var(--line)}
+  .hero h1{font-size:33px;line-height:1.14;margin:0 0 11px;letter-spacing:-.02em}
+  .hero .sub{color:var(--soft);font-size:18px;max-width:780px}
+  .meta{margin-top:17px;color:var(--muted);font-size:13px;display:flex;gap:16px;flex-wrap:wrap}
+  .meta b{color:var(--soft)}
+  .notice{margin-top:18px;padding:11px 15px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--muted);font-size:13px;max-width:780px}
+  .notice b{color:var(--green)}
+  nav.toc{position:sticky;top:0;z-index:5;background:rgba(15,17,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:9px 0}
+  nav.toc .wrap{display:flex;gap:7px;flex-wrap:wrap;font-size:13px}
+  nav.toc a{color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:7px;border:1px solid transparent}
+  nav.toc a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{padding:36px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:24px;letter-spacing:-.01em;margin:0 0 6px}
+  h2 .num{color:var(--accent);margin-right:10px;font-variant-numeric:tabular-nums}
+  .lead{color:var(--soft);max-width:840px}
+  h3{font-size:17px;margin:22px 0 8px}
+  p{color:var(--soft)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel2);color:var(--soft);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  tr:last-child td{border-bottom:none}
+  td.n,th.n{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tbody tr:hover{background:rgba(110,168,254,.05)}
+  .rank{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:var(--panel2);font-weight:700;font-size:12px;border:1px solid var(--line)}
+  .top3{background:rgba(62,207,142,.16);color:var(--green);border-color:rgba(62,207,142,.3)}
+  .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .b-strong{background:rgba(62,207,142,.14);color:var(--green);border:1px solid rgba(62,207,142,.3)}
+  .b-promise{background:rgba(245,177,76,.13);color:var(--amber);border:1px solid rgba(245,177,76,.3)}
+  .chip{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;background:var(--panel2);border:1px solid var(--line);color:var(--soft);white-space:nowrap}
+  .v-con{color:#f5b14c} .v-ret{color:#6ea8fe} .v-log{color:#3ecf8e} .v-ins{color:#ef6f6f}
+  .v-hea{color:#5fd0c0} .v-fin{color:#e0b657} .v-com{color:#b79bf7} .v-ene{color:#9ee04c}
+  .v-cre{color:#67c7e0} .v-pro{color:#f08bb0}
+  .grid{display:grid;gap:14px}
+  .cols-3{grid-template-columns:repeat(3,1fr)} .cols-2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.cols-3,.cols-2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card h4{margin:0 0 5px;font-size:14.5px}
+  .card p{margin:0;font-size:13px;color:var(--muted)}
+  .kpi{display:flex;gap:13px;flex-wrap:wrap;margin-top:10px}
+  .kpi .k{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 15px;min-width:140px}
+  .kpi .k b{display:block;font-size:21px}
+  .kpi .k span{color:var(--muted);font-size:12px}
+  ul.tight{margin:8px 0 0;padding-left:18px}
+  ul.tight li{margin:4px 0;color:var(--soft);font-size:14px}
+  .callout{border-left:3px solid var(--accent);background:var(--panel);padding:11px 15px;border-radius:0 10px 10px 0;margin:12px 0;color:var(--soft);font-size:14px}
+  .legend{font-size:12.5px;color:var(--muted);margin-top:6px}
+  footer{padding:32px 22px 58px;color:var(--muted);font-size:12.5px}
+  .srclist{columns:2;column-gap:26px;font-size:12.5px}
+  @media(max-width:760px){.srclist{columns:1}}
+  .srclist a{display:block;margin:4px 0;color:var(--accent);text-decoration:none;break-inside:avoid}
+  /* DETAILED SCORECARDS */
+  details.sc{background:var(--panel);border:1px solid var(--line);border-radius:13px;margin:11px 0;overflow:hidden}
+  details.sc[open]{border-color:rgba(110,168,254,.4)}
+  details.sc > summary{cursor:pointer;list-style:none;padding:13px 16px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  details.sc > summary::-webkit-details-marker{display:none}
+  details.sc > summary::before{content:"▸";color:var(--muted);font-size:12px}
+  details.sc[open] > summary::before{content:"▾"}
+  details.sc > summary:hover{background:rgba(110,168,254,.05)}
+  .sc-name{font-weight:700;font-size:15px;flex:1;min-width:200px}
+  .sc-score{font-variant-numeric:tabular-nums;color:var(--soft);font-size:13px;white-space:nowrap}
+  .sc-body{padding:4px 16px 18px}
+  .sc-desc{color:var(--soft);font-size:14px;margin:4px 0 12px}
+  .sc-desc b{color:var(--ink)}
+  table.fct{font-size:13px;margin:6px 0 0}
+  table.fct td.f{width:32%} table.fct td.s{width:54px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+  table.fct td.w{width:48px;text-align:center;color:var(--muted);font-size:11.5px}
+  .s5{color:var(--green)} .s4{color:#8fd6ad} .s3{color:var(--amber)} .s2{color:#f0936f} .s1{color:var(--red)}
+  .sc-tot{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px}
+  .sc-tot .t{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:6px 12px}
+  .sc-tot .t b{color:var(--ink);font-variant-numeric:tabular-nums}
+  @media print{nav.toc{display:none}body{background:#fff;color:#111}.card,table{break-inside:avoid}details.sc{break-inside:avoid}details.sc > .sc-body{display:block!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header class="top">
-  <div class="back"><a href="index.html">← All market-research notes</a></div>
-  <span class="kick">Market Research</span>
-  <h1>Scoring 17 Agentic-AI Ideas — One Honest Ranking</h1>
-  <div class="sub">Seventeen agentic-AI business ideas, each scored against the same 12-point checklist and ranked from strongest to weakest — with a plain explanation of which idea comes out on top and why. Plus ten big, well-known markets that don't make the cut, and the reason each one fails. June 2026.</div>
+<header class="hero">
+  <div class="wrap">
+    <h1>Agentic-AI Opportunities — Top 25, Scored</h1>
+    <div class="sub">A discovery-to-scorecard pass across twelve verticals: twenty-five narrow, agentic B2B ops wedges — each with a full 12-factor score split, a detailed description, and a domain tag — ranked for a lean, AI-native founding team.</div>
+    <div class="meta">
+      <span><b>Prepared:</b> 27 June 2026</span>
+      <span><b>Pipeline:</b> Opportunity-Discovery → Market-Opportunity-Scorer</span>
+      <span><b>Scope:</b> Application / agentic layer · UK &amp; US B2B</span>
+    </div>
+    <div class="notice"><b>Shareable.</b> General market research and public-source analysis only — no personal, confidential, or proprietary information about any individual, company, or partnership.</div>
+  </div>
 </header>
 
-<p class="lead">This page compares a wide range of AI-agent business ideas — across retail operations, back-office services, and online-seller tools — on one consistent checklist, and ranks them. The point is a fair side-by-side: which idea is the strongest bet for a small, AI-first team to build, and the reasoning behind it. The front-runner has its own detailed write-up — <a href="supplier-po-exception-agent.html">The Supplier &amp; Purchase-Order Exception Agent</a>. The top idea is a <strong>suite of three closely-related buying tasks</strong>, sold to the same buyer, so they're grouped as one product with each part's score shown.</p>
+<nav class="toc"><div class="wrap">
+  <a href="#summary">Summary</a>
+  <a href="#method">Method</a>
+  <a href="#verticals">Verticals</a>
+  <a href="#ranking">Top 25 Ranking</a>
+  <a href="#scorecards">Detailed Scorecards</a>
+  <a href="#sources">Sources</a>
+</div></nav>
 
-<div class="toc">
-  <strong>On this page:</strong>
-  <a href="#how">1 · The checklist</a>
-  <a href="#master">2 · The full ranking (17 ideas)</a>
-  <a href="#batches">3 · The five groups, explained</a>
-  <a href="#autopilot">4 · The big markets that don't make the cut</a>
-  <a href="#read">5 · What the whole table shows</a>
+<div class="wrap">
+
+<!-- SUMMARY -->
+<section id="summary">
+  <h2><span class="num">01</span>Summary</h2>
+  <p class="lead"><b>What this is:</b> a ranking of 25 specific AI-agent business ideas, each scored on the same checklist and openable below to its full factor-by-factor breakdown. In short: the agentic-AI wave has matured and capital has concentrated — the obvious autopilot categories (customer service, legal, healthcare RCM, trades front-office, AP, sales-tax) are claimed by funded leaders. The room left for a lean team is in <b>narrow, unglamorous ops wedges behind a regulatory or system-of-record moat.</b> These 25 are the strongest such wedges surfaced across the verticals below.</p>
+  <div class="kpi">
+    <div class="k"><b>23</b><span>distinct products (25 evaluated; 2 folded in)</span></div>
+    <div class="k"><b>12</b><span>verticals covered</span></div>
+    <div class="k"><b>6</b><span>rated "Strong" (raw ≥46)</span></div>
+    <div class="k"><b>37–50</b><span>raw-score range /60</span></div>
+  </div>
+  <div class="callout">The decisive pattern: the highest-scoring ideas are <b>regulatory / legacy-incumbent wedges</b> where the competition is old service-bureau software or manual labour — not a funded AI clone. Where an idea touches a heavily-funded category (sales-tax, dental RCM, KYC) or a closed buyer (banks, carriers), the score falls regardless of pain size.</p></div>
+  <div class="card" style="margin-top:14px"><h4>Markets deliberately left out</h4>
+    <p>The famous "an agent could do this whole job" categories were stress-tested too — none made the cut. Each is either already owned by well-funded players, or it's licensed/regulated work a lean team shouldn't take on:</p>
+    <ul class="tight">
+      <li><b>Bookkeeping / accounting close</b> — funded autonomous bookkeepers already shipping</li>
+      <li><b>Legal transactional</b> — the deepest-funded cluster, and you'd need to be a law firm</li>
+      <li><b>Healthcare billing (RCM)</b> — funded specialists plus HIPAA</li>
+      <li><b>Identity / anti-money-laundering</b> — established vendors, heavily regulated</li>
+      <li><b>Tax advice &amp; filing</b> — incumbents already cover returns, plus licensing</li>
+      <li><b>Insurance claims handling</b> — crowded with funded specialists</li>
+      <li><b>Mortgage origination</b> — funded players, banks building their own, regulated</li>
+      <li><b>Property-sale closing / escrow</b> — funded players already hold the space</li>
+      <li><b>Construction cost estimating</b> — open, but the tools sell too cheaply</li>
+      <li><b>IT-services (MSP) back-office</b> — open, but hard to reach the buyers at scale</li>
+    </ul>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section id="method">
+  <h2><span class="num">02</span>Method &amp; Scoring Model</h2>
+  <p class="lead">Candidates generated with two discovery lenses (the Autopilot Map + the AI Opportunity Map), pre-screened against a founder-fit gate, then each scored on twelve factors (1–5) → a raw total /60 and a weighted total /85.</p>
+  <div class="grid cols-2">
+    <div class="card"><h4>The 12 factors (and weights)</h4><p>Pain severity ×2 · Urgency ×2 · GTM reachability ×2 · Buyer clarity ×1.5 · ROI clarity ×1.5 · Existing spend ×1.5 · Integration friction ×1.5 (5 = shallow) · Frequency ×1 · Incumbent weakness ×1 · ACV potential ×1 · AI-fit / founder edge ×1 · Domain-expertise barrier ×1 (5 = codifiable). Max = 85.</p></div>
+    <div class="card"><h4>Verdict bands &amp; calibration</h4><p>Raw/60: <b>46–60 Strong</b> · <b>36–45 Promising</b> · <b>&lt;36 Low</b>. Incumbent-weakness &amp; AI-fit discounted until verified; red-ocean &amp; regulated-for-offshore penalised; GTM &amp; domain-barrier weighted heavily ("can an outsider reach <i>and</i> win this?"). Scores prioritise which ideas deserve live validation — not guarantees.</p></div>
+  </div>
+  <p class="legend">Competitive sets were web-verified (funding, pricing, market maps) in 2026; market sizes are directional. Expand any scorecard below to see every factor's score and rationale.</p>
+</section>
+
+<!-- VERTICALS -->
+<section id="verticals">
+  <h2><span class="num">03</span>Coverage by Vertical</h2>
+  <p class="lead">Twelve domains; count of ideas + best score in each. Retail / commerce-SCM is the deepest seam (unglamorous supplier-side ops + regulatory compliance); construction and logistics follow.</p>
+  <table>
+    <tr><th>Vertical / Domain</th><th class="n">Ideas</th><th class="n">Best raw</th><th>Strongest idea</th></tr>
+    <tr><td><span class="chip v-con">Construction / GovCon</span></td><td class="n">2</td><td class="n">50</td><td>Certified-payroll compliance agent</td></tr>
+    <tr><td><span class="chip v-ret">Retail — Commerce &amp; SCM</span></td><td class="n">4</td><td class="n">48</td><td>Retailer-side PO-exception agent</td></tr>
+    <tr><td><span class="chip v-ret">Retail — Compliance</span></td><td class="n">2</td><td class="n">47</td><td>Product-safety + DPP compliance agent</td></tr>
+    <tr><td><span class="chip v-log">Logistics / Trade</span></td><td class="n">3</td><td class="n">44</td><td>Detention &amp; demurrage recovery</td></tr>
+    <tr><td><span class="chip v-ins">Insurance / Risk</span></td><td class="n">2</td><td class="n">41</td><td>Subrogation file handling</td></tr>
+    <tr><td><span class="chip v-hea">Healthcare ops</span></td><td class="n">2</td><td class="n">41</td><td>Provider credentialing &amp; enrollment</td></tr>
+    <tr><td><span class="chip v-com">Compliance / Sustainability</span></td><td class="n">2</td><td class="n">45</td><td>Multi-jurisdiction license renewal</td></tr>
+    <tr><td><span class="chip v-ene">Energy</span></td><td class="n">1</td><td class="n">43</td><td>Solar interconnection &amp; permitting</td></tr>
+    <tr><td><span class="chip v-ret">Wholesale / Distribution</span></td><td class="n">1</td><td class="n">46</td><td>Distributor order-entry agent</td></tr>
+    <tr><td><span class="chip v-cre">Commercial Real Estate</span></td><td class="n">1</td><td class="n">41</td><td>Lease abstraction + CAM recovery</td></tr>
+    <tr><td><span class="chip v-pro">Professional Services</span></td><td class="n">1</td><td class="n">40</td><td>Audit PBC / confirmation chase</td></tr>
+    <tr><td><span class="chip v-fin">Financial Services</span></td><td class="n">1</td><td class="n">39</td><td>KYC/AML periodic-review agent</td></tr>
+  </table>
+</section>
+
+<!-- RANKING -->
+<section id="ranking">
+  <h2><span class="num">04</span>The Top 25 — Ranked</h2>
+  <p class="lead">Sorted by weighted score. Totals reconcile to the detailed splits below (expand any idea in <a href="#scorecards" style="color:var(--accent)">Detailed Scorecards</a>). The <b>top 5 each link to a dedicated deep-dive page</b> — TAM/SAM/SOM, competitive teardown, execution strategy, roadmap &amp; timeline, GTM, pricing, pilot spec and risk register.</p>
+  <table>
+    <tr><th class="n">#</th><th>Idea / wedge</th><th>Vertical</th><th class="n">Raw<br>/60</th><th class="n">Wtd<br>/85</th><th>Verdict</th><th>Key risk (verified)</th></tr>
+    <tr><td class="n"><span class="rank top3">1</span></td><td><b>Certified-payroll agent</b> <a href="deepdive-01-certified-payroll.html" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></td><td><span class="chip v-con">Construction/GovCon</span></td><td class="n">50</td><td class="n">72</td><td><span class="badge b-strong">Strong</span></td><td>Modest ACV; 50-state form sprawl</td></tr>
+    <tr><td class="n"><span class="rank top3">2</span></td><td><b>Retailer-side PO-exception agent</b> <a href="deepdive-02-po-exception.html" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></td><td><span class="chip v-ret">Retail SCM</span></td><td class="n">48</td><td class="n">67</td><td><span class="badge b-strong">Strong</span></td><td>Buyers can't pre-quantify losses; trust bar</td></tr>
+    <tr><td class="n"><span class="rank top3">3</span></td><td><b>Product-safety + DPP compliance agent</b> <a href="deepdive-03-product-safety-dpp.html" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></td><td><span class="chip v-ret">Retail Compliance</span></td><td class="n">47</td><td class="n">67</td><td><span class="badge b-strong">Strong</span></td><td>Testing labs (UL/SGS/Eurofins) could extend</td></tr>
+    <tr><td class="n"><span class="rank">4</span></td><td><b>Article/SKU-setup agent</b> <a href="deepdive-04-article-setup.html" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></td><td><span class="chip v-ret">Retail SCM</span></td><td class="n">46</td><td class="n">66</td><td><span class="badge b-strong">Strong</span></td><td>PIM + SAP Joule adjacent</td></tr>
+    <tr><td class="n"><span class="rank">5</span></td><td><b>MAP / out-of-stock strike agent</b> <a href="deepdive-05-map-oos-strike.html" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></td><td><span class="chip v-ret">Retail / D2C</span></td><td class="n">46</td><td class="n">66</td><td><span class="badge b-strong">Strong</span></td><td>Platform-data dependency; FMCG incumbents</td></tr>
+    <tr><td class="n"><span class="rank">6</span></td><td><b>Distributor order-entry agent</b></td><td><span class="chip v-ret">Wholesale</span></td><td class="n">46</td><td class="n">65</td><td><span class="badge b-strong">Strong</span></td><td>Conexiom/Esker entrenched; AI upstarts</td></tr>
+    <tr><td class="n"><span class="rank">7</span></td><td><b>Subcontractor compliance agent</b></td><td><span class="chip v-con">Construction</span></td><td class="n">45</td><td class="n">65</td><td><span class="badge b-promise">Promising</span></td><td>Fragmented incumbents (Siteline/GCPay)</td></tr>
+    <tr><td class="n"><span class="rank">8</span></td><td><b>Business-license renewal agent</b></td><td><span class="chip v-com">Compliance</span></td><td class="n">45</td><td class="n">64</td><td><span class="badge b-promise">Promising</span></td><td>Buyer awareness diffuse</td></tr>
+    <tr><td class="n"><span class="rank">9</span></td><td><b>Packaging EPR / PPWR agent</b></td><td><span class="chip v-com">Sustainability</span></td><td class="n">44</td><td class="n">64</td><td><span class="badge b-promise">Promising</span></td><td>Compliance schemes own the relationship</td></tr>
+    <tr><td class="n"><span class="rank">10</span></td><td><b>Detention &amp; demurrage recovery</b></td><td><span class="chip v-log">Logistics</span></td><td class="n">44</td><td class="n">64</td><td><span class="badge b-promise">Promising</span></td><td>Windward / BlueCargo entered</td></tr>
+    <tr style="opacity:.6"><td class="n">—</td><td><i>Digital Product Passport agent</i></td><td><span class="chip v-ret">Retail Compliance</span></td><td class="n">—</td><td class="n">—</td><td><span class="badge" style="background:rgba(139,123,247,.14);color:var(--accent2);border:1px solid rgba(139,123,247,.3)">Merged → #3</span></td><td>DPP is part of the same technical-compliance file</td></tr>
+    <tr><td class="n"><span class="rank">12</span></td><td><b>Solar interconnection &amp; permitting</b></td><td><span class="chip v-ene">Energy</span></td><td class="n">43</td><td class="n">62</td><td><span class="badge b-promise">Promising</span></td><td>SolarAPP+ free tier in some states</td></tr>
+    <tr><td class="n"><span class="rank">13</span></td><td><b>Freight audit &amp; payment agent</b></td><td><span class="chip v-log">Logistics</span></td><td class="n">43</td><td class="n">62</td><td><span class="badge b-promise">Promising</span></td><td>Cass/Trax own payment rails &amp; float</td></tr>
+    <tr><td class="n"><span class="rank">14</span></td><td><b>Retail supplier-onboarding agent</b> <span style="color:var(--muted);font-weight:400">(incl. COI verification)</span></td><td><span class="chip v-ret">Retail SCM</span></td><td class="n">43</td><td class="n">62</td><td><span class="badge b-promise">Promising</span></td><td>Ariba/Coupa/Kodiak crowd it</td></tr>
+    <tr><td class="n"><span class="rank">15</span></td><td><b>Vendor rebate / co-op recovery</b></td><td><span class="chip v-ret">Retail Finance</span></td><td class="n">42</td><td class="n">61</td><td><span class="badge b-promise">Promising</span></td><td>Enable / Vistex present</td></tr>
+    <tr><td class="n"><span class="rank">16</span></td><td><b>Customs entry / ISF exception agent</b></td><td><span class="chip v-log">Logistics/Trade</span></td><td class="n">42</td><td class="n">61</td><td><span class="badge b-promise">Promising</span></td><td>Classification beyond 6-digit is broker-licensed</td></tr>
+    <tr><td class="n"><span class="rank">17</span></td><td><b>Ethical-sourcing / SMETA agent</b></td><td><span class="chip v-ret">Retail / ESG</span></td><td class="n">42</td><td class="n">59</td><td><span class="badge b-promise">Promising</span></td><td>Sedex network dominant</td></tr>
+    <tr><td class="n"><span class="rank">18</span></td><td><b>Subrogation file-handling agent</b></td><td><span class="chip v-ins">Insurance</span></td><td class="n">41</td><td class="n">59</td><td><span class="badge b-promise">Promising</span></td><td>CCC/Shift funded; carrier-gated sales</td></tr>
+    <tr><td class="n"><span class="rank">19</span></td><td><b>Provider credentialing &amp; enrollment</b></td><td><span class="chip v-hea">Healthcare ops</span></td><td class="n">41</td><td class="n">61</td><td><span class="badge b-promise">Promising</span></td><td>Medallion ($130M)/CertifyOS funded</td></tr>
+    <tr><td class="n"><span class="rank">20</span></td><td><b>Lease abstraction + CAM recovery</b></td><td><span class="chip v-cre">Commercial RE</span></td><td class="n">41</td><td class="n">59</td><td><span class="badge b-promise">Promising</span></td><td>Committee sale; Visual Lease/Lucernex</td></tr>
+    <tr><td class="n"><span class="rank">21</span></td><td><b>Audit PBC / confirmation chase</b></td><td><span class="chip v-pro">Prof. Services</span></td><td class="n">40</td><td class="n">59</td><td><span class="badge b-promise">Promising</span></td><td>Suralink/DataSnipper entrenched</td></tr>
+    <tr><td class="n"><span class="rank">22</span></td><td><b>Dental RCM agent for DSOs</b></td><td><span class="chip v-hea">Healthcare</span></td><td class="n">40</td><td class="n">58</td><td><span class="badge b-promise">Promising</span></td><td>HIPAA/PHI + crowded (Toothy/SuperDial)</td></tr>
+    <tr><td class="n"><span class="rank">23</span></td><td><b>E&amp;S broker submission intake</b></td><td><span class="chip v-ins">Insurance</span></td><td class="n">40</td><td class="n">57</td><td><span class="badge b-promise">Promising</span></td><td>Red-ocean (hyperexponential/Insurnest)</td></tr>
+    <tr><td class="n"><span class="rank">24</span></td><td><b>KYC/AML periodic-review agent</b></td><td><span class="chip v-fin">FinServ</span></td><td class="n">39</td><td class="n">56</td><td><span class="badge b-promise">Promising</span></td><td>Regulated + bank-gated; Fenergo + banks DIY</td></tr>
+    <tr style="opacity:.6"><td class="n">—</td><td><i>COI compliance &amp; remediation</i></td><td><span class="chip v-ins">Insurance/Risk</span></td><td class="n">—</td><td class="n">—</td><td><span class="badge" style="background:rgba(139,123,247,.14);color:var(--accent2);border:1px solid rgba(139,123,247,.3)">Merged → #14</span></td><td>COI is a sub-step of vendor onboarding; crowded standalone</td></tr>
+  </table>
+  <p class="legend">Idea #2 is scored on a generic cold-start basis; a specific existing sales channel — if one existed — would raise its GTM score further. All ideas presented as generic market concepts.</p>
+
+  <h3>Merges &amp; product shape</h3>
+  <p class="lead">Two entries were folded in because, standalone, they're <b>features rather than products</b> — they fail the "would a buyer pay for this alone, with an edge?" test. The remaining 23 each clear that bar.</p>
+  <div class="grid cols-2">
+    <div class="card"><h4>① DPP → #3 (Product-safety)</h4><p>A Digital Product Passport is part of the same technical-compliance file under the EU Toy Safety Reg — same buyer, same workflow. Standalone it's a sub-deliverable, not a product.</p></div>
+    <div class="card"><h4>② COI → #14 (Supplier onboarding)</h4><p>COI verification is a sub-step of vendor onboarding (also in #7). Its floor score (37) confirms standalone COI is a crowded, commoditised feature where a new entrant adds no edge.</p></div>
+  </div>
+  <h3>Suite families — keep separate, but they're one product over time</h3>
+  <p class="lead">Some wedges are kin: narrow enough to <b>sell one at a time</b>, but built on a shared buyer + system of record, so they roll up into a single product via land-and-expand.</p>
+  <table>
+    <tr><th>Family</th><th>Members</th><th>How to play it</th></tr>
+    <tr><td><b>Buyer-suite</b></td><td>#2 PO-exception · #4 Article-setup · #14 Supplier-onboarding</td><td><b>Architect as one product; sell as sequential agents.</b> Lead with PO-exception (highest score, cleanest air); add the others as modules once you own the buying team. Don't pitch "the platform" — bundling scores lower (46 &lt; 48) and is harder to buy.</td></tr>
+    <tr><td><b>Retail-compliance</b></td><td>#3 Product-safety+DPP · #9 Packaging EPR · #17 Ethical-sourcing/SMETA</td><td>Different regs &amp; data = defensible standalone each, but one coherent "retail regulatory suite" to expand into on the same buyer.</td></tr>
+    <tr><td><b>Carrier-cost recovery</b> <span style="color:var(--muted)">(optional)</span></td><td>#10 D&amp;D recovery · #13 Freight audit</td><td>Same buyer + same "recover money from carriers" job; mergeable, but incumbents differ (Windward vs Cass) so each needs its own GTM.</td></tr>
+  </table>
+  <div class="callout"><b>The rule of thumb:</b> the <i>company's product</i> can be a suite; the <i>thing you sell first</i> must be one agent. Narrow ≠ small — a single agent that justifies a real price, recurs, and has an expansion path <i>is</i> a meaningful product. Sell narrow, build to expand.</div>
+</section>
+
+<!-- DETAILED SCORECARDS -->
+<section id="scorecards">
+  <h2><span class="num">05</span>Detailed Scorecards</h2>
+  <p class="lead">Expand any idea for its description and the full 12-factor split (score 1–5 + weight + rationale). Factor weights: Pain/Urgency/GTM ×2; Buyer/ROI/Spend/Integration ×1.5; Frequency/Incumbent/ACV/AI-fit/Domain ×1.</p>
+
+  <!-- 1 -->
+  <details class="sc" open>
+    <summary><span class="sc-name">1 · Certified-payroll agent</span><span class="chip v-con">Construction/GovCon</span><span class="sc-score">Raw 50/60 · Wtd 72/85 · <b style="color:var(--green)">Strong</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Ingests a government contractor's weekly payroll + timekeeping, auto-generates and files <b>certified-payroll reports (federal WH-347 + state equivalents)</b>, validates fringe-benefit and apprenticeship ratios, and flags Davis-Bacon / prevailing-wage violations before they trigger withheld payment or debarment. <b>Buyer:</b> the payroll/compliance lead at contractors on publicly-funded work. <b>Wedge:</b> a mandatory weekly filing with severe penalties, where incumbents (LCPtracker, Points North) are legacy desktop tools, not AI-native.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s5">5</td><td class="w">×1.5</td><td>One narrow owner — the certified-payroll lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>Withheld pay, back-wages, debarment — existential</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>LCPtracker $3.6–14k/yr; Points North, eBacon paid</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Avoided penalties + weekly hours saved</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s5">5</td><td class="w">×2</td><td>Weekly statutory filing — non-deferrable</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Needs payroll/timekeeping feed; moderate</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s5">5</td><td class="w">×1</td><td>Weekly per active project</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s4">4</td><td class="w">×1</td><td>Legacy, clunky, not AI-native</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>$3.6–14k/yr; respectable not large</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Ingest → compute fringe → fill → file</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>AGC chapters, GovCon media, search intent</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>DBRA + state rules: codifiable → moat</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>50</b>/60</span><span class="t">Weighted <b>72</b>/85</span><span class="t">Verdict <b style="color:var(--green)">Strong</b></span></div>
+    </div>
+  </details>
+
+  <!-- 2 -->
+  <details class="sc">
+    <summary><span class="sc-name">2 · Retailer-side PO-exception agent</span><span class="chip v-ret">Retail SCM</span><span class="sc-score">Raw 48/60 · Wtd 67/85 · <b style="color:var(--green)">Strong</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Watches a retailer's inbound PO flow to suppliers, detects exceptions (short-ships, price/qty mismatches, late ASNs, missing confirmations) and <b>autonomously chases the supplier to resolve them</b> — protecting against chargebacks, AR leakage and stockouts. <b>Buyer:</b> the retailer's supply-chain / merch-ops lead. <b>Wedge:</b> supplier-side deduction tools are crowded, but the <b>retailer-side has no funded pure-play</b>; the real risk is the sale (buyers can't pre-quantify their losses), solved by leading with a paid "Exception-Loss Audit."</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Supply-chain / merch-ops lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>Manual chasing; 60–90 min per 100-line PO</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>ERP + heavy manual labour today</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Recovered overpayments + avoided stockouts</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Chronic, not acute — manufacture via audit</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Read-only PO/ASN/GRN feed to start</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s5">5</td><td class="w">×1</td><td>Daily operational workflow</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s5">5</td><td class="w">×1</td><td>No funded retailer-side pure-play</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s4">4</td><td class="w">×1</td><td>~£35k → £4–5M ARR at ~115 logos</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Detect + chase + resolution-trace graph</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Reachable but considered sale (cold-start)</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Retail-supplier ops codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>48</b>/60</span><span class="t">Weighted <b>67</b>/85</span><span class="t">Verdict <b style="color:var(--green)">Strong</b></span></div>
+    </div>
+  </details>
+
+  <!-- 3 -->
+  <details class="sc">
+    <summary><span class="sc-name">3 · Product-safety + DPP compliance agent</span><span class="chip v-ret">Retail Compliance</span><span class="sc-score">Raw 47/60 · Wtd 67/85 · <b style="color:var(--green)">Strong</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Collects and validates supplier <b>test reports, certificates of conformity and CPCs</b> across standards (EN71, ASTM F963, CPSIA, UKCA), flags expired/mismatched docs (≈45% of factory reports are), builds the technical file, and handles US CPSC e-filing + EU technical-file/DPP obligations. <b>Buyer:</b> the importer/retailer's product-safety / QA / compliance lead. <b>Wedge:</b> hard 2026 deadlines + incumbents (Assent) are manufacturer/BOM-level, leaving finished-goods retailer compliance open. <span style="color:var(--accent2)"><b>(Merge:</b> the Digital Product Passport agent is folded in here — a DPP is part of the same technical-compliance file under the EU Toy Safety Reg, same buyer, same workflow.)</span></p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Product-safety / QA / compliance lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>Recalls, liability, border holds</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Testing labs, manual compliance teams</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s3">3</td><td class="w">×1.5</td><td>Avoided recalls/holds; partly risk-avoidance</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>US e-filing + EU Toy Safety Reg/DPP deadlines</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Doc ingestion + article master; moderate</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Every new SKU / supplier doc cycle</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s4">4</td><td class="w">×1</td><td>Assent = manufacturer-level; finished-goods open</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s4">4</td><td class="w">×1</td><td>Mission-critical compliance → £30–80k</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Doc extraction + validation + filing</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Importer/compliance trade media, search</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Toy-safety rules deep but codifiable → moat</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>47</b>/60</span><span class="t">Weighted <b>67</b>/85</span><span class="t">Verdict <b style="color:var(--green)">Strong</b></span></div>
+    </div>
+  </details>
+
+  <!-- 4 -->
+  <details class="sc">
+    <summary><span class="sc-name">4 · Article / SKU-setup agent</span><span class="chip v-ret">Retail SCM</span><span class="sc-score">Raw 46/60 · Wtd 66/85 · <b style="color:var(--green)">Strong</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Ingests supplier <b>line-sheets / PDFs / spreadsheets</b> and auto-creates an enriched <b>article/SKU master</b> in the retailer's ERP (attributes, classifications, barcodes, dimensions, safety data, pricing) for buyer approval. <b>Buyer:</b> assistant buyers / merch-ops, with the Buying Director owning budget. <b>Wedge:</b> the highest-volume buyer drudgery (a toy retailer sets up thousands of seasonal SKUs); contested by PIM (Salsify/Syndigo/Pimberly) and adjacent SAP Joule, so win on focus + ERP-embedding.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Asst buyer pain; Buying Director budget</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>~15–30 min/SKU re-keying; missed on-shelf dates</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>PIM tools + headcount</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Time saved + fewer setup errors</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Chronic; seasonal crunch adds bite</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Deep ERP article-master write</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s5">5</td><td class="w">×1</td><td>Thousands of SKUs, continuous</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>PIM AI-onboarding + Joule adjacent = contested</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s4">4</td><td class="w">×1</td><td>Big time-sink → strong ACV</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Extraction + enrichment, ERP-embedded context</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Retail-ops media, ERP marketplaces</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Article master + supplier data codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>46</b>/60</span><span class="t">Weighted <b>66</b>/85</span><span class="t">Verdict <b style="color:var(--green)">Strong</b></span></div>
+    </div>
+  </details>
+
+  <!-- 5 -->
+  <details class="sc">
+    <summary><span class="sc-name">5 · MAP / out-of-stock strike agent</span><span class="chip v-ret">Retail / D2C</span><span class="sc-score">Raw 46/60 · Wtd 66/85 · <b style="color:var(--green)">Strong</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Monitors a brand's products across retailers/marketplaces for <b>MAP (minimum-advertised-price) violations and out-of-stocks</b>, then <b>acts</b> — issues violation notices, opens cases, alerts reps, triggers re-stock workflows. <b>Buyer:</b> the D2C/CPG brand's channel/eCom manager. <b>Wedge:</b> "does the work" not dashboards; the risk is dependency on volatile marketplace data and entrenched FMCG monitoring incumbents.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Channel / eCommerce manager</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Margin erosion + lost sales from OOS</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Brands pay for price/shelf monitoring</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Recovered margin + restored availability</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>Violations/OOS bleed daily</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Marketplace data + workflow hooks</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s5">5</td><td class="w">×1</td><td>Continuous monitoring + action</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Monitoring crowded; the "act" layer thinner</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid; depends on brand size</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Detection + autonomous enforcement</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>D2C/Amazon-seller media, search</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Channel rules codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>46</b>/60</span><span class="t">Weighted <b>66</b>/85</span><span class="t">Verdict <b style="color:var(--green)">Strong</b></span></div>
+    </div>
+  </details>
+
+  <!-- 6 -->
+  <details class="sc">
+    <summary><span class="sc-name">6 · Distributor order-entry agent</span><span class="chip v-ret">Wholesale</span><span class="sc-score">Raw 46/60 · Wtd 65/85 · <b style="color:var(--green)">Strong</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Reads inbound customer POs arriving by <b>email / PDF / fax</b>, validates line items against the ERP catalog and pricing, and posts the sales order with no re-keying. <b>Buyer:</b> a wholesale distributor's customer-service / order-management lead. <b>Wedge:</b> the mirror of #2; Conexiom ($61M rev, 10 of top-25 distributors) proves willingness-to-pay but serves enterprise/standardised docs — leaving a mid-market + unstructured-document gap, though AI-native upstarts (Ordermatic, Workist) are entering.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>CS / order-management lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Manual re-keying, errors, slow turnaround</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Conexiom/Esker prove premium WTP</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>FTE hours + order accuracy/speed</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Chronic operational drag</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>ERP catalog/pricing + order post</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s5">5</td><td class="w">×1</td><td>Continuous order flow</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Conexiom enterprise-heavy; mid-market gap</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s4">4</td><td class="w">×1</td><td>Conexiom = premium pricing benchmark</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Unstructured-doc parsing → validated order</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Distributor trade media, search-intent</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Order/catalog logic codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>46</b>/60</span><span class="t">Weighted <b>65</b>/85</span><span class="t">Verdict <b style="color:var(--green)">Strong</b></span></div>
+    </div>
+  </details>
+
+  <!-- 7 -->
+  <details class="sc">
+    <summary><span class="sc-name">7 · Subcontractor compliance agent</span><span class="chip v-con">Construction</span><span class="sc-score">Raw 45/60 · Wtd 65/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Collects, validates and chases subcontractor compliance packets — <b>lien waivers in the correct statutory form, COIs, W-9s</b> — and gates AP payment release until the file is clean. <b>Buyer:</b> the GC's project accountant / AP lead. <b>Wedge:</b> statutory waiver forms (12 states mandate exact formats) are a codifiable moat, tightly coupled to construction ERPs; incumbents (Siteline, GCPay, Trimble Pay) do waiver exchange but not AI-native chase-and-remediate.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>GC project accountant / AP</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Lien exposure + delayed payments</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>GCPay/Siteline/Textura paid</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Faster pay cycles, fewer disputes</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>Every monthly pay-app</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Construction ERP integration</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Monthly cycles × many subs</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Fragmented; no AI-native gorilla</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>~£5–20k/yr per GC</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Doc validation + autonomous chasing</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Procore/Autodesk marketplaces, media</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>50-state lien law: codifiable → moat</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>45</b>/60</span><span class="t">Weighted <b>65</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 8 -->
+  <details class="sc">
+    <summary><span class="sc-name">8 · Business-license renewal agent</span><span class="chip v-com">Compliance</span><span class="sc-score">Raw 45/60 · Wtd 64/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Discovers, tracks and files the <b>business-license and permit renewals</b> a multi-location operator owes across states, counties and municipalities — researching requirements, preparing forms, submitting on deadline. <b>Buyer:</b> compliance/ops lead at a franchise or multi-site business. <b>Wedge:</b> incumbents (CT Corp, CSC, Harbor) are <b>human service bureaus</b>, not AI — a true does-the-work gap with a deep, codifiable jurisdiction-rule moat.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Compliance / ops lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Lapsed license = fines / can't operate</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>CT Corp/CSC/Harbor service spend</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Avoided fines + paralegal hours</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Mostly annual deadlines</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s4">4</td><td class="w">×1.5</td><td>Shallow: entity data + locations</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Renewals spread, low per-license cadence</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s4">4</td><td class="w">×1</td><td>People-heavy service bureaus, not AI</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>$89–678/state × sites → $10k+</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Research + form-fill + file across jurisdictions</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Franchise/multi-site media, search</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>State+municipal rules: deep → strong moat</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>45</b>/60</span><span class="t">Weighted <b>64</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 9 -->
+  <details class="sc">
+    <summary><span class="sc-name">9 · Packaging EPR / PPWR agent</span><span class="chip v-com">Sustainability</span><span class="sc-score">Raw 44/60 · Wtd 64/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Collects packaging-composition data across a brand/retailer's SKUs, computes <b>extended-producer-responsibility (EPR) fees</b>, optimises eco-modulation, and files the periodic returns (UK EPR, EU PPWR). <b>Buyer:</b> the sustainability / packaging-compliance lead. <b>Wedge:</b> urgent regulatory deadlines + a lower trust bar (reporting with human sign-off); the risk is that compliance schemes own the producer relationship and the field is forming (AlgoREP, Remedy).</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Sustainability / packaging-compliance lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Fees + non-compliance penalties</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Scheme fees + manual data work</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Eco-fee optimisation + hours saved</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>UK EPR live; PPWR phasing in</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Packaging/SKU data ingestion</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Periodic filings; always-on data layer</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Schemes own relationship; field forming</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid; scales with SKU/market count</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Data collection + fee calc + filing</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Sustainability/retail media, scheme ecosystem</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>EPR/PPWR rules codifiable → moat</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>44</b>/60</span><span class="t">Weighted <b>64</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 10 -->
+  <details class="sc">
+    <summary><span class="sc-name">10 · Detention &amp; demurrage recovery</span><span class="chip v-log">Logistics</span><span class="sc-score">Raw 44/60 · Wtd 64/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Detects at-risk containers, calculates correct <b>detention/demurrage exposure</b> against contract free-time and tariffs, and autonomously files and pursues disputes to recover wrongful charges. <b>Buyer:</b> the importer's logistics/ops lead or a freight forwarder; often priced on recovered fees. <b>Wedge:</b> ~$15.4B in carrier D&amp;D charges = vast quantifiable spend with the cleanest ROI; the risk is that Windward/BlueCargo have entered the "track" side.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Logistics/ops lead or forwarder</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>~$15.4B carrier D&amp;D; chronic cash leak</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>BuyCo/Windward/BlueCargo paid category</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s5">5</td><td class="w">×1.5</td><td>Recovered $ directly attributable</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>Free-time clock + dispute windows</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>TMS/visibility + carrier portals</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Continuous container flow</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Windward already in D&amp;D automation</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Outcome-based; volatile</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Contract parsing + tariff math + disputes</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Reachable but buying is relationship-tinged</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Tariffs/contracts moderately codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>44</b>/60</span><span class="t">Weighted <b>64</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 11 -->
+  <details class="sc">
+    <summary><span class="sc-name">11 · Digital Product Passport agent</span><span class="chip v-ret">Retail Compliance</span><span class="sc-score"><b style="color:var(--accent2)">Merged → #3</b> · standalone 43/62</span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Generates, registers and maintains <b>per-product Digital Product Passports</b> (mandated for every toy model under EU Reg 2025/2509, rolling across categories via Ecodesign). <b>Buyer:</b> the manufacturer/importer's compliance or data lead. <b>Wedge:</b> a fresh regulatory tailwind where the vendor field is nascent for non-fashion/battery categories; the risk is forming incumbents (Avery Dennison, Kezzler) and a split manufacturer/retailer buyer. <span style="color:var(--accent2)"><b>Decision: folded into #3</b> — for a retail/toy wedge the DPP is a sub-deliverable of the product-safety file, not a standalone product. Standalone scorecard retained below for reference.</span></p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Compliance / product-data lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Market-access blocker if absent</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s3">3</td><td class="w">×1.5</td><td>Emerging budget; some DPP vendors paid</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Compliance + avoided market lock-out</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>EU 2025/2509 + Ecodesign rollout</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Product data + GS1/traceability</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Per-model + updates</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Vendors do fashion/batteries; toys open</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid; scales with catalogue</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Data assembly + registration automation</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Compliance/retail media, GS1 ecosystem</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>DPP schema/regulation codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>43</b>/60</span><span class="t">Weighted <b>62</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 12 -->
+  <details class="sc">
+    <summary><span class="sc-name">12 · Solar interconnection &amp; permitting</span><span class="chip v-ene">Energy</span><span class="sc-score">Raw 43/60 · Wtd 62/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Prepares and files jurisdiction-specific <b>permit and utility interconnection applications</b> (and chases approvals/PTO) for residential &amp; C&amp;I solar + storage installers. <b>Buyer:</b> the installer's ops / permitting coordinator; recurs per project. <b>Wedge:</b> per-AHJ/utility rule sprawl is a deep moat and delays directly stall revenue; the risk is SolarAPP+ automating residential permitting for free in some states.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Installer ops / permitting coordinator</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Delays stall installer cash</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s3">3</td><td class="w">×1.5</td><td>Permit-runners/plan-sets; SolarAPP+ free</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Faster install-to-PTO = more revenue/crew</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>Per-project, time-sensitive</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>AHJ + utility portals + design tools</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Many projects/month</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>SolarAPP+ free + Paces (utility-scale)</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Per-project or subscription; low-mid</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Jurisdiction-specific form completion</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Solar-installer trade media, forums</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>AHJ/utility rules deep but partly standardising</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>43</b>/60</span><span class="t">Weighted <b>62</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 13 -->
+  <details class="sc">
+    <summary><span class="sc-name">13 · Freight audit &amp; payment agent</span><span class="chip v-log">Logistics</span><span class="sc-score">Raw 43/60 · Wtd 62/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Auto-audits carrier invoices against contracted rates, flags overcharges, and files &amp; tracks disputes end-to-end (recovering ~2–5% of freight spend). <b>Buyer:</b> the shipper's logistics/finance lead; ~68% already outsource. <b>Wedge:</b> a $1.1B→$1.7B market with proven WTP; the risk is entrenched BPO incumbents (Cass, Trax, nVision) who own the <b>payment rails and float economics</b>.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Logistics / finance lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Freight overspend; reconciliation load</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>~68% already outsource = proven WTP</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s5">5</td><td class="w">×1.5</td><td>Recovers 2–5% of freight spend</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Ongoing, not acute</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Carrier invoice + TMS feeds</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Continuous invoice flow</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Cass/Trax entrenched; own payment float</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid; outcome or SaaS</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Invoice parsing + dispute drafting</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Logistics trade media reachable</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Rate/accessorial logic codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>43</b>/60</span><span class="t">Weighted <b>62</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 14 -->
+  <details class="sc">
+    <summary><span class="sc-name">14 · Retail supplier-onboarding agent</span><span class="chip v-ret">Retail SCM</span><span class="sc-score">Raw 43/60 · Wtd 62/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Runs new-supplier setup for a retailer end-to-end — bank-detail verification, tax/sanctions screening, COI + compliance-doc collection — and writes clean vendor master data into the ERP. <b>Buyer:</b> the buying-ops / vendor-master team. <b>Wedge:</b> recurring, ERP-overlay, and pairs naturally with #3/#9 as a suite; the risk is that horizontal players (Ariba, Coupa, Kodiak, ComplyScore) crowd generic onboarding. <span style="color:var(--accent2)"><b>(Merge:</b> COI verification is folded in here as a sub-step — competing in standalone COI adds no edge; delivered as part of onboarding it's a feature, not a fight.)</span></p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Buying-ops / vendor-master team</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Slow onboarding, fraud/compliance risk</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Ariba/Coupa/Kodiak paid</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Cycle-time + clean master data</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Ongoing, moderate</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>ERP vendor-master write</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Per new supplier</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Crowded generic onboarding</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Doc collection + verification + write</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Retail/vendor-mgmt media, search</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Onboarding + compliance codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>43</b>/60</span><span class="t">Weighted <b>62</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 15 -->
+  <details class="sc">
+    <summary><span class="sc-name">15 · Vendor rebate / co-op recovery</span><span class="chip v-ret">Retail Finance</span><span class="sc-score">Raw 42/60 · Wtd 61/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Identifies and recovers <b>rebates, co-op marketing funds and MDF owed by suppliers</b> to a retailer/distributor — reconciling agreements, accruals, claims and deductions. <b>Buyer:</b> the finance controller. <b>Wedge:</b> outcome-based with hard-dollar ROI; the risk is established rebate platforms (Enable, Vistex, Vendavo) already serve retailers.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Finance controller</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Unclaimed funds = direct margin leak</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Enable/Vistex paid category</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Recovered $ directly attributable</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Ongoing leakage, not acute</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>ERP finance + agreement data</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Continuous claims/deductions</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Enable/Vistex established</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid; recovery-share possible</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Agreement parsing + claim reconciliation</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>Retail-finance media; contingency offer</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Trade-terms logic moderately codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>42</b>/60</span><span class="t">Weighted <b>61</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 16 -->
+  <details class="sc">
+    <summary><span class="sc-name">16 · Customs entry / ISF exception agent</span><span class="chip v-log">Logistics/Trade</span><span class="sc-score">Raw 42/60 · Wtd 61/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Prepares customs entry / ISF filings and handles exceptions (missing docs, data mismatches, holds) for importers and customs brokers. <b>Buyer:</b> the customs broker / import-compliance lead. <b>Wedge:</b> document-heavy exception work; <b>note the hard limit</b> — under CBP's 2026 ruling, AI classification beyond the 6-digit level linked to an entry requires a licensed broker, so the agent must assist/research, not file classifications autonomously.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Customs broker / import-compliance lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Holds, penalties, delays</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Broker software + labour</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Fewer holds + hours saved</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>Pre-arrival deadlines</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Broker systems + customs portals</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Per shipment</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Broker software present; exception layer thin</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s3">3</td><td class="w">×1</td><td>Doc handling; classification capped by license</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Broker world somewhat relationship-gated</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Trade rules deep; classification credential-gated</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>42</b>/60</span><span class="t">Weighted <b>61</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 17 -->
+  <details class="sc">
+    <summary><span class="sc-name">17 · Ethical-sourcing / SMETA agent</span><span class="chip v-ret">Retail / ESG</span><span class="sc-score">Raw 42/60 · Wtd 59/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Collects and monitors supplier <b>ethical-audit evidence (SMETA) and supply-chain due-diligence</b> documentation, and assembles the reporting for CSDDD / UK Modern Slavery / German LkSG. <b>Buyer:</b> the responsible-sourcing / ESG-compliance lead. <b>Wedge:</b> regulatory tailwinds + recurring; the risk is Sedex's dominant network (55k members) + big audit firms own the relationship.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Responsible-sourcing / ESG lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Regulatory + reputational exposure</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Sedex + audit firms + manual collation</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s3">3</td><td class="w">×1.5</td><td>Compliance + hours; partly soft</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>CSDDD phasing; deadline-ish</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Doc collection from suppliers</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Audit cycles + monitoring</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Sedex network dominant</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s4">4</td><td class="w">×1</td><td>Enterprise compliance budgets</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Doc collection + due-diligence assembly</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Sedex/ESG ecosystem gates somewhat</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Audit standards codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>42</b>/60</span><span class="t">Weighted <b>59</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 18 -->
+  <details class="sc">
+    <summary><span class="sc-name">18 · Subrogation file-handling agent</span><span class="chip v-ins">Insurance</span><span class="sc-score">Raw 41/60 · Wtd 59/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Builds <b>subrogation demand packages</b>, gathers supporting docs, and pursues &amp; tracks third-party recovery for P&amp;C insurers. <b>Buyer:</b> the carrier's claims/recovery VP. <b>Wedge:</b> $9B recovered annually with $15–25B left uncollected = unglamorous, outsourced work; the risk is funded incumbents (CCC, Shift) + a carrier-gated sales motion.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Claims / recovery VP</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>$15–25B uncollected annually</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Legacy recovery vendors/BPOs</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s5">5</td><td class="w">×1.5</td><td>Recovered $ directly attributable</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Deadline-bound but ongoing</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Claims system integration</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Per recovery file</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>CCC/Shift funded &amp; strong</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Recovery-share or SaaS</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s3">3</td><td class="w">×1</td><td>Package assembly + pursuit; others doing it</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Carriers = closed, relationship-gated</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>Subro process codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>41</b>/60</span><span class="t">Weighted <b>59</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 19 -->
+  <details class="sc">
+    <summary><span class="sc-name">19 · Provider credentialing &amp; enrollment</span><span class="chip v-hea">Healthcare ops</span><span class="sc-score">Raw 41/60 · Wtd 61/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Runs provider <b>credentialing and payer enrollment</b> end-to-end — CAQH upkeep, primary-source verification, payer applications, re-credentialing — so groups can bill faster. <b>Buyer:</b> the credentialing manager / medical-group ops. Non-clinical, so it dodges the worst HIPAA/clinical walls. <b>Wedge risk (decisive):</b> already well-funded — Medallion ($130M + clearinghouse), CertifyOS, Verifiable, symplr.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Credentialing manager / group ops</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>Un-enrolled provider can't bill</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>CAQH, CVOs, Medallion/symplr</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Days-to-bill = recovered revenue</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s4">4</td><td class="w">×2</td><td>Acute at onboarding</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Payer portals, CAQH, PSV sources</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Per provider; re-cred every 2–3 yrs</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Funded specialists already here</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>$10k+ per group</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s3">3</td><td class="w">×1</td><td>Voice/portal agents; others doing it</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>MGMA reachable; sales skews enterprise</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>NCQA/payer rules; partly held by incumbents</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>41</b>/60</span><span class="t">Weighted <b>61</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 20 -->
+  <details class="sc">
+    <summary><span class="sc-name">20 · Lease abstraction + CAM recovery</span><span class="chip v-cre">Commercial RE</span><span class="sc-score">Raw 41/60 · Wtd 59/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Abstracts commercial leases into structured data, tracks critical dates (options, escalations), and <b>audits landlord CAM / operating-expense reconciliations</b> to recover overcharges. <b>Buyer:</b> corporate real-estate / lease-admin lead, or a multi-site tenant. <b>Wedge:</b> quantifiable CAM-recovery ROI on a system of record; the risk is committee buying + established lease-admin software (Visual Lease, Lucernex).</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Corporate RE / lease-admin lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>CAM overcharges + missed options</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Visual Lease/Lucernex + outsourced abstraction</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Recovered CAM + avoided penalties</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Annual CAM cycle; moderate</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Lease docs + admin systems</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Event-driven, not daily</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s3">3</td><td class="w">×1</td><td>Established platforms; abstraction still manual</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>$15k+ for portfolios</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Extraction + reconciliation math</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>CRE media; slower, relationship-tinged</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Lease/CAM accounting codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>41</b>/60</span><span class="t">Weighted <b>59</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 21 -->
+  <details class="sc">
+    <summary><span class="sc-name">21 · Audit PBC / confirmation chase</span><span class="chip v-pro">Prof. Services</span><span class="sc-score">Raw 40/60 · Wtd 59/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Autonomously chases and collects <b>"prepared-by-client" (PBC) audit items and third-party confirmations</b> during busy season — sending requests, following up, validating completeness, routing into workpapers. <b>Buyer:</b> the audit partner/manager at a CPA firm. <b>Wedge:</b> a famous busy-season time-sink, CPA firms reachable via tight communities; the risk is entrenched incumbents (Suralink already "agentic", DataSnipper ~$1B, Confirmation.com's network).</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Audit partner / manager</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>Busy-season chase grind; seasonal</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Suralink/DataSnipper/Confirmation.com</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s3">3</td><td class="w">×1.5</td><td>Hours saved; partly soft</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>High in season, low off-season</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s4">4</td><td class="w">×1.5</td><td>File exchange + client comms; shallow</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Seasonal peaks</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Suralink/DataSnipper entrenched</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Seat/firm-based; moderate</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s3">3</td><td class="w">×1</td><td>Good fit; incumbents already shipping</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s4">4</td><td class="w">×2</td><td>CPA communities + accounting media</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Audit workflow moderately codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>40</b>/60</span><span class="t">Weighted <b>59</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 22 -->
+  <details class="sc">
+    <summary><span class="sc-name">22 · Dental RCM agent for DSOs</span><span class="chip v-hea">Healthcare</span><span class="sc-score">Raw 40/60 · Wtd 58/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Runs <b>claims submission, attachments, status-chase and posting</b> for multi-site dental groups. <b>Buyer:</b> the DSO's RCM/operations lead — DSO consolidation = a single buyer with volume. <b>Wedge:</b> fragmented manual BPO incumbents; the risk is <b>PHI/HIPAA handling</b> (hard for a lean offshore team) plus a now-crowded field (Toothy, SuperDial, dentalrobot, Pearl).</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>DSO RCM / ops lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s5">5</td><td class="w">×2</td><td>160+ hrs/mo on insurance tasks per clinic</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>RCM BPOs + verification tools</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Faster collections + FTE offset</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Ongoing cashflow pain</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s2">2</td><td class="w">×1.5</td><td>PMS + payer portals; PHI handling</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Daily claims</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Crowded (Toothy/SuperDial/dentalrobot)</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Per-site; decent across a DSO</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s3">3</td><td class="w">×1</td><td>Voice/portal agents; others doing it</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>DSO/dental media reachable; PHI bar</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s3">3</td><td class="w">×1</td><td>Dental coding + HIPAA = crossable but real</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>40</b>/60</span><span class="t">Weighted <b>58</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 23 -->
+  <details class="sc">
+    <summary><span class="sc-name">23 · E&amp;S broker submission intake</span><span class="chip v-ins">Insurance</span><span class="sc-score">Raw 40/60 · Wtd 57/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">For <b>excess-&amp;-surplus wholesalers/MGAs</b>: extracts the submission from broker email/attachments, clears it, and prepares a quote-ready file across carriers. <b>Buyer:</b> the wholesaler/MGA underwriting-ops lead (underwriters spend 30–40 min/submission keying). <b>Wedge:</b> narrow E&amp;S niche where narrative risk context can't be captured by forms; the risk is heavy upstream crowding (hyperexponential, Insurnest) — must own the wholesale niche.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Wholesaler/MGA underwriting-ops</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>30–40 min/submission keying</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Insurtech intake tools paid</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s3">3</td><td class="w">×1.5</td><td>Throughput; partly capacity-soft</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Competitive but not acute</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Email + carrier systems</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Per submission</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Red-ocean (hyperexponential/Insurnest)</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Mid</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s4">4</td><td class="w">×1</td><td>Extraction + clearance; niche focus edge</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Insurance world relationship-tinged</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>E&amp;S underwriting deep but codifiable</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>40</b>/60</span><span class="t">Weighted <b>57</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 24 -->
+  <details class="sc">
+    <summary><span class="sc-name">24 · KYC/AML periodic-review agent</span><span class="chip v-fin">FinServ</span><span class="sc-score">Raw 39/60 · Wtd 56/85 · <b style="color:var(--amber)">Promising</b></span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Runs <b>periodic KYC refresh</b>: re-collects documents, screens against watchlists, and drafts the review memo for analyst sign-off. <b>Buyer:</b> the bank/fintech financial-crime / compliance lead. <b>Wedge:</b> ~$50B compliance spend + mandate-driven urgency; the risks stack — heavily <b>regulated</b> (keep human-in-loop), selling into <b>banks (closed)</b>, strong incumbents (Fenergo, RelyComply), and banks building their own agent factories.</p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Financial-crime / compliance lead</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s4">4</td><td class="w">×2</td><td>$8.9B fines; remediation backlogs</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>~$50B KYC/AML spend</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s3">3</td><td class="w">×1.5</td><td>Cost-per-review cut; partly capacity</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Mandate-driven but ongoing</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s3">3</td><td class="w">×1.5</td><td>Core banking + screening data</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s3">3</td><td class="w">×1</td><td>Periodic / event-driven</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>Fenergo + banks DIY-ing</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Large but long sales</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s3">3</td><td class="w">×1</td><td>Doc + screening + memo; human-in-loop</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Banks = closed, long procurement</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s4">4</td><td class="w">×1</td><td>AML rules codifiable but audit-bar high</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>39</b>/60</span><span class="t">Weighted <b>56</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+  <!-- 25 -->
+  <details class="sc">
+    <summary><span class="sc-name">25 · COI compliance &amp; remediation</span><span class="chip v-ins">Insurance/Risk</span><span class="sc-score"><b style="color:var(--accent2)">Merged → #14</b> · standalone 37/53.5</span></summary>
+    <div class="sc-body">
+      <p class="sc-desc">Collects inbound vendor/subcontractor <b>certificates of insurance (COIs)</b>, verifies coverage and endorsements against requirements, and chases remediation of gaps before they create uninsured exposure. <b>Buyer:</b> the risk/compliance/procurement manager. <b>Wedge:</b> high-frequency and shallow to integrate; the risk (decisive) is a crowded field — 7+ established players (Certificial, myCOI, TrustLayer, Jones, Billy), so COI extraction is now table-stakes. <span style="color:var(--accent2)"><b>Decision: folded into #14</b> (and #7) — the lowest standalone score on the board confirms COI is best delivered as a feature of vendor/subcontractor onboarding, not a standalone product.</span></p>
+      <table class="fct">
+        <tr><td class="f">Buyer clarity</td><td class="s s4">4</td><td class="w">×1.5</td><td>Risk / compliance / procurement</td></tr>
+        <tr><td class="f">Pain severity</td><td class="s s3">3</td><td class="w">×2</td><td>Latent risk until a claim</td></tr>
+        <tr><td class="f">Existing spend</td><td class="s s4">4</td><td class="w">×1.5</td><td>Certificial/myCOI/TrustLayer paid</td></tr>
+        <tr><td class="f">ROI clarity</td><td class="s s3">3</td><td class="w">×1.5</td><td>Risk reduction; hard to pre-quantify</td></tr>
+        <tr><td class="f">Urgency</td><td class="s s3">3</td><td class="w">×2</td><td>Ongoing, rarely acute</td></tr>
+        <tr><td class="f">Integration friction</td><td class="s s4">4</td><td class="w">×1.5</td><td>Shallow: upload COIs + vendor list</td></tr>
+        <tr><td class="f">Frequency</td><td class="s s4">4</td><td class="w">×1</td><td>Continuous COI renewals</td></tr>
+        <tr><td class="f">Incumbent weakness</td><td class="s s2">2</td><td class="w">×1</td><td>7+ players; Jones = endorsement+Procore moat</td></tr>
+        <tr><td class="f">ACV potential</td><td class="s s3">3</td><td class="w">×1</td><td>Low-to-mid</td></tr>
+        <tr><td class="f">AI-fit / edge</td><td class="s s2">2</td><td class="w">×1</td><td>Extraction now table-stakes</td></tr>
+        <tr><td class="f">GTM reachability</td><td class="s s3">3</td><td class="w">×2</td><td>Reachable but saturated messaging</td></tr>
+        <tr><td class="f">Domain barrier</td><td class="s s2">2</td><td class="w">×1</td><td>Endorsement expertise held by incumbents</td></tr>
+      </table>
+      <div class="sc-tot"><span class="t">Raw <b>37</b>/60</span><span class="t">Weighted <b>53.5</b>/85</span><span class="t">Verdict <b style="color:var(--amber)">Promising</b></span></div>
+    </div>
+  </details>
+
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <h2><span class="num">06</span>Sources &amp; Confidence</h2>
+  <p class="lead">Public reporting and vendor/market pages, gathered June 2026. Funding figures are directional; competitive depth was verified per idea. Re-confirm before any commitment.</p>
+  <div class="srclist">
+    <a href="https://agentmarketcap.ai/blog/2026/04/08/agentic-ai-funding-velocity-2026-sector-map-vertical-distribution" target="_blank" rel="noopener">Agentic AI funding shift 2026 — AgentMarketCap</a>
+    <a href="https://www.lcptracker.com/" target="_blank" rel="noopener">LCPtracker — certified payroll</a>
+    <a href="https://www.the-inspection-company.com/blogs/toy-safety-inspection-requirements-2026-the-importers-guide-to-compliance" target="_blank" rel="noopener">Toy safety / CPSC e-filing 2026</a>
+    <a href="https://www.eurofins.com/toys-hardlines/resources/articles/what-toy-manufacturers-need-to-know-about-the-digital-product-passport/" target="_blank" rel="noopener">EU Toy Safety Reg + DPP — Eurofins</a>
+    <a href="https://www.assent.com/solutions/product-compliance/" target="_blank" rel="noopener">Assent — product compliance (manufacturer-level)</a>
+    <a href="https://conexiom.com/" target="_blank" rel="noopener">Conexiom — order automation</a>
+    <a href="https://ordermatic.co/blog/conexiom-alternatives" target="_blank" rel="noopener">Conexiom alternatives 2026 — Ordermatic</a>
+    <a href="https://www.researchandmarkets.com/reports/6227708/freight-audit-payment-market" target="_blank" rel="noopener">Freight audit &amp; payment market — R&amp;M</a>
+    <a href="https://www.shift-technology.com/resources/reports-and-insights/recover-more-with-ai-powered-subrogation" target="_blank" rel="noopener">AI subrogation — Shift Technology</a>
+    <a href="https://www.cccis.com/insurance-carriers/subrogation" target="_blank" rel="noopener">CCC Intelligent Subrogation</a>
+    <a href="https://www.mckinsey.com/capabilities/risk-and-resilience/our-insights/how-agentic-ai-can-change-the-way-banks-fight-financial-crime" target="_blank" rel="noopener">Agentic KYC/AML — McKinsey</a>
+    <a href="https://www.prnewswire.com/news-releases/medallion-raises-43-million-to-expand-ai-infrastructure-and-launch-the-first-national-credentialing-clearinghouse-302532154.html" target="_blank" rel="noopener">Medallion raises $43M — credentialing</a>
+    <a href="https://www.harborcompliance.com/" target="_blank" rel="noopener">Harbor Compliance — licensing</a>
+    <a href="https://windward.ai/news/windward-launches-detention-demurrage-automation-solution/" target="_blank" rel="noopener">Windward — D&amp;D automation</a>
+    <a href="https://www.sap.com/products/artificial-intelligence/ai-agents.html" target="_blank" rel="noopener">SAP Joule Agents &amp; Assistants</a>
+    <a href="https://www.suralink.com/" target="_blank" rel="noopener">Suralink — audit PBC</a>
+    <a href="https://www.sedex.com/solutions/smeta-audit/" target="_blank" rel="noopener">Sedex / SMETA — ethical sourcing</a>
+    <a href="https://www.akeneo.com/blog/best-pim-2026/" target="_blank" rel="noopener">PIM landscape 2026 — Akeneo</a>
+    <a href="https://www.certificial.com/blog-post/we-compared-7-best-coi-tracking-software-in-depth-feedback-and-review" target="_blank" rel="noopener">COI tracking tools 2026 — Certificial</a>
+    <a href="https://energyscaperenewables.com/post/virtual-solar-permitting-2026/" target="_blank" rel="noopener">Solar permitting / SolarAPP+ 2026</a>
+  </div>
+</section>
+
 </div>
-
-<!-- 1 -->
-<h2 id="how">1 · The checklist — how every idea was scored</h2>
-<p>Each idea is scored from 1 to 5 on the same <strong>12 questions</strong>, and the answers are added up two ways:</p>
-<ul>
-  <li><strong>A simple total out of 60</strong> — every question counts the same.</li>
-  <li><strong>A weighted total out of 85</strong> — the make-or-break questions count <em>double</em>, and the "easy to buy" questions count one-and-a-half times.</li>
-</ul>
-<p>The make-or-break questions are the ones that actually sink small ventures: <strong>is the pain real, is it urgent, and — above all — can the team actually reach the people who would buy it?</strong> A brilliant idea with no realistic way to sell it is not a brilliant idea.</p>
-<table>
-  <tr><th style="width:33%">Counts double — make-or-break</th><th style="width:34%">Counts 1.5× — easy to buy</th><th>Counts once</th></tr>
-  <tr><td>Is the pain bad? · Is it urgent? · Can we reach the buyer?</td><td>Is it clear who buys it? · Is the payback obvious? · Do they already spend money here? · Is it easy to plug in?</td><td>How often the problem happens · How weak today's tools are · How much can be charged · How well it fits a small AI-first team · How hard the know-how is to copy</td></tr>
-</table>
-<p class="muted">How to read the verdict (using the simple /60 total): <strong>46–60</strong> = Strong · <strong>36–45</strong> = Promising, but needs a focused starting point · <strong>under 36</strong> = Weak. Where a /60 wasn't recorded (a few early, rough scores), only the weighted /85 is shown. <span class="pill p-good">checked</span> = competition verified against real, current funding data. <span class="pill p-warn">first-pass</span> = a quick score; competition not deep-checked yet.</p>
-
-<!-- 2 -->
-<h2 id="master">2 · The full ranking — 17 ideas, strongest to weakest</h2>
-<div class="callout"><strong>Want the score behind the score?</strong> Every idea's full <strong>12-factor breakdown</strong> — each factor, its weight, and the reason for the score — lives in the <a href="agentic-opportunity-top25-2026.html">detailed factor-by-factor scorecard</a>, where all 25 ideas are expandable. Note: that scan is a separate, deeper pass, and it re-scored a few of the retail ideas several points higher than the first-pass totals shown below (e.g. SKU-setup 58 → 66) — so treat it as the more current read where the two differ.</div>
-<p>Sorted by the weighted /85 score (the coloured bar). The "who buys it" column matters: several ideas sit in the same industry but are sold to <em>different</em> customers — a brand that makes products is not the same buyer as a retailer that stocks them. Where an idea has its own detailed write-up, the title links to it (<span class="xref"><a href="#">↗</a></span>).</p>
-<table>
-  <tr>
-    <th class="rank">#</th><th>Idea</th><th>Group</th><th>Who buys it</th>
-    <th class="num">Simple /60</th><th style="width:150px">Weighted /85</th><th class="num">Verdict</th>
-  </tr>
-  <tr class="winrow">
-    <td class="rank">1</td>
-    <td><strong>Buying Agent</strong> <span class="muted">— one assistant for the retail buying desk (a suite of 3 buying tasks)</span>
-      <div class="modules">
-        <div>• <a href="deepdive-02-po-exception.html">Purchase-order exception handling</a> <span class="xref"><a href="deepdive-02-po-exception.html">↗</a></span> <span class="mscore">49/60 · 69/85 · <span class="pill p-good">checked</span></span> — the lead module &amp; starting point</div>
-        <div>• <a href="deepdive-04-article-setup.html">New-product / SKU setup</a> <span class="xref"><a href="deepdive-04-article-setup.html">↗</a></span> <span class="mscore">—/60 · 58/85 · <span class="pill p-warn">first-pass</span></span></div>
-        <div>• Supplier onboarding <span class="mscore">· planned module (not separately scored)</span></div>
-      </div>
-    </td>
-    <td>Retail ops</td><td>Mid-size <strong>retailer</strong> (buying desk)</td>
-    <td class="num">49</td><td><div class="barwrap"><span class="bar win"><span style="width:81%"></span></span><b>69</b></div></td><td class="num"><span class="pill p-good">Top pick</span></td>
-  </tr>
-  <tr>
-    <td class="rank">2</td><td>IT-services (MSP) back-office assistant</td><td>B2B back-office</td><td>Managed-IT-services owner</td>
-    <td class="num">49</td><td><div class="barwrap"><span class="bar"><span style="width:81.8%"></span></span><b>69.5</b></div></td><td class="num"><span class="pill p-warn">No route to buyer*</span></td>
-  </tr>
-  <tr>
-    <td class="rank">3</td><td>Out-of-stock / re-ordering agent</td><td>Retail ops</td><td>Mid-size retailer (planning)</td>
-    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:70.6%"></span></span><b>60</b></div></td><td class="num"><span class="pill p-warn">Add-on later</span></td>
-  </tr>
-  <tr>
-    <td class="rank">4</td><td>Price-change / markdown agent</td><td>Retail ops</td><td>Mid-size retailer (pricing)</td>
-    <td class="num">—</td><td><div class="barwrap"><span class="bar"><span style="width:65.9%"></span></span><b>56</b></div></td><td class="num"><span class="pill p-warn">First-pass</span></td>
-  </tr>
-  <tr>
-    <td class="rank">5</td><td>Returns / reverse-logistics agent</td><td>Retail ops</td><td>Mid-size retailer (operations)</td>
-    <td class="num">—</td><td><div class="barwrap"><span class="bar"><span style="width:64.7%"></span></span><b>55</b></div></td><td class="num"><span class="pill p-warn">First-pass</span></td>
-  </tr>
-  <tr>
-    <td class="rank">6</td><td>Fund-administration back-office</td><td>B2B back-office</td><td>Fund admin / investment back-office</td>
-    <td class="num">43</td><td><div class="barwrap"><span class="bar"><span style="width:72.4%"></span></span><b>61.5</b></div></td><td class="num"><span class="pill p-warn">No route to buyer</span></td>
-  </tr>
-  <tr>
-    <td class="rank">7</td><td>IT incident "root-cause" platform</td><td>Standalone</td><td>Software / operations engineers</td>
-    <td class="num">43</td><td><div class="barwrap"><span class="bar"><span style="width:72.4%"></span></span><b>61.5</b></div></td><td class="num"><span class="pill p-bad">Rejected</span></td>
-  </tr>
-  <tr>
-    <td class="rank">8</td><td>Freight / customs paperwork agent</td><td>B2B back-office</td><td>Freight forwarder (operations)</td>
-    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:71.2%"></span></span><b>60.5</b></div></td><td class="num"><span class="pill p-warn">Crowded</span></td>
-  </tr>
-  <tr>
-    <td class="rank">9</td><td>Wholesale order-entry agent</td><td>B2B back-office</td><td>Wholesale distributor</td>
-    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:70.6%"></span></span><b>60</b></div></td><td class="num"><span class="pill p-bad">Very crowded</span></td>
-  </tr>
-  <tr>
-    <td class="rank">10</td><td>Out-of-stock "strike" ad agent <span class="xref"><a href="deepdive-05-map-oos-strike.html">↗</a></span></td><td>Brand tools</td><td>Online brand / Shopify seller</td>
-    <td class="num">43</td><td><div class="barwrap"><span class="bar"><span style="width:70.6%"></span></span><b>60</b></div></td><td class="num"><span class="pill p-warn">Best of its group</span></td>
-  </tr>
-  <tr>
-    <td class="rank">11</td><td>Insurance-broker submission agent</td><td>B2B back-office</td><td>Commercial insurance broker</td>
-    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:70%"></span></span><b>59.5</b></div></td><td class="num"><span class="pill p-bad">Funded race</span></td>
-  </tr>
-  <tr>
-    <td class="rank">12</td><td>Minimum-price (MAP) enforcement agent <span class="xref"><a href="deepdive-05-map-oos-strike.html">↗</a></span></td><td>Brand tools</td><td>Online brand / pricing manager</td>
-    <td class="num">40</td><td><div class="barwrap"><span class="bar"><span style="width:67.1%"></span></span><b>57</b></div></td><td class="num"><span class="pill p-warn">Add-on only</span></td>
-  </tr>
-  <tr>
-    <td class="rank">13</td><td>Property-management back-office</td><td>B2B back-office</td><td>Property manager</td>
-    <td class="num">39</td><td><div class="barwrap"><span class="bar"><span style="width:64.7%"></span></span><b>55</b></div></td><td class="num"><span class="pill p-warn">Platform may build it</span></td>
-  </tr>
-  <tr>
-    <td class="rank">14</td><td>Amazon "unknown seller" agent</td><td>Brand tools</td><td>Online brand selling on Amazon</td>
-    <td class="num">39</td><td><div class="barwrap"><span class="bar"><span style="width:64.7%"></span></span><b>55</b></div></td><td class="num"><span class="pill p-warn">Others already do it</span></td>
-  </tr>
-  <tr>
-    <td class="rank">15</td><td>Supplier price-benchmarking agent</td><td>Brand tools</td><td>Procurement team</td>
-    <td class="num">37</td><td><div class="barwrap"><span class="bar lo"><span style="width:58.8%"></span></span><b>50</b></div></td><td class="num"><span class="pill p-bad">Dropped</span></td>
-  </tr>
-  <tr>
-    <td class="rank">16</td><td>FMCG promotion-tracking agent</td><td>Brand tools</td><td>Consumer-goods brand</td>
-    <td class="num">36</td><td><div class="barwrap"><span class="bar lo"><span style="width:57.6%"></span></span><b>49</b></div></td><td class="num"><span class="pill p-bad">Dropped</span></td>
-  </tr>
-  <tr>
-    <td class="rank">17</td><td>Competitor price-response agent</td><td>Brand tools</td><td>Online brand / Shopify seller</td>
-    <td class="num">32</td><td><div class="barwrap"><span class="bar lo"><span style="width:51.8%"></span></span><b>44</b></div></td><td class="num"><span class="pill p-bad">Very crowded</span></td>
-  </tr>
-</table>
-<p class="src">* The IT-services (MSP) idea scores highest on raw merit (49/60, 69.5/85) — but only if there's an easy way to reach lots of IT-services firms to sell to, which there isn't here. Scored against a market that can realistically be reached, its make-or-break "can we reach the buyer?" answer drops from 5 to 2, and it falls out of contention. The Buying Agent takes the top spot because it scores just as well on reach <em>and</em> holds up when the competition is checked closely. Ideas #4–5 (price-change and returns) are first-pass scores, not yet competition-checked.</p>
-
-<!-- 3 -->
-<h2 id="batches">3 · The five groups, and what each one shows</h2>
-
-<h3>① Brand tools <span class="muted">(6 ideas · sold to online brands · the earliest set)</span></h3>
-<p>"Do-it-for-me" tools bolted onto a price-and-stock monitoring engine, sold to <strong>online brands and Shopify sellers</strong>. The <strong>out-of-stock "strike" ad agent</strong> (60/85) is the best of this group — when a competitor runs out of stock, it automatically boosts your ads and reaches out to customers. The rest fade because the markets are already crowded with established tools. <strong>What this group shows:</strong> the buyer here is the <em>brand</em> — a completely different customer from a <em>retailer</em> — so it informs the industry picture but doesn't carry over to the retail work.</p>
-
-<h3>② IT incident "root-cause" platform <span class="muted">(1 idea · standalone · rejected)</span></h3>
-<p>A tool that watches software systems, finds the root cause when something breaks, and fixes it. It scores 61.5/85 but is <strong>rejected head-on</strong> — it's the most crowded, best-funded area in the whole study (one rival valued near $1 billion, plus offerings from the big cloud and monitoring companies, some bundling it in for free). <strong>What it shows:</strong> the advantage goes to whoever already holds the data — and here that's the big incumbents, not a new team. That same test later sinks the re-ordering idea too.</p>
-
-<h3>③ B2B back-office shortlist <span class="muted">(6 ideas · scored once "can we reach the buyer?" became the deciding question)</span></h3>
-<p>The IT-services (MSP) idea looks best on paper — but only with a realistic way to reach lots of IT firms to sell to, which isn't the case here. Once the focus narrows to a market that <em>can</em> be reached (<strong>retail</strong>), this whole group drops down: the off-target ideas (fund admin, freight, broker submissions — several also in crowded markets) fall away.</p>
-
-<h3>④ Retail-ops set <span class="muted">(the focus area · the retailer is the buyer)</span></h3>
-<p>Products where there's a realistic path to retail customers. The three core buying tasks — <strong>purchase-order exceptions, new-product/SKU setup, and supplier onboarding</strong> — combine into one <strong>Buying Agent</strong> suite sold to the retail buying desk, with purchase-order exception as the lead, lowest-risk starting module. Three further retail agents — <strong>re-ordering, price-change, and returns</strong> — are ranked separately, as they serve different teams (planning, pricing, operations).</p>
-
-<h3>⑤ The two finalists, head-to-head <span class="muted">(the deep check)</span></h3>
-<p>Purchase-order exception vs. re-ordering, with the competition checked against current, real funding. The purchase-order agent holds firm at <strong>49/60, 69/85 (Strong)</strong>. The re-ordering agent drops to <strong>42/60, 60/85</strong> once two large planning vendors are found already shipping it as an AI agent. <strong>The purchase-order exception agent is the strongest</strong> — the full reasoning is in <a href="supplier-po-exception-agent.html">its own write-up</a>.</p>
-
-<!-- 4 -->
-<h2 id="autopilot">4 · The big, famous markets that don't make the cut</h2>
-<p>Separately, the headline markets everyone talks about were stress-tested — the kind where an AI agent could take over a whole back-office job. <strong>None of them passes the filter well enough to make the ranking.</strong> They're either already owned by big, well-funded players, or they involve licensed and regulated work that a small, lean team shouldn't take on. Listed worst-fit first, by the reason they fail:</p>
-<table>
-  <tr><th>Market</th><th>Why it doesn't make the list</th><th class="num">Blocker</th></tr>
-  <tr><td>Bookkeeping / month-end accounting</td><td>Several big funded players (one near $1.15B) already build fully-automatic bookkeepers</td><td class="num"><span class="pill p-bad">Big players</span></td></tr>
-  <tr><td>Legal transactional work</td><td>The most heavily funded cluster of all — plus you'd need to be a licensed law firm</td><td class="num"><span class="pill p-bad">Players + rules</span></td></tr>
-  <tr><td>Healthcare billing</td><td>Several funded specialists, plus strict patient-data (HIPAA) rules</td><td class="num"><span class="pill p-bad">Players + rules</span></td></tr>
-  <tr><td>Identity / anti-money-laundering checks</td><td>Established, well-funded vendors; heavily regulated</td><td class="num"><span class="pill p-bad">Closed + rules</span></td></tr>
-  <tr><td>Tax advice</td><td>Existing players already cover tax returns; needs a licence</td><td class="num"><span class="pill p-bad">Closed + rules</span></td></tr>
-  <tr><td>Insurance claims handling</td><td>Crowded with funded specialists</td><td class="num"><span class="pill p-bad">Very crowded</span></td></tr>
-  <tr><td>Mortgage origination</td><td>Funded players plus banks building their own; heavily regulated</td><td class="num"><span class="pill p-bad">Players + rules</span></td></tr>
-  <tr><td>Property-sale closing / escrow</td><td>Funded players already hold the space</td><td class="num"><span class="pill p-bad">Very crowded</span></td></tr>
-  <tr><td>Construction cost estimating</td><td>Fairly open — but the tools sell too cheaply, and big design-software firms loom</td><td class="num"><span class="pill p-warn">Too cheap</span></td></tr>
-  <tr><td>IT-services (MSP) back-office</td><td>Genuinely open — but no realistic way to reach the buyers (the same problem as ranked idea #2)</td><td class="num"><span class="pill p-warn">No route</span></td></tr>
-</table>
-
-<!-- 5 -->
-<h2 id="read">5 · What the whole table shows</h2>
-<div class="callout win">
-  <ul style="margin:4px 0">
-    <li><strong>The strongest idea isn't the highest score — it's the highest score that passes <em>all three</em> tests:</strong> the field is open (no giant already owns it), the buyer can actually be reached, and the advantage builds over time for the team that builds it. The IT-services idea scores higher on paper but fails "can the buyer be reached?". The brand tools and the root-cause platform fail "is the field open?". The big famous markets fail both.</li>
-    <li><strong>Most scores bunch up in the 55–70 band.</strong> Once funded competitors are taken into account, categories even out — so the deciding factor is never the headline number. It's the <em>starting point</em>: one specific, defensible slice a funded copycat can't easily reach. The Buying Agent's first module (the retailer's side of purchase-order exceptions, mid-size, with a realistic way in) is exactly that.</li>
-    <li><strong>The same two questions did most of the cutting:</strong> "is a giant already shipping this?" (sank the re-ordering agent, the root-cause platform, bookkeeping, legal) and "does the long-term advantage go to whoever holds the data — and is that the incumbent, not us?" (sank the re-ordering agent and the root-cause platform). The Buying Agent passes both.</li>
-    <li><strong>Knowing the buyer matters:</strong> three groups touch "retail / shopping," but the customer is different each time — an online brand is not a mid-size retailer. Only the retailer group lines up with a market that can actually be reached.</li>
-  </ul>
-</div>
-<div class="callout key"><strong>Bottom line:</strong> across 17 scored ideas and 10 big markets that don't make the cut, the <strong>Buying Agent</strong> — led by purchase-order exception handling — is the single option that is open, reachable, and compounding all at once. Everything else either scored lower, had no realistic way to reach its buyers, or walked straight into a well-funded competitor.</div>
 
 <footer>
-  Prepared June 2026. The scores are decision aids on a 12-point checklist for a lean, AI-first team — not investment advice. Competitor figures are analyst estimates gathered from public web sources; some early scores are rough first-passes, while the finalists were deep-checked against current funding data.<br><br>
-  Detailed write-ups: <a href="supplier-po-exception-agent.html">The Supplier &amp; Purchase-Order Exception Agent</a> · <a href="deepdive-02-po-exception.html">PO-exception deep-dive</a> · <a href="deepdive-04-article-setup.html">SKU-setup deep-dive</a> · <a href="deepdive-05-map-oos-strike.html">MAP / out-of-stock deep-dive</a> · <a href="index.html">Back to all notes</a>.
+  <div class="wrap">
+    Agentic-AI Opportunities — Top 25 Scored (with full 12-factor splits) · Discovery → Scoring pass · Generated 27 June 2026.<br>
+    Scoring is a structured prioritisation tool using public data as a proxy for customer interviews — not investment advice. "Strong / Promising" indicates which ideas merit live validation (outbound + pilots), not a guarantee. Verify funding, pricing and competitive claims directly before committing.
+  </div>
 </footer>
 
-</div>
 </body>
 </html>
