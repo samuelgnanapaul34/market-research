@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoring 17 Agentic-AI Ideas — One Honest Ranking</title>
+<style>
+  :root{
+    --ink:#1a1f2b; --muted:#5b6473; --line:#e3e7ee; --bg:#f6f8fb;
+    --accent:#2b6cb0; --accent2:#0b7285; --good:#2f855a; --warn:#b7791f; --bad:#c53030;
+    --card:#ffffff; --chip:#eef3f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 28px 80px}
+  header.top{border-bottom:3px solid var(--accent);padding-bottom:18px;margin-bottom:6px}
+  .kick{display:inline-block;background:#eef0f4;color:var(--ink);font-weight:700;font-size:11px;
+        letter-spacing:.08em;padding:4px 10px;border-radius:4px;text-transform:uppercase}
+  h1{font-size:30px;margin:14px 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:21px;margin:38px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:10px 0}
+  .lead{font-size:16px;color:#2c3340}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 20px;margin:18px 0;font-size:14px}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#eef3f9;font-weight:700}
+  tr:nth-child(even) td{background:#fafbfd}
+  .num{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .rank{font-weight:800;color:var(--muted);text-align:center;width:34px}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .p-good{background:#e7f5ec;color:var(--good)}
+  .p-warn{background:#fdf3e0;color:var(--warn)}
+  .p-bad{background:#fdeaea;color:var(--bad)}
+  .p-mut{background:#eef0f4;color:var(--muted)}
+  .modules{margin-top:7px;font-size:12px;color:#3a4452;line-height:1.5}
+  .modules > div{margin:3px 0}
+  .mscore{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .xref a{font-size:11px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid #cdd9e8;border-radius:5px;padding:0 5px;margin-left:5px}
+  .xref a:hover{background:#eef3f9}
+  .bar{background:#eaeef4;border-radius:5px;height:14px;position:relative;overflow:hidden;min-width:90px;display:inline-block;width:100%;vertical-align:middle}
+  .bar > span{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,#3b82c4,#2b6cb0)}
+  .bar.win > span{background:linear-gradient(90deg,#37a06a,#2f855a)}
+  .bar.lo > span{background:linear-gradient(90deg,#d98b8b,#c53030)}
+  .barwrap{display:flex;align-items:center;gap:8px}
+  .barwrap b{font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+  .winrow td{background:#eaf4ec!important}
+  .callout{background:#eef6fb;border-left:4px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.warn{background:#fdf6e9;border-color:var(--warn)}
+  .callout.win{background:#ecf7f0;border-color:var(--good)}
+  .callout.key{background:#fff7e6;border-color:var(--ink)}
+  ul{margin:8px 0;padding-left:22px} li{margin:5px 0}
+  .muted{color:var(--muted)}
+  .src{font-size:11px;color:#8a93a3}
+  .back{font-size:13px;margin-bottom:4px}
+  footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  @media print{body{background:#fff}.wrap{max-width:none}table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="back"><a href="index.html">← All market-research notes</a></div>
+  <span class="kick">Market Research</span>
+  <h1>Scoring 17 Agentic-AI Ideas — One Honest Ranking</h1>
+  <div class="sub">Seventeen agentic-AI business ideas, each scored against the same 12-point checklist and ranked from strongest to weakest — with a plain explanation of which idea comes out on top and why. Plus ten big, well-known markets that don't make the cut, and the reason each one fails. June 2026.</div>
+</header>
+
+<p class="lead">This page compares a wide range of AI-agent business ideas — across retail operations, back-office services, and online-seller tools — on one consistent checklist, and ranks them. The point is a fair side-by-side: which idea is the strongest bet for a small, AI-first team to build, and the reasoning behind it. The front-runner has its own detailed write-up — <a href="supplier-po-exception-agent.html">The Supplier &amp; Purchase-Order Exception Agent</a>. The top idea is a <strong>suite of three closely-related buying tasks</strong>, sold to the same buyer, so they're grouped as one product with each part's score shown.</p>
+
+<div class="toc">
+  <strong>On this page:</strong>
+  <a href="#how">1 · The checklist</a>
+  <a href="#master">2 · The full ranking (17 ideas)</a>
+  <a href="#batches">3 · The five groups, explained</a>
+  <a href="#autopilot">4 · The big markets that don't make the cut</a>
+  <a href="#read">5 · What the whole table shows</a>
+</div>
+
+<!-- 1 -->
+<h2 id="how">1 · The checklist — how every idea was scored</h2>
+<p>Each idea is scored from 1 to 5 on the same <strong>12 questions</strong>, and the answers are added up two ways:</p>
+<ul>
+  <li><strong>A simple total out of 60</strong> — every question counts the same.</li>
+  <li><strong>A weighted total out of 85</strong> — the make-or-break questions count <em>double</em>, and the "easy to buy" questions count one-and-a-half times.</li>
+</ul>
+<p>The make-or-break questions are the ones that actually sink small ventures: <strong>is the pain real, is it urgent, and — above all — can the team actually reach the people who would buy it?</strong> A brilliant idea with no realistic way to sell it is not a brilliant idea.</p>
+<table>
+  <tr><th style="width:33%">Counts double — make-or-break</th><th style="width:34%">Counts 1.5× — easy to buy</th><th>Counts once</th></tr>
+  <tr><td>Is the pain bad? · Is it urgent? · Can we reach the buyer?</td><td>Is it clear who buys it? · Is the payback obvious? · Do they already spend money here? · Is it easy to plug in?</td><td>How often the problem happens · How weak today's tools are · How much can be charged · How well it fits a small AI-first team · How hard the know-how is to copy</td></tr>
+</table>
+<p class="muted">How to read the verdict (using the simple /60 total): <strong>46–60</strong> = Strong · <strong>36–45</strong> = Promising, but needs a focused starting point · <strong>under 36</strong> = Weak. Where a /60 wasn't recorded (a few early, rough scores), only the weighted /85 is shown. <span class="pill p-good">checked</span> = competition verified against real, current funding data. <span class="pill p-warn">first-pass</span> = a quick score; competition not deep-checked yet.</p>
+
+<!-- 2 -->
+<h2 id="master">2 · The full ranking — 17 ideas, strongest to weakest</h2>
+<p>Sorted by the weighted /85 score (the coloured bar). The "who buys it" column matters: several ideas sit in the same industry but are sold to <em>different</em> customers — a brand that makes products is not the same buyer as a retailer that stocks them. Where an idea has its own detailed write-up, the title links to it (<span class="xref"><a href="#">↗</a></span>).</p>
+<table>
+  <tr>
+    <th class="rank">#</th><th>Idea</th><th>Group</th><th>Who buys it</th>
+    <th class="num">Simple /60</th><th style="width:150px">Weighted /85</th><th class="num">Verdict</th>
+  </tr>
+  <tr class="winrow">
+    <td class="rank">1</td>
+    <td><strong>Buying Agent</strong> <span class="muted">— one assistant for the retail buying desk (a suite of 3 buying tasks)</span>
+      <div class="modules">
+        <div>• <a href="deepdive-02-po-exception.html">Purchase-order exception handling</a> <span class="xref"><a href="deepdive-02-po-exception.html">↗</a></span> <span class="mscore">49/60 · 69/85 · <span class="pill p-good">checked</span></span> — the lead module &amp; starting point</div>
+        <div>• <a href="deepdive-04-article-setup.html">New-product / SKU setup</a> <span class="xref"><a href="deepdive-04-article-setup.html">↗</a></span> <span class="mscore">—/60 · 58/85 · <span class="pill p-warn">first-pass</span></span></div>
+        <div>• Supplier onboarding <span class="mscore">· planned module (not separately scored)</span></div>
+      </div>
+    </td>
+    <td>Retail ops</td><td>Mid-size <strong>retailer</strong> (buying desk)</td>
+    <td class="num">49</td><td><div class="barwrap"><span class="bar win"><span style="width:81%"></span></span><b>69</b></div></td><td class="num"><span class="pill p-good">Top pick</span></td>
+  </tr>
+  <tr>
+    <td class="rank">2</td><td>IT-services (MSP) back-office assistant</td><td>B2B back-office</td><td>Managed-IT-services owner</td>
+    <td class="num">49</td><td><div class="barwrap"><span class="bar"><span style="width:81.8%"></span></span><b>69.5</b></div></td><td class="num"><span class="pill p-warn">No route to buyer*</span></td>
+  </tr>
+  <tr>
+    <td class="rank">3</td><td>Out-of-stock / re-ordering agent</td><td>Retail ops</td><td>Mid-size retailer (planning)</td>
+    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:70.6%"></span></span><b>60</b></div></td><td class="num"><span class="pill p-warn">Add-on later</span></td>
+  </tr>
+  <tr>
+    <td class="rank">4</td><td>Price-change / markdown agent</td><td>Retail ops</td><td>Mid-size retailer (pricing)</td>
+    <td class="num">—</td><td><div class="barwrap"><span class="bar"><span style="width:65.9%"></span></span><b>56</b></div></td><td class="num"><span class="pill p-warn">First-pass</span></td>
+  </tr>
+  <tr>
+    <td class="rank">5</td><td>Returns / reverse-logistics agent</td><td>Retail ops</td><td>Mid-size retailer (operations)</td>
+    <td class="num">—</td><td><div class="barwrap"><span class="bar"><span style="width:64.7%"></span></span><b>55</b></div></td><td class="num"><span class="pill p-warn">First-pass</span></td>
+  </tr>
+  <tr>
+    <td class="rank">6</td><td>Fund-administration back-office</td><td>B2B back-office</td><td>Fund admin / investment back-office</td>
+    <td class="num">43</td><td><div class="barwrap"><span class="bar"><span style="width:72.4%"></span></span><b>61.5</b></div></td><td class="num"><span class="pill p-warn">No route to buyer</span></td>
+  </tr>
+  <tr>
+    <td class="rank">7</td><td>IT incident "root-cause" platform</td><td>Standalone</td><td>Software / operations engineers</td>
+    <td class="num">43</td><td><div class="barwrap"><span class="bar"><span style="width:72.4%"></span></span><b>61.5</b></div></td><td class="num"><span class="pill p-bad">Rejected</span></td>
+  </tr>
+  <tr>
+    <td class="rank">8</td><td>Freight / customs paperwork agent</td><td>B2B back-office</td><td>Freight forwarder (operations)</td>
+    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:71.2%"></span></span><b>60.5</b></div></td><td class="num"><span class="pill p-warn">Crowded</span></td>
+  </tr>
+  <tr>
+    <td class="rank">9</td><td>Wholesale order-entry agent</td><td>B2B back-office</td><td>Wholesale distributor</td>
+    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:70.6%"></span></span><b>60</b></div></td><td class="num"><span class="pill p-bad">Very crowded</span></td>
+  </tr>
+  <tr>
+    <td class="rank">10</td><td>Out-of-stock "strike" ad agent <span class="xref"><a href="deepdive-05-map-oos-strike.html">↗</a></span></td><td>Brand tools</td><td>Online brand / Shopify seller</td>
+    <td class="num">43</td><td><div class="barwrap"><span class="bar"><span style="width:70.6%"></span></span><b>60</b></div></td><td class="num"><span class="pill p-warn">Best of its group</span></td>
+  </tr>
+  <tr>
+    <td class="rank">11</td><td>Insurance-broker submission agent</td><td>B2B back-office</td><td>Commercial insurance broker</td>
+    <td class="num">42</td><td><div class="barwrap"><span class="bar"><span style="width:70%"></span></span><b>59.5</b></div></td><td class="num"><span class="pill p-bad">Funded race</span></td>
+  </tr>
+  <tr>
+    <td class="rank">12</td><td>Minimum-price (MAP) enforcement agent <span class="xref"><a href="deepdive-05-map-oos-strike.html">↗</a></span></td><td>Brand tools</td><td>Online brand / pricing manager</td>
+    <td class="num">40</td><td><div class="barwrap"><span class="bar"><span style="width:67.1%"></span></span><b>57</b></div></td><td class="num"><span class="pill p-warn">Add-on only</span></td>
+  </tr>
+  <tr>
+    <td class="rank">13</td><td>Property-management back-office</td><td>B2B back-office</td><td>Property manager</td>
+    <td class="num">39</td><td><div class="barwrap"><span class="bar"><span style="width:64.7%"></span></span><b>55</b></div></td><td class="num"><span class="pill p-warn">Platform may build it</span></td>
+  </tr>
+  <tr>
+    <td class="rank">14</td><td>Amazon "unknown seller" agent</td><td>Brand tools</td><td>Online brand selling on Amazon</td>
+    <td class="num">39</td><td><div class="barwrap"><span class="bar"><span style="width:64.7%"></span></span><b>55</b></div></td><td class="num"><span class="pill p-warn">Others already do it</span></td>
+  </tr>
+  <tr>
+    <td class="rank">15</td><td>Supplier price-benchmarking agent</td><td>Brand tools</td><td>Procurement team</td>
+    <td class="num">37</td><td><div class="barwrap"><span class="bar lo"><span style="width:58.8%"></span></span><b>50</b></div></td><td class="num"><span class="pill p-bad">Dropped</span></td>
+  </tr>
+  <tr>
+    <td class="rank">16</td><td>FMCG promotion-tracking agent</td><td>Brand tools</td><td>Consumer-goods brand</td>
+    <td class="num">36</td><td><div class="barwrap"><span class="bar lo"><span style="width:57.6%"></span></span><b>49</b></div></td><td class="num"><span class="pill p-bad">Dropped</span></td>
+  </tr>
+  <tr>
+    <td class="rank">17</td><td>Competitor price-response agent</td><td>Brand tools</td><td>Online brand / Shopify seller</td>
+    <td class="num">32</td><td><div class="barwrap"><span class="bar lo"><span style="width:51.8%"></span></span><b>44</b></div></td><td class="num"><span class="pill p-bad">Very crowded</span></td>
+  </tr>
+</table>
+<p class="src">* The IT-services (MSP) idea scores highest on raw merit (49/60, 69.5/85) — but only if there's an easy way to reach lots of IT-services firms to sell to, which there isn't here. Scored against a market that can realistically be reached, its make-or-break "can we reach the buyer?" answer drops from 5 to 2, and it falls out of contention. The Buying Agent takes the top spot because it scores just as well on reach <em>and</em> holds up when the competition is checked closely. Ideas #4–5 (price-change and returns) are first-pass scores, not yet competition-checked.</p>
+
+<!-- 3 -->
+<h2 id="batches">3 · The five groups, and what each one shows</h2>
+
+<h3>① Brand tools <span class="muted">(6 ideas · sold to online brands · the earliest set)</span></h3>
+<p>"Do-it-for-me" tools bolted onto a price-and-stock monitoring engine, sold to <strong>online brands and Shopify sellers</strong>. The <strong>out-of-stock "strike" ad agent</strong> (60/85) is the best of this group — when a competitor runs out of stock, it automatically boosts your ads and reaches out to customers. The rest fade because the markets are already crowded with established tools. <strong>What this group shows:</strong> the buyer here is the <em>brand</em> — a completely different customer from a <em>retailer</em> — so it informs the industry picture but doesn't carry over to the retail work.</p>
+
+<h3>② IT incident "root-cause" platform <span class="muted">(1 idea · standalone · rejected)</span></h3>
+<p>A tool that watches software systems, finds the root cause when something breaks, and fixes it. It scores 61.5/85 but is <strong>rejected head-on</strong> — it's the most crowded, best-funded area in the whole study (one rival valued near $1 billion, plus offerings from the big cloud and monitoring companies, some bundling it in for free). <strong>What it shows:</strong> the advantage goes to whoever already holds the data — and here that's the big incumbents, not a new team. That same test later sinks the re-ordering idea too.</p>
+
+<h3>③ B2B back-office shortlist <span class="muted">(6 ideas · scored once "can we reach the buyer?" became the deciding question)</span></h3>
+<p>The IT-services (MSP) idea looks best on paper — but only with a realistic way to reach lots of IT firms to sell to, which isn't the case here. Once the focus narrows to a market that <em>can</em> be reached (<strong>retail</strong>), this whole group drops down: the off-target ideas (fund admin, freight, broker submissions — several also in crowded markets) fall away.</p>
+
+<h3>④ Retail-ops set <span class="muted">(the focus area · the retailer is the buyer)</span></h3>
+<p>Products where there's a realistic path to retail customers. The three core buying tasks — <strong>purchase-order exceptions, new-product/SKU setup, and supplier onboarding</strong> — combine into one <strong>Buying Agent</strong> suite sold to the retail buying desk, with purchase-order exception as the lead, lowest-risk starting module. Three further retail agents — <strong>re-ordering, price-change, and returns</strong> — are ranked separately, as they serve different teams (planning, pricing, operations).</p>
+
+<h3>⑤ The two finalists, head-to-head <span class="muted">(the deep check)</span></h3>
+<p>Purchase-order exception vs. re-ordering, with the competition checked against current, real funding. The purchase-order agent holds firm at <strong>49/60, 69/85 (Strong)</strong>. The re-ordering agent drops to <strong>42/60, 60/85</strong> once two large planning vendors are found already shipping it as an AI agent. <strong>The purchase-order exception agent is the strongest</strong> — the full reasoning is in <a href="supplier-po-exception-agent.html">its own write-up</a>.</p>
+
+<!-- 4 -->
+<h2 id="autopilot">4 · The big, famous markets that don't make the cut</h2>
+<p>Separately, the headline markets everyone talks about were stress-tested — the kind where an AI agent could take over a whole back-office job. <strong>None of them passes the filter well enough to make the ranking.</strong> They're either already owned by big, well-funded players, or they involve licensed and regulated work that a small, lean team shouldn't take on. Listed worst-fit first, by the reason they fail:</p>
+<table>
+  <tr><th>Market</th><th>Why it doesn't make the list</th><th class="num">Blocker</th></tr>
+  <tr><td>Bookkeeping / month-end accounting</td><td>Several big funded players (one near $1.15B) already build fully-automatic bookkeepers</td><td class="num"><span class="pill p-bad">Big players</span></td></tr>
+  <tr><td>Legal transactional work</td><td>The most heavily funded cluster of all — plus you'd need to be a licensed law firm</td><td class="num"><span class="pill p-bad">Players + rules</span></td></tr>
+  <tr><td>Healthcare billing</td><td>Several funded specialists, plus strict patient-data (HIPAA) rules</td><td class="num"><span class="pill p-bad">Players + rules</span></td></tr>
+  <tr><td>Identity / anti-money-laundering checks</td><td>Established, well-funded vendors; heavily regulated</td><td class="num"><span class="pill p-bad">Closed + rules</span></td></tr>
+  <tr><td>Tax advice</td><td>Existing players already cover tax returns; needs a licence</td><td class="num"><span class="pill p-bad">Closed + rules</span></td></tr>
+  <tr><td>Insurance claims handling</td><td>Crowded with funded specialists</td><td class="num"><span class="pill p-bad">Very crowded</span></td></tr>
+  <tr><td>Mortgage origination</td><td>Funded players plus banks building their own; heavily regulated</td><td class="num"><span class="pill p-bad">Players + rules</span></td></tr>
+  <tr><td>Property-sale closing / escrow</td><td>Funded players already hold the space</td><td class="num"><span class="pill p-bad">Very crowded</span></td></tr>
+  <tr><td>Construction cost estimating</td><td>Fairly open — but the tools sell too cheaply, and big design-software firms loom</td><td class="num"><span class="pill p-warn">Too cheap</span></td></tr>
+  <tr><td>IT-services (MSP) back-office</td><td>Genuinely open — but no realistic way to reach the buyers (the same problem as ranked idea #2)</td><td class="num"><span class="pill p-warn">No route</span></td></tr>
+</table>
+
+<!-- 5 -->
+<h2 id="read">5 · What the whole table shows</h2>
+<div class="callout win">
+  <ul style="margin:4px 0">
+    <li><strong>The strongest idea isn't the highest score — it's the highest score that passes <em>all three</em> tests:</strong> the field is open (no giant already owns it), the buyer can actually be reached, and the advantage builds over time for the team that builds it. The IT-services idea scores higher on paper but fails "can the buyer be reached?". The brand tools and the root-cause platform fail "is the field open?". The big famous markets fail both.</li>
+    <li><strong>Most scores bunch up in the 55–70 band.</strong> Once funded competitors are taken into account, categories even out — so the deciding factor is never the headline number. It's the <em>starting point</em>: one specific, defensible slice a funded copycat can't easily reach. The Buying Agent's first module (the retailer's side of purchase-order exceptions, mid-size, with a realistic way in) is exactly that.</li>
+    <li><strong>The same two questions did most of the cutting:</strong> "is a giant already shipping this?" (sank the re-ordering agent, the root-cause platform, bookkeeping, legal) and "does the long-term advantage go to whoever holds the data — and is that the incumbent, not us?" (sank the re-ordering agent and the root-cause platform). The Buying Agent passes both.</li>
+    <li><strong>Knowing the buyer matters:</strong> three groups touch "retail / shopping," but the customer is different each time — an online brand is not a mid-size retailer. Only the retailer group lines up with a market that can actually be reached.</li>
+  </ul>
+</div>
+<div class="callout key"><strong>Bottom line:</strong> across 17 scored ideas and 10 big markets that don't make the cut, the <strong>Buying Agent</strong> — led by purchase-order exception handling — is the single option that is open, reachable, and compounding all at once. Everything else either scored lower, had no realistic way to reach its buyers, or walked straight into a well-funded competitor.</div>
+
+<footer>
+  Prepared June 2026. The scores are decision aids on a 12-point checklist for a lean, AI-first team — not investment advice. Competitor figures are analyst estimates gathered from public web sources; some early scores are rough first-passes, while the finalists were deep-checked against current funding data.<br><br>
+  Detailed write-ups: <a href="supplier-po-exception-agent.html">The Supplier &amp; Purchase-Order Exception Agent</a> · <a href="deepdive-02-po-exception.html">PO-exception deep-dive</a> · <a href="deepdive-04-article-setup.html">SKU-setup deep-dive</a> · <a href="deepdive-05-map-oos-strike.html">MAP / out-of-stock deep-dive</a> · <a href="index.html">Back to all notes</a>.
+</footer>
+
+</div>
+</body>
+</html>
