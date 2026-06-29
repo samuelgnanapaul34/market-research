@@ -169,7 +169,7 @@
   <p class="lead">Ranked best to weakest by the weighted score. <b>Click any idea to open its full 12-factor scorecard</b> — each factor scored 1–5 × its weight, with the reason. Factor weights: Pain / Urgency / can-we-reach-the-buyer ×2; Buyer-clarity / ROI / Spend / Integration ×1.5; the rest ×1. The top-scoring ideas also link to a full deep-dive page.</p>
 
   <!-- 1 -->
-  <details class="sc">
+  <details class="sc" open>
     <summary><span class="sc-name">1 · Certified-payroll agent <a href="deepdive-01-certified-payroll.html" onclick="event.stopPropagation()" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></span><span class="chip v-con">Construction/GovCon</span><span class="sc-score">Raw 50/60 · Wtd 72/85 · <b style="color:var(--green)">Strong</b></span></summary>
     <div class="sc-body">
       <p class="sc-desc">Ingests a government contractor's weekly payroll + timekeeping, auto-generates and files <b>certified-payroll reports (federal WH-347 + state equivalents)</b>, validates fringe-benefit and apprenticeship ratios, and flags Davis-Bacon / prevailing-wage violations before they trigger withheld payment or debarment. <b>Buyer:</b> the payroll/compliance lead at contractors on publicly-funded work. <b>Wedge:</b> a mandatory weekly filing with severe penalties, where incumbents (LCPtracker, Points North) are legacy desktop tools, not AI-native.</p>
@@ -192,7 +192,7 @@
   </details>
 
   <!-- 2 -->
-  <details class="sc">
+  <details class="sc" open>
     <summary><span class="sc-name">2 · Retail Buyer Agent <span style="color:var(--muted);font-weight:400">(consolidated buying-desk product)</span> <a href="retail-buyer-agent.html" onclick="event.stopPropagation()" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></span><span class="chip v-ret">Retail SCM</span><span class="sc-score">Raw 48/60 · Wtd 67/85 · <b style="color:var(--green)">Strong</b></span></summary>
     <div class="sc-body">
       <p class="sc-desc">One AI assistant for the whole retail <b>buying desk</b> — it does the manual jobs a buying team does all day: chasing and resolving <b>purchase-order exceptions</b> (short-ships, price/quantity mismatches, late or missing confirmations), setting up <b>new products / SKUs</b> from supplier sheets, and <b>onboarding suppliers</b> (documents, compliance, insurance certificates). Sold to the <b>head of buying</b> as one product, but built and sold <b>one module at a time</b>. The smart start is PO-exception handling: cheapest to prove, clearest payback, and no funded copy-cat — then add the rest once it is trusted. The 12-factor split below is for that <b>lead module</b>; the full suite scores the same overall (48/60 · 67/85) — its higher value and price are balanced by needing to touch more of the ERP.</p>
@@ -221,7 +221,7 @@
   </details>
 
   <!-- 3 -->
-  <details class="sc">
+  <details class="sc" open>
     <summary><span class="sc-name">3 · Product-safety + DPP compliance agent <a href="deepdive-03-product-safety-dpp.html" onclick="event.stopPropagation()" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></span><span class="chip v-ret">Retail Compliance</span><span class="sc-score">Raw 47/60 · Wtd 67/85 · <b style="color:var(--green)">Strong</b></span></summary>
     <div class="sc-body">
       <p class="sc-desc">Collects and validates supplier <b>test reports, certificates of conformity and CPCs</b> across standards (EN71, ASTM F963, CPSIA, UKCA), flags expired/mismatched docs (≈45% of factory reports are), builds the technical file, and handles US CPSC e-filing + EU technical-file/DPP obligations. <b>Buyer:</b> the importer/retailer's product-safety / QA / compliance lead. <b>Wedge:</b> hard 2026 deadlines + incumbents (Assent) are manufacturer/BOM-level, leaving finished-goods retailer compliance open.</p>
@@ -244,7 +244,7 @@
   </details>
 
   <!-- 4 -->
-  <details class="sc">
+  <details class="sc" open>
     <summary><span class="sc-name">4 · Article / SKU-setup agent <a href="deepdive-04-article-setup.html" onclick="event.stopPropagation()" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></span><span class="chip v-ret">Retail SCM</span><span class="sc-score">Raw 46/60 · Wtd 66/85 · <b style="color:var(--green)">Strong</b></span></summary>
     <div class="sc-body">
       <p class="sc-desc">Ingests supplier <b>line-sheets / PDFs / spreadsheets</b> and auto-creates an enriched <b>article/SKU master</b> in the retailer's ERP (attributes, classifications, barcodes, dimensions, safety data, pricing) for buyer approval. <b>Buyer:</b> assistant buyers / merch-ops, with the Buying Director owning budget. <b>Wedge:</b> the highest-volume buyer drudgery (a toy retailer sets up thousands of seasonal SKUs); contested by PIM (Salsify/Syndigo/Pimberly) and adjacent SAP Joule, so win on focus + ERP-embedding.</p>
@@ -267,7 +267,7 @@
   </details>
 
   <!-- 5 -->
-  <details class="sc">
+  <details class="sc" open>
     <summary><span class="sc-name">5 · MAP / out-of-stock strike agent <a href="deepdive-05-map-oos-strike.html" onclick="event.stopPropagation()" style="color:var(--accent);font-size:11px;white-space:nowrap">↗ deep dive</a></span><span class="chip v-ret">Retail / D2C</span><span class="sc-score">Raw 46/60 · Wtd 66/85 · <b style="color:var(--green)">Strong</b></span></summary>
     <div class="sc-body">
       <p class="sc-desc">Monitors a brand's products across retailers/marketplaces for <b>MAP (minimum-advertised-price) violations and out-of-stocks</b>, then <b>acts</b> — issues violation notices, opens cases, alerts reps, triggers re-stock workflows. <b>Buyer:</b> the D2C/CPG brand's channel/eCom manager. <b>Wedge:</b> "does the work" not dashboards; the risk is dependency on volatile marketplace data and entrenched FMCG monitoring incumbents.</p>
