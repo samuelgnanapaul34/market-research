@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buying Desk — PO-Exception Agent (Prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#101828; --ink2:#475467; --ink3:#98a2b3;
+    --line:#e7eaf0; --brand:#4f46e5; --brand-soft:#eef2ff;
+    --green:#079455; --green-soft:#ecfdf3; --amber:#b54708; --amber-soft:#fffaeb;
+    --red:#d92d20; --red-soft:#fef3f2; --blue:#175cd3; --blue-soft:#eff8ff;
+    --purple:#6938ef; --purple-soft:#f4f3ff;
+    --side:#0b0e14; --radius:12px;
+    --shadow:0 1px 2px rgba(16,24,40,.05);
+    font-size:15px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  svg.i{width:16px;height:16px;flex-shrink:0}
+  /* ---------- sidebar ---------- */
+  .side{width:224px;background:var(--side);color:#cbd5e1;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:20}
+  .logo{display:flex;align-items:center;gap:10px;padding:18px 18px 14px;border-bottom:1px solid #1e293b}
+  .logo .mark{width:30px;height:30px;border-radius:8px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff}
+  .logo .mark svg{width:15px;height:15px}
+  .logo b{color:#fff;font-size:15.5px;letter-spacing:-.2px}
+  .logo small{display:block;color:#64748b;font-size:10.5px;font-weight:500;letter-spacing:.4px;text-transform:uppercase}
+  .nav{padding:12px 10px;flex:1}
+  .nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#94a3b8;text-decoration:none;font-size:13.5px;font-weight:500;margin-bottom:2px;cursor:pointer}
+  .nav a .ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+  .nav a .ico svg{width:15.5px;height:15.5px}
+  .nav a:hover{background:#1e293b;color:#e2e8f0}
+  .nav a.active{background:#1e293b;color:#fff}
+  .nav a .pill{margin-left:auto;background:var(--brand);color:#fff;font-size:10.5px;font-weight:700;border-radius:99px;padding:1px 7px}
+  .nav a .pill.soon{background:#1e2636;color:#8b97ad;font-weight:600;letter-spacing:.3px}
+  .preview-banner{display:flex;align-items:center;gap:10px;background:var(--amber-soft);border:1px solid #fedf89;color:#93370d;border-radius:10px;padding:11px 16px;font-size:12.5px;font-weight:500;margin-bottom:18px;line-height:1.5}
+  .preview-banner b{font-weight:700}
+  .nav .sect{font-size:10px;text-transform:uppercase;letter-spacing:.9px;color:#475569;padding:14px 12px 6px;font-weight:700}
+  .side .foot{padding:14px;border-top:1px solid #1e293b;font-size:11.5px;color:#64748b;line-height:1.5}
+  .conn{display:flex;align-items:center;gap:7px;margin-bottom:6px;color:#a7f3d0;font-size:11.5px;font-weight:600}
+  .dot{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.18)}
+  /* ---------- main ---------- */
+  .main{margin-left:224px;flex:1;display:flex;flex-direction:column;min-width:0}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line);padding:0 26px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+  .burger{display:none;align-items:center;justify-content:center;width:36px;height:36px;margin-left:-8px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink2);cursor:pointer;flex-shrink:0}
+  .burger svg{width:19px;height:19px}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:19}
+  .scrim.show{display:block}
+  .topbar h1{font-size:16.5px;font-weight:700;letter-spacing:-.2px}
+  .mode{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--line)}
+  .mode svg{width:11.5px;height:11.5px}
+  .mode.readonly{color:var(--blue);background:var(--blue-soft);border-color:#bfdbfe}
+  .mode.hitl{color:var(--purple);background:var(--purple-soft);border-color:#ddd6fe}
+  .spacer{flex:1}
+  .who{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink2)}
+  .who .av{width:30px;height:30px;border-radius:50%;background:#c7d2fe;color:#3730a3;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+  .content{padding:24px 26px;max-width:1220px;width:100%}
+  /* ---------- generic ---------- */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+  .card .lbl{font-size:11.5px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .card .val{font-size:25px;font-weight:800;letter-spacing:-.5px}
+  .card .sub{font-size:12px;color:var(--ink2);margin-top:4px}
+  .up{color:var(--green);font-weight:700}.down{color:var(--red);font-weight:700}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:18px;box-shadow:var(--shadow);overflow:hidden}
+  .panel .hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel .hd h3{font-size:14px;font-weight:700}
+  .panel .hd .note{font-size:12px;color:var(--ink3)}
+  .panel .bd{padding:16px 18px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);font-weight:700;text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:11px 14px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  tbody tr.click{cursor:pointer}
+  tbody tr.click:hover{background:#fafbff}
+  .chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap;letter-spacing:.1px}
+  .chip::before{content:"";width:5px;height:5px;border-radius:99px;background:currentColor;flex-shrink:0;opacity:.85}
+  .chip.work::before{width:9px;height:9px;background:transparent;border:1.5px solid currentColor;border-top-color:transparent;opacity:1;animation:spin .7s linear infinite}
+  .chip.red{background:var(--red-soft);color:var(--red)}
+  .chip.amber{background:var(--amber-soft);color:var(--amber)}
+  .chip.green{background:var(--green-soft);color:var(--green)}
+  .chip.blue{background:var(--blue-soft);color:var(--blue)}
+  .chip.purple{background:var(--purple-soft);color:var(--purple)}
+  .chip.grey{background:#f1f5f9;color:var(--ink2)}
+  .money{font-variant-numeric:tabular-nums;font-weight:700}
+  .btn{border:none;border-radius:8px;font-size:13px;font-weight:600;padding:9px 16px;cursor:pointer;font-family:inherit}
+  .btn{transition:all .12s ease}
+  .btn.primary{background:var(--ink);color:#fff;box-shadow:var(--shadow)}
+  .btn.primary:hover{background:#1d2939}
+  .btn.ghost{background:#fff;color:var(--ink2);border:1px solid var(--line)}
+  .btn.ghost:hover{border-color:#cbd5e1;color:var(--ink)}
+  .btn.danger{background:#fff;color:var(--red);border:1px solid #fecaca}
+  .btn.danger:hover{background:var(--red-soft)}
+  .btn.green{background:var(--green);color:#fff}
+  .btn.sm{padding:6px 12px;font-size:12px}
+  .filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .fbtn{font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;font-family:inherit}
+  .fbtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .view{display:none}.view.active{display:block}
+  /* diff table */
+  td.diff{background:var(--red-soft);color:var(--red);font-weight:700}
+  td.ok{color:var(--ink2)}
+  .arrow{color:var(--ink3);padding:0 4px}
+  /* agent proposal */
+  .prop{border:1px solid var(--line);border-left:3px solid var(--purple);background:#fff;border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .prop .tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+  .prop h4{font-size:14.5px;margin-bottom:6px}
+  .prop p{font-size:13px;color:var(--ink2);line-height:1.55}
+  .conf{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--purple);background:var(--purple-soft);padding:3px 9px;border-radius:99px}
+  .draft{background:#fff;border:1px solid var(--line);border-radius:8px;margin-top:12px;overflow:hidden}
+  .draft .dh{background:#f8fafc;border-bottom:1px solid var(--line);padding:9px 14px;font-size:12px;color:var(--ink2)}
+  .draft .dh b{color:var(--ink)}
+  .draft textarea{width:100%;border:none;padding:13px 14px;font-family:inherit;font-size:13px;line-height:1.6;color:var(--ink);min-height:180px;resize:vertical;outline:none;background:#fff}
+  .actions{display:flex;gap:9px;margin-top:14px;align-items:center}
+  .evi{background:#f8fafc;border:1px solid var(--line);border-left:3px solid var(--ink3);border-radius:6px;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55;margin-top:10px}
+  .evi b{color:var(--ink)}
+  .mem{background:var(--amber-soft);border:1px solid #fde68a;border-radius:8px;padding:13px 15px;font-size:12.5px;line-height:1.6;color:#78350f;margin-top:14px}
+  .mem b{display:flex;align-items:center;gap:6px;margin-bottom:4px;color:#92400e;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  /* timeline */
+  .tl{list-style:none;margin-top:4px}
+  .tl li{position:relative;padding:0 0 16px 24px;font-size:12.5px;color:var(--ink2)}
+  .tl li:before{content:"";position:absolute;left:6px;top:5px;width:8px;height:8px;border-radius:50%;background:#cbd5e1}
+  .tl li:after{content:"";position:absolute;left:9.5px;top:16px;bottom:0;width:1px;background:var(--line)}
+  .tl li:last-child:after{display:none}
+  .tl li.agent:before{background:var(--purple)}
+  .tl li.human:before{background:var(--brand)}
+  .tl li.sys:before{background:var(--green)}
+  .tl li b{color:var(--ink)}
+  .tl li .t{color:var(--ink3);font-size:11px;margin-left:6px}
+  /* two-col detail */
+  .cols{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+  .cols>*{min-width:0}
+  .content{min-width:0}
+  .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);cursor:pointer;font-weight:600;margin-bottom:14px;background:none;border:none;font-family:inherit}
+  .back:hover{color:var(--ink)}
+  .dhead{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .dhead h2{font-size:19px;letter-spacing:-.3px}
+  .dhead .meta{font-size:12.5px;color:var(--ink2)}
+  /* bars */
+  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12.5px}
+  .bar-row .n{width:150px;color:var(--ink2);flex-shrink:0}
+  .bar-row .track{flex:1;height:20px;background:#f1f5f9;border-radius:5px;overflow:hidden}
+  .bar-row .fill{height:100%;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding:0 7px;color:#fff;font-size:10.5px;font-weight:700;min-width:34px}
+  .bar-row .v{width:70px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+  /* briefing */
+  .brief-hero{background:radial-gradient(900px 300px at 15% -40%,rgba(79,70,229,.35),transparent),#0b0e14;border:1px solid #1a2030;color:#e2e6ee;border-radius:14px;padding:26px 30px;margin-bottom:18px}
+  .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:#8098f9;margin-bottom:10px}
+  .brief-hero h2{font-size:20px;margin-bottom:9px;letter-spacing:-.4px;color:#fff;font-weight:700}
+  .brief-hero p{font-size:13.5px;line-height:1.7;color:#aab2c5;max-width:800px}
+  .brief-hero b{color:#fff;font-weight:600}
+  .ny-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f1f5f9}
+  .ny-row:last-child{border-bottom:none}
+  .ny-row .sum{flex:1;min-width:0}
+  .ny-row .sum b{font-size:13.5px;display:block}
+  .ny-row .sum span{font-size:12px;color:var(--ink2)}
+  .feed{list-style:none}
+  .feed li{display:flex;gap:10px;padding:9px 0;font-size:12.5px;color:var(--ink2);border-bottom:1px solid #f8fafc;line-height:1.5}
+  .feed li:last-child{border-bottom:none}
+  .feed li .t{color:var(--ink3);font-size:11px;width:92px;flex-shrink:0;padding-top:2px}
+  .feed li b{color:var(--ink)}
+  .prog{margin-bottom:14px}
+  .prog:last-child{margin-bottom:0}
+  .prog .pl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;gap:10px}
+  .prog .pl b{font-size:12.5px}
+  .prog .pl span{color:var(--ink3);font-size:11.5px;text-align:right}
+  .prog .track{height:8px;border-radius:99px;background:#f1f5f9;overflow:hidden}
+  .prog .fill{height:100%;border-radius:99px}
+  /* live sim */
+  .live-strip{display:flex;align-items:center;gap:10px;background:#0f172a;color:#cbd5e1;border-radius:10px;padding:10px 16px;margin-bottom:18px;font-size:12.5px}
+  .live-strip .ldot{width:8px;height:8px;border-radius:50%;background:#f87171;flex-shrink:0;animation:lpulse 1.6s infinite}
+  .live-strip b{color:#fff}
+  @keyframes lpulse{0%,100%{box-shadow:0 0 0 0 rgba(248,113,113,.5)}50%{box-shadow:0 0 0 6px rgba(248,113,113,0)}}
+  .feed li.new{animation:rowflash 2.4s ease}
+  @keyframes rowflash{0%{background:#ecfdf3}100%{background:transparent}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+  /* toast */
+  #toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;padding:13px 18px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:none;z-index:100;max-width:380px;line-height:1.45}
+  #toast.show{display:block;animation:pop .25s ease}
+  @keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:50}
+  .overlay.show{display:flex}
+  .modal{background:#fff;border-radius:14px;width:440px;max-width:92vw;padding:22px}
+  .modal h3{font-size:15.5px;margin-bottom:6px}
+  .modal p{font-size:13px;color:var(--ink2);margin-bottom:12px}
+  .modal textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:13px;min-height:80px;resize:vertical}
+  .modal .row{display:flex;gap:9px;justify-content:flex-end;margin-top:14px}
+  /* audit report */
+  .audit-hero{background:radial-gradient(900px 300px at 85% -40%,rgba(105,56,239,.32),transparent),#0b0e14;border:1px solid #1a2030;color:#e2e6ee;border-radius:14px;padding:28px 30px;margin-bottom:20px}
+  .audit-hero .k{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;opacity:.75}
+  .audit-hero .big{font-size:40px;font-weight:800;letter-spacing:-1px;margin:6px 0 4px}
+  .audit-hero p{font-size:13.5px;opacity:.85;max-width:640px;line-height:1.55}
+  .audit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  /* autonomy */
+  .auto-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #f1f5f9}
+  .auto-row:last-child{border-bottom:none}
+  .auto-row .info{flex:1}
+  .auto-row .info b{font-size:13.5px;display:block;margin-bottom:2px}
+  .auto-row .info span{font-size:12px;color:var(--ink2)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex-shrink:0}
+  .seg button{border:none;background:#fff;font-family:inherit;font-size:11.5px;font-weight:600;padding:7px 12px;color:var(--ink3);cursor:pointer;border-right:1px solid var(--line)}
+  .seg button:last-child{border-right:none}
+  .seg button.on{background:var(--brand);color:#fff}
+  .seg button.locked{color:#cbd5e1;cursor:not-allowed}
+  .note-sm{font-size:11.5px;color:var(--ink3);margin-top:10px;line-height:1.5}
+  @media(max-width:1000px){.cards,.audit-grid{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}}
+  /* ---------- mobile ---------- */
+  @media(max-width:768px){
+    .side{transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.3)}
+    .side.open{transform:translateX(0)}
+    .main{margin-left:0}
+    .burger{display:flex}
+    .topbar{padding:0 16px;gap:10px}
+    .topbar h1{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .topbar .mode{display:none}
+    .who span{display:none}
+    .content{padding:16px 14px}
+    .cards,.audit-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .card{padding:13px 14px}
+    .card .val{font-size:21px}
+    .brief-hero{padding:20px 18px}
+    .brief-hero h2{font-size:17px}
+    .audit-hero{padding:22px 18px}
+    .audit-hero .big{font-size:30px}
+    /* wide tables scroll within their panel instead of stretching the page */
+    .panel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    table{white-space:nowrap}
+    .actions{flex-wrap:wrap}
+    .actions .note-sm{margin-left:0!important;width:100%}
+    .ny-row{flex-wrap:wrap}
+    .ny-row .sum{flex-basis:100%;order:2}
+    .auto-row{flex-wrap:wrap;align-items:flex-start}
+    .auto-row .seg{margin-top:8px}
+    .bar-row .n{width:104px}
+    .dhead h2{font-size:16px}
+    #toast{left:14px;right:14px;bottom:14px;max-width:none}
+  }
+  @media(max-width:420px){.cards,.audit-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="side">
+  <div class="logo">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <div><b>Buying Desk</b><small>Exceptions</small></div>
+  </div>
+  <nav class="nav">
+    <div class="sect">Workbench</div>
+    <a data-nav="briefing" class="active"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span> Agent Briefing</a>
+    <a data-nav="queue"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></span> Exception Queue <span class="pill" id="queueCount">7</span></a>
+    <a data-nav="dashboard"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span> Dashboard</a>
+    <a data-nav="audit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> Exception-Loss Audit</a>
+    <a data-nav="suppliers"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></span> Suppliers</a>
+    <div class="sect">Agent</div>
+    <a data-nav="autonomy"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg></span> Autonomy &amp; Guardrails</a>
+    <a data-nav="memory"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span> Operational Memory</a>
+    <div class="sect">Coming next</div>
+    <a data-nav="sku"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span> SKU / Article Setup <span class="pill soon">soon</span></a>
+    <a data-nav="onboarding"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg></span> Supplier Onboarding <span class="pill soon">soon</span></a>
+    <a data-nav="claims"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></span> Claims &amp; Rebates <span class="pill soon">soon</span></a>
+  </nav>
+  <div class="foot">
+    <div class="conn"><span class="dot"></span> SAP S/4HANA — connected</div>
+    Read-only: PO · ASN · GR · pricing<br>
+    Write-back: sanctioned path, approval-gated
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+  <div class="topbar">
+    <button class="burger" id="burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <h1 id="pageTitle">Agent Briefing</h1>
+    <span class="mode readonly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Read-only ERP</span>
+    <span class="mode hitl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/></svg> Propose-then-act</span>
+    <span class="mode" style="color:var(--ink3)">Sample data</span>
+    <div class="spacer"></div>
+    <div class="who"><span>Emma W. — Buying Ops</span><div class="av">EW</div></div>
+  </div>
+
+  <div class="content">
+
+    <!-- ============ VIEW: BRIEFING ============ -->
+    <section class="view active" id="view-briefing">
+      <div class="brief-hero">
+        <div>
+          <div class="eyebrow">Agent briefing · Thursday 2 July · 08:00</div>
+          <h2>Morning, Emma — here's what I've handled since Monday</h2>
+          <p>I processed <b>47 exceptions</b> across your 214 suppliers: closed <b>29 touchless</b>, sent <b>11 chases</b>, reconciled <b>2 credit notes</b> and protected <b>£2,340</b>. I've queued <b><span id="bNeedCount">7</span> proposals</b> for your approval — about six minutes — and <b><span id="bEscCount">1</span> commercial dispute</b> needs your call. Everything else is running; I'll come to you if that changes.</p>
+        </div>
+      </div>
+
+      <div class="live-strip"><span class="ldot"></span><b style="font-size:11px;letter-spacing:.8px">LIVE</b><span id="liveNow">watching the buying inbox…</span></div>
+
+      <div class="cards">
+        <div class="card"><div class="lbl">Exceptions this month</div><div class="val">312</div><div class="sub">detected &amp; worked by the agent</div></div>
+        <div class="card"><div class="lbl">You've had to look at</div><div class="val">38</div><div class="sub"><b class="up">12%</b> — the agent handled the rest</div></div>
+        <div class="card"><div class="lbl">Chases in flight</div><div class="val">12</div><div class="sub">tracked to resolution automatically</div></div>
+        <div class="card"><div class="lbl">Recovered MTD</div><div class="val">£18,420</div><div class="sub">overpayments · claims · penalties</div></div>
+      </div>
+
+      <div class="cols">
+        <div class="panel">
+          <div class="hd"><h3>Needs you now</h3><span class="note">approve here, or review the full evidence first</span></div>
+          <div id="needsYouList"></div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="hd"><h3>While you were away</h3><span class="note">agent log · live</span></div>
+            <div class="bd">
+              <ul class="feed" id="agentFeed">
+                <li><span class="t">Today 07:42</span><div>Parsed <b>6 confirmations</b> from the buying inbox — 4 matched clean, 2 opened exceptions</div></li>
+                <li><span class="t">Today 07:15</span><div>Chased <b>Nordic Play</b> (Day-3 reminder, PO-48160) — no reply; escalation drafted for you</div></li>
+                <li><span class="t">Yesterday 16:20</span><div>Closed <b>PO-47901 touchless</b> — Little Wonders reissued at contracted cost; <b>£175 protected</b></div></li>
+                <li><span class="t">Yesterday 14:05</span><div>Reconciled credit note <b>CN-1190</b> (£394) from Nordic Play against the short-delivery claim</div></li>
+                <li><span class="t">Yesterday 09:00</span><div>Requested <b>T-21 re-confirmation</b> on 3 Zenith promo lines (their long-dated confirmations slip — learned pattern)</div></li>
+                <li><span class="t">Mon 29 Jun</span><div>Sent the <b>weekly digest</b> to the Head of Buying — £4.1k protected last week</div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="hd"><h3>Trust I've earned</h3><span class="note">autonomy unlocks at ≥98% approval over 90 days</span></div>
+            <div class="bd">
+              <div class="prog"><div class="pl"><b>Chase unconfirmed POs</b><span>auto-send earned 12 May · 98.8%</span></div><div class="track"><div class="fill" style="width:100%;background:var(--green)"></div></div></div>
+              <div class="prog"><div class="pl"><b>Price-mismatch corrections</b><span>63/90 days · 100% approval</span></div><div class="track"><div class="fill" style="width:70%;background:var(--brand)"></div></div></div>
+              <div class="prog"><div class="pl"><b>Claims &amp; debit notes</b><span>41/90 days · 96% — needs ≥98%</span></div><div class="track"><div class="fill" style="width:46%;background:#f59e0b"></div></div></div>
+              <div class="prog"><div class="pl"><b>ERP write-back</b><span>approval-gated · eligible from Oct</span></div><div class="track"><div class="fill" style="width:8%;background:#cbd5e1"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note-sm">This briefing also lands in your inbox at 08:00 (and Slack) with approve buttons inline — most days you shouldn't need to open the app at all. The app is the audit trail, not the job.</div>
+    </section>
+
+    <!-- ============ VIEW: QUEUE ============ -->
+    <section class="view" id="view-queue">
+      <div class="cards">
+        <div class="card"><div class="lbl">Open exceptions</div><div class="val" id="kpiOpen">34</div><div class="sub"><span class="down">£61,240</span> at risk</div></div>
+        <div class="card"><div class="lbl">Awaiting your approval</div><div class="val" id="kpiApproval">7</div><div class="sub">agent proposals ready</div></div>
+        <div class="card"><div class="lbl">Resolved without you (7d)</div><div class="val" id="kpiTouchless">11</div><div class="sub">closed by the agent end-to-end</div></div>
+        <div class="card"><div class="lbl">Recovered MTD</div><div class="val" id="kpiRecovered">£18,420</div><div class="sub">overpayments + claims</div></div>
+      </div>
+
+      <div class="filters" id="queueFilters">
+        <button class="fbtn active" data-f="all">All open</button>
+        <button class="fbtn" data-f="needs_approval">Needs approval</button>
+        <button class="fbtn" data-f="awaiting_supplier">Awaiting supplier</button>
+        <button class="fbtn" data-f="escalated">Escalated</button>
+        <button class="fbtn" data-f="resolved">Resolved (7d)</button>
+      </div>
+
+      <div class="panel">
+        <table id="queueTable">
+          <thead><tr>
+            <th>PO</th><th>Supplier</th><th>Exception</th><th>Detail</th>
+            <th style="text-align:right">£ at risk</th><th>Age</th><th>Status</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="note-sm">The agent detects exceptions from PO ↔ confirmation ↔ ASN ↔ goods-receipt deltas and supplier email. It never orders stock or changes a buying decision — it does the chasing and paperwork for your approval.</div>
+    </section>
+
+    <!-- ============ VIEW: DETAIL ============ -->
+    <section class="view" id="view-detail"><!-- rendered by JS --></section>
+
+    <!-- ============ VIEW: DASHBOARD ============ -->
+    <section class="view" id="view-dashboard">
+      <div class="cards">
+        <div class="card"><div class="lbl">Touchless-resolution rate</div><div class="val">≥40–50%</div><div class="sub">pilot pass-line — measured on your live POs, never promised upfront</div></div>
+        <div class="card"><div class="lbl">Manual touches</div><div class="val">−30–50%</div><div class="sub">target vs your pre-agent baseline, measured</div></div>
+        <div class="card"><div class="lbl">Time-to-resolve</div><div class="val">−25–40%</div><div class="sub">target, detection → resolution</div></div>
+        <div class="card"><div class="lbl">Value protected</div><div class="val">Actuals</div><div class="sub">every resolution logs the £ it protected — real figures from week one</div></div>
+      </div>
+
+      <div class="cols">
+        <div class="panel">
+          <div class="hd"><h3>Exceptions by type — last 30 days</h3><span class="note">312 detected</span></div>
+          <div class="bd">
+            <div class="bar-row"><span class="n">Unconfirmed PO</span><div class="track"><div class="fill" style="width:88%;background:#6366f1">98</div></div><span class="v">31%</span></div>
+            <div class="bar-row"><span class="n">Price mismatch</span><div class="track"><div class="fill" style="width:66%;background:#8b5cf6">74</div></div><span class="v">24%</span></div>
+            <div class="bar-row"><span class="n">Qty mismatch</span><div class="track"><div class="fill" style="width:50%;background:#2563eb">56</div></div><span class="v">18%</span></div>
+            <div class="bar-row"><span class="n">Short shipment</span><div class="track"><div class="fill" style="width:40%;background:#0891b2">45</div></div><span class="v">14%</span></div>
+            <div class="bar-row"><span class="n">Date slip / late ASN</span><div class="track"><div class="fill" style="width:35%;background:#059669">39</div></div><span class="v">13%</span></div>
+            <div class="note-sm">Illustrative sample — the mix on <b>your</b> desk is measured during the pilot, not assumed.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="hd"><h3>What the 2-week read-only pilot measures</h3><span class="note">agreed pass / kill lines — before any subscription</span></div>
+          <div class="bd">
+            <table>
+              <thead><tr><th>Metric</th><th>Pass line</th><th>If it misses</th></tr></thead>
+              <tbody>
+                <tr><td><b>Touchless-resolvable share</b> of your real exceptions</td><td>≥40–50%</td><td>we don't ask you to subscribe</td></tr>
+                <tr><td><b>Parse accuracy</b> on your suppliers' formats</td><td>≥95%</td><td>unparsed docs route to a human queue</td></tr>
+                <tr><td><b>Reply auto-match</b> to the right exception</td><td>≥70%</td><td>unmatched replies surface for triage</td></tr>
+                <tr><td><b>£ loss found</b> vs the audit fee</td><td>&gt; fee</td><td>audit fee refunded</td></tr>
+              </tbody>
+            </table>
+            <div class="note-sm">These are commitments, not claims — this dashboard fills with <b>your measured numbers</b> during the pilot.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="hd"><h3>Where the money was protected — 90 days</h3><span class="note">illustrative sample data</span></div>
+        <div class="bd">
+          <table>
+            <thead><tr><th>Category</th><th>Mechanism</th><th style="text-align:right">Recovered / protected</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><b>Overpaid invoices prevented</b></td><td>Price-mismatch caught before invoice match</td><td style="text-align:right" class="money">£31,880</td><td class="ok">Brixworth Q2 price-file drift</td></tr>
+              <tr><td><b>Short-delivery claims raised</b></td><td>GR vs ASN delta → claim drafted &amp; tracked</td><td style="text-align:right" class="money">£19,590</td><td class="ok">PlayCore 60-unit short-ship</td></tr>
+              <tr><td><b>Contract penalties applied</b></td><td>Late/missing confirmation → penalty clause cited</td><td style="text-align:right" class="money">£12,710</td><td class="ok">Nordic Play late confirmations</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: AUDIT ============ -->
+    <section class="view" id="view-audit">
+      <div class="audit-hero">
+        <div class="k">Exception-Loss Audit · read-only · 6 weeks of PO / ASN / GR / email data</div>
+        <div class="big">£210k – £290k / year</div>
+        <p>Estimated annualised loss from purchase-order exceptions your ERP shows but nobody acts on. Shown as a range on purpose: figures are computed only from records verifiable against your contracts, and where price files are stale we widen the band rather than fake certainty. This is the baseline the agent is measured against.</p>
+      </div>
+      <div class="audit-grid">
+        <div class="card"><div class="lbl">Overpaid invoices</div><div class="val">£86k</div><div class="sub">confirmations above contracted cost that flowed through to invoice match</div></div>
+        <div class="card"><div class="lbl">Unclaimed penalties</div><div class="val">£54k</div><div class="sub">short-delivery &amp; late-confirmation clauses you're owed but never charge</div></div>
+        <div class="card"><div class="lbl">Stockout margin at risk</div><div class="val">£112k</div><div class="sub">unconfirmed / slipped POs on promo &amp; seasonal lines</div></div>
+        <div class="card"><div class="lbl">Buyer time burned</div><div class="val">1,900h</div><div class="sub">manual chasing &amp; reconciliation across the desk, per year</div></div>
+      </div>
+      <div class="panel">
+        <div class="hd"><h3>Audit findings by supplier (top 5 of 214)</h3><span class="note">6-week sample, annualised</span></div>
+        <div class="bd">
+          <table>
+            <thead><tr><th>Supplier</th><th>POs sampled</th><th>Exception rate</th><th>Dominant failure</th><th style="text-align:right">Annualised loss</th></tr></thead>
+            <tbody>
+              <tr><td><b>Brixworth Toys Ltd</b></td><td>212</td><td><span class="chip red">31%</span></td><td>Confirms above contracted cost</td><td style="text-align:right" class="money">£48,200</td></tr>
+              <tr><td><b>Nordic Play AB</b></td><td>96</td><td><span class="chip red">27%</span></td><td>No confirmation ≥5 days</td><td style="text-align:right" class="money">£39,600</td></tr>
+              <tr><td><b>MegaFun Imports</b></td><td>144</td><td><span class="chip amber">19%</span></td><td>Partial-qty confirmations</td><td style="text-align:right" class="money">£31,100</td></tr>
+              <tr><td><b>PlayCore Distribution</b></td><td>178</td><td><span class="chip amber">14%</span></td><td>Short shipment vs ASN</td><td style="text-align:right" class="money">£24,800</td></tr>
+              <tr><td><b>Zenith Games Ltd</b></td><td>130</td><td><span class="chip amber">12%</span></td><td>Delivery-date slippage</td><td style="text-align:right" class="money">£18,900</td></tr>
+            </tbody>
+          </table>
+          <div class="note-sm">Money-back guarantee: if the audit finds less than the audit fee in annualised recoverable loss, the fee is refunded. Audit converts to the agent subscription — same connector, zero re-integration.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: SUPPLIERS ============ -->
+    <section class="view" id="view-suppliers">
+      <div class="panel">
+        <div class="hd"><h3>Supplier reliability — record &amp; report, not decide</h3><span class="note">agent cites these facts in chases; ranking suppliers stays your call</span></div>
+        <div class="bd">
+          <table>
+            <thead><tr><th>Supplier</th><th>Open exceptions</th><th>Confirm ≤48h</th><th>OTIF (90d)</th><th>Avg chase-to-fix</th><th>Trend</th></tr></thead>
+            <tbody>
+              <tr><td><b>Brixworth Toys Ltd</b><br><span class="ok" style="font-size:11.5px">EDI: none — email/PDF</span></td><td>6</td><td>71%</td><td>82%</td><td>1.8 days</td><td><span class="chip green">improving</span></td></tr>
+              <tr><td><b>Nordic Play AB</b><br><span class="ok" style="font-size:11.5px">EDI: none — email</span></td><td>5</td><td><span style="color:var(--red);font-weight:700">44%</span></td><td>76%</td><td>3.1 days</td><td><span class="chip red">worsening</span></td></tr>
+              <tr><td><b>MegaFun Imports</b><br><span class="ok" style="font-size:11.5px">EDI: partial (855 only)</span></td><td>4</td><td>68%</td><td>81%</td><td>2.4 days</td><td><span class="chip grey">flat</span></td></tr>
+              <tr><td><b>PlayCore Distribution</b><br><span class="ok" style="font-size:11.5px">EDI: none — portal + email</span></td><td>3</td><td>77%</td><td>88%</td><td>1.5 days</td><td><span class="chip green">improving</span></td></tr>
+              <tr><td><b>Zenith Games Ltd</b><br><span class="ok" style="font-size:11.5px">EDI: none — email/PDF</span></td><td>2</td><td>81%</td><td>84%</td><td>2.0 days</td><td><span class="chip grey">flat</span></td></tr>
+              <tr><td><b>Little Wonders Ltd</b><br><span class="ok" style="font-size:11.5px">EDI: none — email</span></td><td>1</td><td>89%</td><td>93%</td><td>0.9 days</td><td><span class="chip green">improving</span></td></tr>
+            </tbody>
+          </table>
+          <div class="note-sm">The non-EDI long-tail is the point: these suppliers confirm by email and PDF, which is why the ERP can't see the exceptions — and the agent can.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: AUTONOMY ============ -->
+    <section class="view" id="view-autonomy">
+      <div class="panel">
+        <div class="hd"><h3>Autonomy ladder — earned per action, never assumed</h3><span class="note">every agent action lands in the audit trail regardless of level</span></div>
+        <div class="bd">
+          <div class="auto-row">
+            <div class="info"><b>Chase unconfirmed POs</b><span>Reminder emails to suppliers with no confirmation after the SLA window</span></div>
+            <div class="seg" data-key="chase"><button>Draft only</button><button class="on">Auto-send</button><button>Autonomous</button></div>
+          </div>
+          <div class="auto-row">
+            <div class="info"><b>Price-mismatch corrections</b><span>Request re-confirmation at contracted cost, citing the price file &amp; amendment</span></div>
+            <div class="seg" data-key="price"><button class="on">Draft only</button><button>Auto-send</button><button>Autonomous</button></div>
+          </div>
+          <div class="auto-row">
+            <div class="info"><b>Accept in-tolerance confirmations</b><span>Auto-close exceptions within tolerance: price ≤0.5% · qty ≤2% · date ≤2 days (non-promo lines only)</span></div>
+            <div class="seg" data-key="tolerance"><button>Off</button><button class="on">On</button></div>
+          </div>
+          <div class="auto-row">
+            <div class="info"><b>Short-delivery claims &amp; debit notes</b><span>Draft claim with GR evidence and contract penalty clause</span></div>
+            <div class="seg" data-key="claims"><button class="on">Draft only</button><button>Auto-send</button><button>Autonomous</button></div>
+          </div>
+          <div class="auto-row">
+            <div class="info"><b>ERP write-back (PO date/price/qty corrections)</b><span>Via sanctioned APIs only — clean-core, no core modifications</span></div>
+            <div class="seg" data-key="erp"><button class="on">Approval required</button><button class="locked" title="Unlocks after 90 days & >98% approval rate">Autonomous (locked)</button></div>
+          </div>
+          <div class="note-sm">Autonomous modes unlock per action type after a sustained approval rate ≥98% over 90 days — trust is earned, not configured. Suppliers on the escalation list are always routed to a human.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="hd"><h3>Connection &amp; scope</h3></div>
+        <div class="bd">
+          <table>
+            <tbody>
+            <tr><td><b>SAP S/4HANA</b> (read-only)</td><td>POs · confirmations · ASNs · goods receipts · price files · contracts</td><td><span class="chip green">connected</span></td></tr>
+            <tr><td><b>Buying-desk mailbox</b></td><td>supplier@ shared inbox — parse confirmations, PDFs, replies</td><td><span class="chip green">connected</span></td></tr>
+            <tr><td><b>Write-back path</b></td><td>Sanctioned BAPI/OData only · every write approval-gated &amp; logged</td><td><span class="chip blue">approval-gated</span></td></tr>
+            <tr><td><b>Data boundary</b></td><td>Single-tenant store. No cross-customer benchmarks — your data trains your desk only.</td><td><span class="chip grey">enforced</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: MEMORY ============ -->
+    <section class="view" id="view-memory">
+      <div class="panel">
+        <div class="hd"><h3>Operational Memory — what the desk learns</h3><span class="note">illustrative examples of a mature desk — patterns accrue from weeks of live traffic, empty on day one</span></div>
+        <div class="bd">
+          <table>
+            <thead><tr><th>Pattern learned</th><th>Source</th><th>Now applied as</th></tr></thead>
+            <tbody>
+              <tr><td><b>Brixworth confirms from a stale price file</b> after every contract amendment</td><td>14 price exceptions, 90d</td><td>Chase cites the amendment # and attaches the price file — fix time 4.1d → 1.8d</td></tr>
+              <tr><td><b>Nordic Play never answers the first email</b>; their ops manager responds to a Day-3 follow-up flagged "URGENT — PO at risk"</td><td>22 chases</td><td>Auto-schedules the Day-3 escalation; skips the wasted wait</td></tr>
+              <tr><td><b>MegaFun partial confirmations mean a split shipment</b>, not a shortage — balance follows in 7–10d</td><td>9 qty exceptions</td><td>Holds the exception open, asks for the balance ASN instead of raising a false claim</td></tr>
+              <tr><td><b>PlayCore short-ships cluster on Friday despatches</b> from their Leeds DC</td><td>11 GR deltas</td><td>GR-day check tightened for Fri despatches; claim drafted same day with photos requested</td></tr>
+              <tr><td><b>Zenith's "confirmed" dates slip when confirmed &gt;30d out</b> — median slip 9 days</td><td>17 date exceptions</td><td>Re-confirmation requested at T-21 automatically for promo-linked lines</td></tr>
+            </tbody>
+          </table>
+          <div class="note-sm">This resolution-trace dataset is the moat: it lives in your tenant, compounds with every exception, and is what lifts the touchless rate month over month. It is never pooled across customers.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: SKU / ARTICLE SETUP (roadmap preview) ============ -->
+    <section class="view" id="view-sku">
+      <div class="preview-banner"><b>Roadmap module — preview.</b> Ships after the PO-exception agent is trusted (~10 paying logos). Same buyer, same connector, same approve-then-act pattern — a new job, not a new product.</div>
+      <div class="cards">
+        <div class="card"><div class="lbl">New articles waiting</div><div class="val">14</div><div class="sub">from 3 supplier new-line files</div></div>
+        <div class="card"><div class="lbl">Drafted, ready to review</div><div class="val">11</div><div class="sub">avg 34 of 38 fields auto-filled</div></div>
+        <div class="card"><div class="lbl">Setup time per article</div><div class="val">Minutes</div><div class="sub">target — review only, vs ~45 min of manual keying today</div></div>
+        <div class="card"><div class="lbl">Blocked on supplier</div><div class="val">3</div><div class="sub">missing EAN / spec — chases sent</div></div>
+      </div>
+      <div class="panel">
+        <div class="hd"><h3>Article setup queue</h3><span class="note">agent drafts the SAP article master — you approve before anything is created</span></div>
+        <table>
+          <thead><tr><th>Article</th><th>Supplier</th><th>Source parsed</th><th>Fields drafted</th><th>Missing</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Build-It Space Station 1200pc</b></td><td>Brixworth Toys</td><td>Q3 new-lines price list (PDF)</td><td>38 / 38 — hierarchy, EAN, dims, VAT, cost</td><td class="ok">—</td><td><span class="chip purple">ready to review</span></td></tr>
+            <tr><td><b>Wooden Rail Expansion — Harbour</b></td><td>Nordic Play AB</td><td>New-line form (email attachment)</td><td>36 / 38 — margin check passed</td><td class="ok">customs code</td><td><span class="chip purple">ready to review</span></td></tr>
+            <tr><td><b>Quest Cards — Winter Expansion</b></td><td>Zenith Games</td><td>Spec sheet + trade portal</td><td>31 / 38</td><td style="color:var(--red);font-weight:600">EAN, carton dims</td><td><span class="chip amber">chasing supplier</span></td></tr>
+            <tr><td><b>Bubble Machine Mini (3-pack)</b></td><td>MegaFun Imports</td><td>Q3 price list (Excel)</td><td>38 / 38</td><td class="ok">—</td><td><span class="chip green">approved · pushed to SAP</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <div class="hd"><h3>What the agent does per article</h3></div>
+        <div class="bd" style="font-size:13px;color:var(--ink2);line-height:1.75">
+          Parses the supplier's new-line file (PDF, Excel, form or portal) → drafts the full article master: merchandise-category hierarchy placement, EAN validation against GS1, dimensions &amp; weights from the spec sheet, VAT class, season/theme flags, supplier cost and a margin check against the category floor → flags anything missing and drafts the supplier chase → on your approval, creates the article via the sanctioned SAP path and confirms listing. <b style="color:var(--ink)">It never decides the range — assortment stays your call.</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: SUPPLIER ONBOARDING (roadmap preview) ============ -->
+    <section class="view" id="view-onboarding">
+      <div class="preview-banner"><b>Roadmap module — preview.</b> The same chasing engine pointed at a different pile of paperwork: new-supplier docs, compliance and vendor-master setup.</div>
+      <div class="cards">
+        <div class="card"><div class="lbl">Suppliers in onboarding</div><div class="val">5</div><div class="sub">2 ahead of schedule</div></div>
+        <div class="card"><div class="lbl">Docs chased this week</div><div class="val">14</div><div class="sub">COIs, bank letters, DPAs</div></div>
+        <div class="card"><div class="lbl">Time to trade-ready</div><div class="val">Days</div><div class="sub">target — chasing runs daily instead of when someone remembers</div></div>
+        <div class="card"><div class="lbl">Blocked</div><div class="val">1</div><div class="sub">failed bank verification — escalated</div></div>
+      </div>
+      <div class="panel">
+        <div class="hd"><h3>Onboarding pipeline</h3><span class="note">agent chases, verifies and drafts the vendor master — approvals stay with you</span></div>
+        <table>
+          <thead><tr><th>Supplier</th><th>Stage</th><th>Outstanding</th><th>Agent action</th><th>ETA</th></tr></thead>
+          <tbody>
+            <tr><td><b>Playful Minds Ltd</b></td><td>Compliance docs</td><td>COI (expired copy sent), signed DPA</td><td>Chase sent with correct COI requirements attached</td><td>2 days</td></tr>
+            <tr><td><b>Orchard Crafts UK</b></td><td>Banking</td><td>Bank confirmation letter</td><td>Details received — <b>verification callback booked</b> (fraud guardrail: never auto-trusted)</td><td>3 days</td></tr>
+            <tr><td><b>Stellar Play GmbH</b></td><td>ERP setup</td><td>—</td><td>Vendor master drafted (terms, currency, Incoterms) — ready for your approval</td><td>today</td></tr>
+            <tr><td><b>BrightBlocks Co</b></td><td>Trading terms</td><td>Signed terms schedule</td><td>Reminder 2 of 3 sent · escalation to their MD scheduled Friday</td><td>5 days</td></tr>
+            <tr><td><b>KidCraft Imports</b></td><td style="color:var(--red);font-weight:600">Blocked</td><td>Bank details failed verification</td><td>Stopped &amp; escalated to you — possible impersonation, evidence attached</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ VIEW: CLAIMS & REBATES (roadmap preview) ============ -->
+    <section class="view" id="view-claims">
+      <div class="preview-banner"><b>Roadmap module — preview.</b> The money the desk earns but rarely collects: volume rebates, co-op contributions and settlement discounts, computed from contracts and claimed automatically.</div>
+      <div class="cards">
+        <div class="card"><div class="lbl">Rebates earned YTD</div><div class="val">£142k</div><div class="sub">computed from 23 agreements</div></div>
+        <div class="card"><div class="lbl">Unclaimed identified</div><div class="val">£23.8k</div><div class="sub">earned but never invoiced</div></div>
+        <div class="card"><div class="lbl">Claims in flight</div><div class="val">9</div><div class="sub">drafted &amp; tracked by the agent</div></div>
+        <div class="card"><div class="lbl">Credit notes reconciled</div><div class="val">31</div><div class="sub">matched back to claims YTD</div></div>
+      </div>
+      <div class="panel">
+        <div class="hd"><h3>Rebate &amp; co-op position</h3><span class="note">agent computes earned vs claimed from the agreement terms + purchase actuals</span></div>
+        <table>
+          <thead><tr><th>Agreement</th><th>Terms</th><th style="text-align:right">Earned</th><th style="text-align:right">Claimed</th><th style="text-align:right">Gap</th><th>Agent action</th></tr></thead>
+          <tbody>
+            <tr><td><b>Brixworth — volume rebate</b></td><td>3% above £400k, quarterly</td><td style="text-align:right" class="money">£18,400</td><td style="text-align:right" class="money">£12,100</td><td style="text-align:right" class="money" style="color:var(--red)">£6,300</td><td><span class="chip purple">claim drafted — for approval</span></td></tr>
+            <tr><td><b>MegaFun — co-op marketing</b></td><td>2% of qualifying spend</td><td style="text-align:right" class="money">£7,900</td><td style="text-align:right" class="money">£7,900</td><td style="text-align:right" class="money">—</td><td><span class="chip green">reconciled</span></td></tr>
+            <tr><td><b>Nordic Play — settlement discount</b></td><td>1.5% for payment ≤14d</td><td style="text-align:right" class="money">£4,200</td><td style="text-align:right" class="money">£1,150</td><td style="text-align:right" class="money">£3,050</td><td><span class="chip amber">awaiting credit note · chase 2 sent</span></td></tr>
+            <tr><td><b>Zenith — growth incentive</b></td><td>2% YoY growth &gt;10%</td><td style="text-align:right" class="money">£9,600</td><td style="text-align:right" class="money">£0</td><td style="text-align:right" class="money">£9,600</td><td><span class="chip purple">claim drafted — for approval</span></td></tr>
+          </tbody>
+        </table>
+        <div class="bd note-sm" style="padding-top:12px">The agent reads each agreement's terms once (with your confirmation), then computes the earned position from purchase actuals every period, drafts the claim, and reconciles the credit note when it lands. Disputes escalate to you — <b>it claims what the contract says; it never negotiates the contract.</b></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- toast + modal -->
+<div id="toast"></div>
+<div class="overlay" id="rejectModal">
+  <div class="modal">
+    <h3>Reject proposal</h3>
+    <p>Tell the agent why — rejections train Operational Memory and tighten future proposals.</p>
+    <textarea id="rejectReason" placeholder="e.g. Price change was agreed verbally with the account manager last week — confirmation is actually correct."></textarea>
+    <div class="row">
+      <button class="btn ghost" onclick="closeReject()">Cancel</button>
+      <button class="btn danger" onclick="confirmReject()">Reject &amp; log</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const EX = [
+ {id:"PO-48213", supplier:"Brixworth Toys Ltd", type:"Price mismatch", typeClass:"red",
+  detail:"3 lines confirmed above contracted cost", risk:1842, age:"4h", status:"needs_approval", conf:96,
+  lines:[
+   {sku:"BRX-2214", desc:"Build-It Mega Set 950pc", qty:240, poCost:"£11.40", cfCost:"£12.15", delta:"+£180.00", bad:true},
+   {sku:"BRX-1808", desc:"Junior Blocks Tub 120pc", qty:480, poCost:"£4.85", cfCost:"£5.42", delta:"+£273.60", bad:true},
+   {sku:"BRX-3021", desc:"City Rescue Station", qty:180, poCost:"£16.20", cfCost:"£23.92", delta:"+£1,389.60", bad:true},
+   {sku:"BRX-2790", desc:"Racer Pack (3-car)", qty:360, poCost:"£6.10", cfCost:"£6.10", delta:"—", bad:false}],
+  reasoning:"Order confirmation OC-99120 (PDF, received 09:14) prices 3 of 4 lines above the contracted cost list. The costs match Brixworth's Q2 price file, which pre-dates contract amendment #7 (signed 12 May) — the same root cause as 14 prior exceptions with this supplier. If uncorrected, this flows through invoice match as a £1,842 overpayment.",
+  evidence:"From: orders@brixworthtoys.co.uk — <b>“Please find attached our confirmation OC-99120 for your order PO-48213. Prices as per our current list.”</b> · attachment parsed: OC-99120.pdf, 4 lines",
+  memory:"Brixworth Toys: 14 similar price exceptions in 90 days — 11 resolved after one chase citing the amendment (avg 1.8 days). Root cause: their order system loads the quarterly price file, not the amended contract.",
+  draft:`To: orders@brixworthtoys.co.uk
+Cc: buying-ops@retailer.example
+Subject: PO-48213 — confirmation OC-99120 pricing discrepancy (3 lines)
+
+Hi Dawn,
+
+Thanks for confirmation OC-99120. Three lines are priced above the contracted costs agreed in amendment #7 (12 May 2026):
+
+  • BRX-2214 — confirmed £12.15 vs contracted £11.40
+  • BRX-1808 — confirmed £5.42 vs contracted £4.85
+  • BRX-3021 — confirmed £23.92 vs contracted £16.20
+
+Please reissue the confirmation at the contracted costs. The current price file on your side appears to pre-date the amendment — happy to resend it if useful.
+
+We'd appreciate the corrected confirmation by Thursday so the delivery slot is unaffected.
+
+Best regards,
+Emma
+Buying Operations`,
+  timeline:[
+   ["sys","09:14","Confirmation OC-99120 received (email + PDF) and parsed"],
+   ["agent","09:15","3-line price delta detected vs contract amendment #7 — exception opened"],
+   ["agent","09:16","Chase drafted; matched to 14 prior Brixworth price exceptions in Operational Memory"]]},
+
+ {id:"PO-48160", supplier:"Nordic Play AB", type:"Unconfirmed", typeClass:"amber",
+  detail:"No confirmation for 6 days — 2 promo lines at stockout risk", risk:24300, age:"6d", status:"needs_approval", conf:92,
+  lines:[
+   {sku:"NP-0771", desc:"Wooden Rail Starter Set", qty:600, poCost:"£13.25", cfCost:"— not confirmed", delta:"promo 24 Jul", bad:true},
+   {sku:"NP-0899", desc:"Nordic Dolls House", qty:220, poCost:"£28.90", cfCost:"— not confirmed", delta:"promo 24 Jul", bad:true},
+   {sku:"NP-1140", desc:"Stacking Animals", qty:400, poCost:"£5.75", cfCost:"— not confirmed", delta:"", bad:false}],
+  reasoning:"PO-48160 (£24,300) issued 6 days ago; no confirmation received against a 48h contractual SLA. Two lines feed the 24 July promotion — lead time from Gothenburg means confirmation is needed this week to hold the slot. Day-1 and Day-3 reminders were auto-sent under current autonomy. Memory says their ops manager (Elsa) responds to a Day-3+ escalation marked urgent; proposing the escalation email to her with the penalty clause cited.",
+  evidence:"Contract §8.2: <b>“Supplier shall confirm purchase orders within 2 business days… persistent failure entitles the retailer to a 1.5% administration charge.”</b> · Auto-chases sent Day 1, Day 3 — no reply.",
+  memory:"Nordic Play: never answers the first email. 22 chases: median response 3.2 days, and only after escalation to elsa.lindqvist@. Confirm-within-48h rate: 44% (worst of top-20 suppliers).",
+  draft:`To: elsa.lindqvist@nordicplay.se
+Cc: orders@nordicplay.se
+Subject: URGENT — PO-48160 unconfirmed 6 days; promo lines at risk
+
+Hi Elsa,
+
+PO-48160 (£24,300, issued 26 Jun) remains unconfirmed despite reminders on 27 and 29 Jun. Two lines support our 24 July promotion and the delivery slot is now at risk.
+
+Could you confirm today, or tell us what's blocking it? If any line can't be met in full, please confirm the balance so we can plan cover.
+
+Per contract §8.2, confirmation is due within 2 business days of order; we'd rather fix this than apply the administration charge.
+
+Thanks,
+Emma
+Buying Operations`,
+  timeline:[
+   ["sys","26 Jun","PO-48160 issued via SAP → supplier email"],
+   ["agent","27 Jun","No confirmation at SLA — Day-1 reminder auto-sent (autonomy: auto-send)"],
+   ["agent","29 Jun","Day-3 reminder auto-sent — no response"],
+   ["agent","Today","Escalation to named contact drafted (promo risk + §8.2) — awaiting approval"]]},
+
+ {id:"PO-47998", supplier:"PlayCore Distribution", type:"Short shipment", typeClass:"blue",
+  detail:"GR 1,140 vs ASN 1,200 — claim + penalty drafted", risk:312, age:"1d", status:"needs_approval", conf:94,
+  lines:[
+   {sku:"PC-5510", desc:"Splash Pool 6ft", qty:1200, poCost:"ASN: 1,200", cfCost:"GR: 1,140", delta:"−60 units", bad:true}],
+  reasoning:"Goods receipt GR-77412 (yesterday, DC2) posted 1,140 units against ASN quantity 1,200 — a 60-unit short-ship worth £312 at cost. Contract §11.4 allows a 2% short-delivery charge when shortages exceed 1%. Friday despatch from their Leeds DC — the recurring short-ship pattern in Memory. Claim letter and debit-note draft prepared; GR document and ASN attached as evidence.",
+  evidence:"GR-77412 (DC2, bay 14): <b>1,140 units received, 5 pallets — ASN 866091 declared 1,200 units, 6 pallets.</b> One pallet not despatched per carrier manifest.",
+  memory:"PlayCore: 11 GR deltas in 90 days — 8 from Friday despatches ex-Leeds. All accepted without dispute when claim includes GR + carrier manifest. Avg settlement: 6 days.",
+  draft:`To: accounts@playcoredist.co.uk
+Cc: rachel.owen@playcoredist.co.uk
+Subject: PO-47998 — short delivery claim (60 units, GR-77412)
+
+Hi Rachel,
+
+Our goods receipt GR-77412 (1 Jul, DC2) records 1,140 units of PC-5510 against ASN 866091 declaring 1,200. The carrier manifest shows 5 of 6 pallets despatched.
+
+Please either despatch the 60-unit balance this week or confirm the shortage, in which case we will issue a debit note for £312.00 plus the 2% short-delivery charge under contract §11.4 (£6.24).
+
+GR document and manifest attached.
+
+Best regards,
+Emma
+Buying Operations`,
+  timeline:[
+   ["sys","30 Jun","ASN 866091 received: 1,200 units, 6 pallets"],
+   ["sys","1 Jul","GR-77412 posted at DC2: 1,140 units"],
+   ["agent","1 Jul","60-unit delta detected; carrier manifest cross-checked — 1 pallet short"],
+   ["agent","Today","Claim + debit-note draft prepared with evidence pack"]]},
+
+ {id:"PO-48101", supplier:"Zenith Games Ltd", type:"Date slip", typeClass:"purple",
+  detail:"Confirmed 14 days later than requested — promo start at risk", risk:8900, age:"2d", status:"awaiting_supplier", conf:90,
+  lines:[{sku:"ZG-3302", desc:"Quest Cards Booster", qty:2400, poCost:"req: 18 Jul", cfCost:"conf: 1 Aug", delta:"+14 days", bad:true}],
+  reasoning:"Zenith confirmed 1 Aug against a requested 18 Jul — past the 24 Jul promo start. Agent requested a split shipment (50% by 17 Jul) citing the promo dependency. Awaiting reply; reminder scheduled for tomorrow 09:00.",
+  evidence:"Confirmation email: <b>“Earliest we can do on ZG-3302 is 1st August due to a print run delay.”</b>",
+  memory:"Zenith: dates confirmed >30 days out slip a median 9 further days. Split-shipment requests accepted 4 of 5 times.",
+  draft:`(sent 2 days ago — tracking)
+Requested: 50% (1,200 units) by 17 Jul to cover promo launch, balance 1 Aug. Reminder scheduled tomorrow 09:00 if no reply.`,
+  timeline:[
+   ["sys","30 Jun","Confirmation received: 1 Aug vs requested 18 Jul"],
+   ["agent","30 Jun","Promo dependency detected (24 Jul, event PRM-0947)"],
+   ["human","30 Jun","Split-shipment chase approved by Emma W."],
+   ["agent","30 Jun","Chase sent to supplier · reminder scheduled +48h"]]},
+
+ {id:"PO-48077", supplier:"MegaFun Imports", type:"Qty mismatch", typeClass:"blue",
+  detail:"Confirmed 480 of 600 on line 2 — balance ASN requested", risk:1560, age:"3d", status:"awaiting_supplier", conf:88,
+  lines:[{sku:"MF-8823", desc:"Bubble Machine Pro", qty:600, poCost:"ordered: 600", cfCost:"confirmed: 480", delta:"−120 units", bad:true}],
+  reasoning:"Partial confirmation. Memory: MegaFun partials usually mean a split shipment with balance in 7–10 days, not a shortage — so the agent asked for the balance ASN rather than raising a claim. Awaiting response.",
+  evidence:"Confirmation OC-2311: <b>480 units, remark “balance to follow.”</b>",
+  memory:"MegaFun: 9 partial confirmations in 90 days — 8 were split shipments; balance arrived in 7–10 days. False-claim avoided each time.",
+  draft:`(sent 3 days ago — tracking)
+Asked for balance-shipment ASN and date for remaining 120 units; flagged that promo cover needs balance by 20 Jul.`,
+  timeline:[
+   ["sys","28 Jun","Partial confirmation OC-2311 parsed: 480/600"],
+   ["agent","28 Jun","Pattern matched: MegaFun split-shipment behaviour — no claim raised"],
+   ["human","28 Jun","Balance-ASN request approved"],
+   ["agent","29 Jun","Request sent · response window 5 days"]]},
+
+ {id:"PO-48009", supplier:"Brixworth Toys Ltd", type:"Price mismatch", typeClass:"red",
+  detail:"Supplier disputes contracted cost — needs a buyer decision", risk:2210, age:"5d", status:"escalated", conf:61,
+  lines:[{sku:"BRX-4415", desc:"Mega Fort Playset", qty:130, poCost:"£31.80", cfCost:"£48.80", delta:"+£2,210.00", bad:true}],
+  reasoning:"Brixworth replied to the correction chase disputing the contracted cost, citing a raw-material surcharge agreed 'in principle' with the previous buyer. This is a commercial judgement, not paperwork — escalated to the buying desk with the full email thread, both price references, and the contract clause. The agent stays out of buying calls by design.",
+  evidence:"Supplier reply: <b>“The £48.80 reflects the FOB surcharge Tom agreed in March — happy to jump on a call.”</b> No amendment on file matches this.",
+  memory:"First disputed correction from Brixworth in 90 days (11 prior corrections accepted without dispute).",
+  draft:`(escalated — no draft pending)
+Decision needed: accept surcharge, negotiate, or hold to contract. Evidence pack attached to the escalation.`,
+  timeline:[
+   ["agent","27 Jun","Price correction chase sent (approved)"],
+   ["sys","29 Jun","Supplier reply received — disputes contracted cost"],
+   ["agent","29 Jun","Commercial dispute detected → escalated to buyer with evidence pack. Agent will execute whatever is decided."]]},
+
+ {id:"PO-48222", supplier:"Little Wonders Ltd", type:"Unconfirmed", typeClass:"amber",
+  detail:"No confirmation, day 3 — first reminder sent under autonomy", risk:4980, age:"3d", status:"awaiting_supplier", conf:97,
+  lines:[{sku:"LW-1002", desc:"Sensory Play Cubes", qty:350, poCost:"£9.40", cfCost:"— not confirmed", delta:"", bad:true}],
+  reasoning:"Standard SLA chase; supplier normally responds within a day of first reminder. No promo exposure. Auto-sent within autonomy level — no approval needed.",
+  evidence:"SLA: confirmation due in 48h; reminder sent Day 3, 09:00.",
+  memory:"Little Wonders: 89% confirm ≤48h; historic fix time after one reminder: 0.9 days.",
+  draft:`(auto-sent this morning — tracking)`,
+  timeline:[
+   ["sys","29 Jun","PO-48222 issued"],
+   ["agent","Today","Day-3 reminder auto-sent (autonomy: auto-send) · logged"]]},
+
+ {id:"PO-47901", supplier:"Little Wonders Ltd", type:"Price mismatch", typeClass:"red",
+  detail:"1-line price delta — supplier corrected after one chase", risk:0, age:"—", status:"resolved", resolution:"touchless", conf:99,
+  lines:[{sku:"LW-0871", desc:"Rainbow Stacker", qty:500, poCost:"£4.20", cfCost:"£4.20 (corrected)", delta:"was £4.55", bad:false}],
+  reasoning:"Resolved touchless: chase auto-sent within autonomy, supplier reissued the confirmation at contracted cost next morning. £175 overpayment prevented. No human touch required.",
+  evidence:"Corrected confirmation OC-8873-R received and matched to contract.",
+  memory:"Pattern stored: Little Wonders price errors self-correct after one chase (2 of 2).",
+  draft:`(closed — no action pending)`,
+  timeline:[
+   ["agent","24 Jun","Price delta detected · chase auto-sent (in autonomy)"],
+   ["sys","25 Jun","Corrected confirmation received — matches contract"],
+   ["agent","25 Jun","Exception closed touchless · £175 protected · trace stored"]]},
+
+ {id:"PO-47875", supplier:"Nordic Play AB", type:"Short shipment", typeClass:"blue",
+  detail:"24-unit shortage — claim approved, credit note received", risk:0, age:"—", status:"resolved", resolution:"assisted", conf:95,
+  lines:[{sku:"NP-0455", desc:"Balance Board", qty:240, poCost:"ASN: 240", cfCost:"GR: 216", delta:"−24 units", bad:false}],
+  reasoning:"Resolved with one human touch: claim drafted by agent, approved by Emma, supplier issued credit note CN-1190 for £394 within 5 days. Penalty waived (first offence in 90 days) per buyer's edit.",
+  evidence:"Credit note CN-1190 received and reconciled.",
+  memory:"Nordic Play accepts short-delivery claims with GR evidence; 5-day settlement.",
+  draft:`(closed — credit note reconciled)`,
+  timeline:[
+   ["agent","20 Jun","GR delta detected · claim drafted"],
+   ["human","20 Jun","Approved with edit (penalty waived — first offence)"],
+   ["sys","25 Jun","Credit note CN-1190 received · £394 recovered"]]}
+];
+
+let currentFilter="all", currentEx=null, pendingReject=null;
+let kpi={open:34, approval:7, recoveredN:18420};
+
+/* ================= HELPERS ================= */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const gbp=n=>"£"+n.toLocaleString("en-GB");
+function toast(msg){const t=$("#toast");t.innerHTML=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),4200)}
+
+const STATUS={
+ needs_approval:['<span class="chip purple">proposal ready</span>'],
+ awaiting_supplier:['<span class="chip blue">awaiting supplier</span>'],
+ escalated:['<span class="chip amber">escalated to you</span>'],
+ resolved:['<span class="chip green">resolved</span>']
+};
+function statusChip(e){
+  if(e.status==="resolved") return e.resolution==="touchless"?'<span class="chip green">resolved · touchless</span>':'<span class="chip green">resolved · 1 touch</span>';
+  if(e.status==="processing") return '<span class="chip purple work">agent working</span>';
+  return STATUS[e.status][0];
+}
+
+/* ================= NAV ================= */
+const TITLES={briefing:"Agent Briefing",queue:"Exception Queue",dashboard:"Dashboard",audit:"Exception-Loss Audit",suppliers:"Suppliers",autonomy:"Autonomy & Guardrails",memory:"Operational Memory",detail:"Exception Detail",sku:"SKU / Article Setup — Preview",onboarding:"Supplier Onboarding — Preview",claims:"Claims & Rebates — Preview"};
+function show(view){
+  $$(".view").forEach(v=>v.classList.remove("active"));
+  $("#view-"+view).classList.add("active");
+  $("#pageTitle").textContent=TITLES[view];
+  $$(".nav a[data-nav]").forEach(a=>a.classList.toggle("active",a.dataset.nav===view));
+  window.scrollTo(0,0);
+}
+$$(".nav a[data-nav]").forEach(a=>a.onclick=()=>{show(a.dataset.nav);closeDrawer();});
+
+/* ---------- mobile drawer ---------- */
+function openDrawer(){$(".side").classList.add("open");$("#scrim").classList.add("show");}
+function closeDrawer(){$(".side").classList.remove("open");$("#scrim").classList.remove("show");}
+$("#burger").onclick=openDrawer;
+$("#scrim").onclick=closeDrawer;
+
+/* ================= QUEUE ================= */
+function renderQueue(){
+  const tb=$("#queueTable tbody"); tb.innerHTML="";
+  EX.filter(e=>{
+    if(currentFilter==="all") return e.status!=="resolved";
+    if(currentFilter==="resolved") return e.status==="resolved";
+    return e.status===currentFilter;
+  }).forEach(e=>{
+    const tr=document.createElement("tr");
+    tr.className="click";
+    tr.innerHTML=`<td><b>${e.id}</b></td><td>${e.supplier}</td>
+      <td><span class="chip ${e.typeClass}">${e.type}</span></td>
+      <td style="color:var(--ink2)">${e.detail}</td>
+      <td style="text-align:right" class="money">${e.risk?gbp(e.risk):"—"}</td>
+      <td>${e.age}</td><td>${statusChip(e)}</td>`;
+    tr.onclick=()=>openDetail(e.id);
+    tb.appendChild(tr);
+  });
+  $("#queueCount").textContent=EX.filter(e=>e.status==="needs_approval").length;
+  $("#kpiApproval").textContent=EX.filter(e=>e.status==="needs_approval").length;
+  $("#kpiOpen").textContent=kpi.open;
+  $("#kpiRecovered").textContent=gbp(kpi.recoveredN);
+}
+$("#queueFilters").addEventListener("click",ev=>{
+  if(!ev.target.dataset.f) return;
+  currentFilter=ev.target.dataset.f;
+  $$("#queueFilters .fbtn").forEach(b=>b.classList.toggle("active",b===ev.target));
+  renderQueue();
+});
+
+/* ================= DETAIL ================= */
+function openDetail(id){
+  currentEx=EX.find(e=>e.id===id);
+  renderDetail();
+  show("detail");
+}
+function renderDetail(){
+  const e=currentEx;
+  const isProposal=e.status==="needs_approval";
+  const lineHead = e.type==="Short shipment" ? ["SKU","Description","Ordered","Declared vs received","Delta"]
+    : e.type==="Unconfirmed" ? ["SKU","Description","Qty","Cost","Status","Note"]
+    : e.type==="Date slip" ? ["SKU","Description","Qty","Requested","Confirmed","Delta"]
+    : ["SKU","Description","Qty","PO cost","Confirmed cost","Line delta"];
+  const rows=e.lines.map(l=>{
+    if(e.type==="Unconfirmed")
+      return `<tr><td><b>${l.sku}</b></td><td>${l.desc}</td><td>${l.qty}</td><td>${l.poCost}</td><td class="${l.bad?'diff':'ok'}">${l.cfCost}</td><td class="ok">${l.delta||""}</td></tr>`;
+    return `<tr><td><b>${l.sku}</b></td><td>${l.desc}</td><td>${l.qty}</td><td class="ok">${l.poCost}</td><td class="${l.bad?'diff':'ok'}">${l.cfCost}</td><td class="${l.bad?'diff':'ok'}">${l.delta}</td></tr>`;
+  }).join("");
+
+  $("#view-detail").innerHTML=`
+    <button class="back" onclick="show('queue')">← Back to queue</button>
+    <div class="dhead">
+      <h2>${e.id} · ${e.supplier}</h2>
+      <span class="chip ${e.typeClass}">${e.type}</span>
+      ${statusChip(e)}
+      <span class="meta">${e.risk?("<b>"+gbp(e.risk)+"</b> at risk · "):""}detected by agent · SAP + mailbox evidence</span>
+    </div>
+    <div class="cols">
+      <div>
+        <div class="panel">
+          <div class="hd"><h3>Line-level comparison — PO ↔ ${e.type==="Short shipment"?"ASN ↔ goods receipt":"supplier confirmation"}</h3></div>
+          <table>
+            <thead><tr>${lineHead.map(h=>`<th>${h}</th>`).join("")}</tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+
+        <div class="prop">
+          <div style="display:flex;align-items:center">
+            <span class="tag">Agent proposal</span><span class="conf">evidence attached</span>
+          </div>
+          <h4>${isProposal?"Proposed action — awaiting your approval":e.status==="escalated"?"Escalated — your decision needed":e.status==="resolved"?"Resolved — trace stored":"Action sent — tracking to resolution"}</h4>
+          <p>${e.reasoning}</p>
+          <div class="evi"><b>Evidence</b> — ${e.evidence}</div>
+          <div class="draft">
+            <div class="dh"><b>Drafted supplier message</b> — editable before send</div>
+            <textarea id="draftBox" ${isProposal?"":"readonly style='background:#f8fafc;color:var(--ink2)'"}>${e.draft}</textarea>
+          </div>
+          ${isProposal?`
+          <div class="actions">
+            <button class="btn primary" onclick="approve()">Approve &amp; send</button>
+            <button class="btn ghost" onclick="toast('Draft unlocked — edit the message above, then Approve & send. Your edit is stored as a training example.')">Edit draft</button>
+            <button class="btn danger" onclick="openReject()">Reject</button>
+            <button class="btn ghost" onclick="toast('Escalated to Head of Buying with the full evidence pack.')">Escalate</button>
+            <span class="note-sm" style="margin-left:auto">nothing is sent without you</span>
+          </div>`:""}
+          <div class="mem"><b>Operational memory</b>${e.memory}</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div class="hd"><h3>Resolution timeline</h3><span class="note">full audit trail</span></div>
+          <div class="bd">
+            <ul class="tl">
+              ${e.timeline.map(t=>`<li class="${t[0]}"><b>${t[0]==="agent"?"Agent":t[0]==="human"?"Emma W.":"System"}</b><span class="t">${t[1]}</span><br>${t[2]}</li>`).join("")}
+            </ul>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="hd"><h3>Impact if unresolved</h3></div>
+          <div class="bd" style="font-size:13px;color:var(--ink2);line-height:1.7">
+            ${e.type==="Price mismatch"?`Overpayment of <b>${gbp(e.risk||175)}</b> passes 3-way invoice match unchallenged. Annualised across this supplier's error rate: <b>~${gbp((e.risk||175)*26)}</b>.`:""}
+            ${e.type==="Unconfirmed"?`Promo lines uncovered → shelf gap at launch. Margin at risk on this PO: <b>${gbp(e.risk)}</b>. Penalty per §8.2 goes unclaimed.`:""}
+            ${e.type==="Short shipment"?`Shortage silently absorbed: <b>${gbp(e.risk)}</b> paid for goods not received, penalty unclaimed, stock plan overstated by 60 units.`:""}
+            ${e.type==="Date slip"?`Launch gap on promo event PRM-0947 — margin at risk <b>${gbp(e.risk)}</b>; agency rebook fees if display space goes empty.`:""}
+            ${e.type==="Qty mismatch"?`120-unit gap vs plan. If treated as a shortage a false claim damages the relationship; if ignored, cover ordering starts too late.`:""}
+          </div>
+        </div>
+        <div class="panel">
+          <div class="hd"><h3>ERP write-back</h3></div>
+          <div class="bd" style="font-size:12.5px;color:var(--ink2);line-height:1.6">
+            On resolution the agent prepares the PO correction (price/qty/date) via the <b>sanctioned API path</b> — clean-core, no core mods — and queues it for one-click approval. Every write is logged with before/after values.
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ================= BRIEFING ================= */
+function renderBriefing(){
+  const need=EX.filter(e=>e.status==="needs_approval");
+  const esc=EX.filter(e=>e.status==="escalated");
+  $("#bNeedCount").textContent=need.length;
+  $("#bEscCount").textContent=esc.length;
+  const list=$("#needsYouList");
+  if(!need.length&&!esc.length){
+    list.innerHTML=`<div style="padding:32px;text-align:center;color:var(--ink2);font-size:13px;font-weight:600">Nothing needs you right now.<br><span style="font-size:12px;color:var(--ink3);font-weight:400">I'll email you the moment something does.</span></div>`;
+    return;
+  }
+  list.innerHTML=[...need,...esc].map(e=>`
+    <div class="ny-row">
+      <span class="chip ${e.typeClass}">${e.type}</span>
+      <div class="sum">
+        <b>${e.id} · ${e.supplier}${e.risk?` — <span class="money">${gbp(e.risk)}</span>`:""}</b>
+        <span>${e.status==="escalated"?"I've stopped — this is a commercial call, not paperwork: ":"I want to send: "}${e.detail}</span>
+      </div>
+      ${e.status==="escalated"
+        ?`<button class="btn sm ghost" onclick="openDetail('${e.id}')">Decide</button>`
+        :`<button class="btn sm ghost" onclick="openDetail('${e.id}')">Review</button>
+           <button class="btn sm primary" onclick="quickApprove('${e.id}')">Approve &amp; send</button>`}
+    </div>`).join("");
+}
+
+/* ================= ACTIONS ================= */
+function doApprove(e){
+  e.status="awaiting_supplier";
+  e.age="0h";
+  e.timeline.push(["human","just now","Proposal approved by Emma W."]);
+  e.timeline.push(["agent","just now","Message sent to supplier · reminder scheduled +48h · tracking to resolution"]);
+  kpi.approval--;
+  toast(`Sent to ${e.supplier}. I'll track the thread and chase automatically — you'll only see this again if it needs you.`);
+  renderQueue(); renderBriefing();
+}
+function approve(){ doApprove(currentEx); renderDetail(); }
+function quickApprove(id){ doApprove(EX.find(x=>x.id===id)); }
+function openReject(){ pendingReject=currentEx; $("#rejectModal").classList.add("show"); $("#rejectReason").value=""; }
+function closeReject(){ $("#rejectModal").classList.remove("show"); }
+function confirmReject(){
+  const why=$("#rejectReason").value.trim()||"(no reason given)";
+  const e=pendingReject;
+  e.status="resolved"; e.resolution="assisted"; e.risk=0;
+  e.timeline.push(["human","just now","Proposal rejected: “"+why+"”"]);
+  e.timeline.push(["agent","just now","Exception closed · rejection reason stored in Operational Memory"]);
+  kpi.approval--;
+  closeReject();
+  toast("Rejected and logged. The reason is stored — I won't make this proposal pattern again without flagging it.");
+  renderQueue(); renderBriefing(); renderDetail();
+}
+
+/* autonomy segments (visual only) */
+$$(".seg").forEach(seg=>{
+  seg.addEventListener("click",ev=>{
+    const b=ev.target.closest("button"); if(!b||b.classList.contains("locked")) return;
+    seg.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    toast("Autonomy updated for this action type. Changes apply to new exceptions and are recorded in the audit trail.");
+  });
+});
+
+renderQueue();
+renderBriefing();
+
+/* ================= LIVE SIMULATION =================
+   The landing-page "processing → resolved" flip, but functional:
+   exceptions stream in, get parsed, chased and closed while you watch. */
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function liveNow(html){ const el=$("#liveNow"); if(el) el.innerHTML=html; }
+function addFeed(html){
+  const ul=$("#agentFeed"); if(!ul) return;
+  const li=document.createElement("li"); li.className="new";
+  li.innerHTML=`<span class="t">just now</span><div>${html}</div>`;
+  ul.prepend(li);
+  while(ul.children.length>9) ul.removeChild(ul.lastChild);
+}
+let simPO=48231, simN=0;
+function spawnEx(supplier,type,typeClass,detail,risk,conf){
+  const id="PO-"+(simPO++);
+  const e={id,supplier,type,typeClass,detail,risk,age:"now",status:"processing",conf,
+    lines:[{sku:"SKU-"+(1000+simN*7),desc:"(live demo line)",qty:200,poCost:"£8.40",cfCost:"£8.96",delta:"+£112.00",bad:true}],
+    reasoning:"(Live) "+detail+" — detected moments ago from the buying inbox; evidence assembled from the parsed confirmation and the contract price file.",
+    evidence:"Live-parsed supplier email · demo data",
+    memory:"Operational Memory patterns for this supplier apply as usual.",
+    draft:"(agent drafting…)",
+    timeline:[["sys","just now","Supplier email parsed"],["agent","just now","Exception opened — agent working"]]};
+  EX.push(e); kpi.open++; renderQueue();
+  return e;
+}
+async function scenarioClean(){
+  const sup=["MegaFun Imports","PlayCore Distribution","Zenith Games Ltd"][simN%3];
+  liveNow(`Confirmation received from <b>${sup}</b> — parsing…`);
+  await sleep(2600);
+  liveNow(`Matched clean against PO-${simPO++} — no exception raised`);
+  addFeed(`Matched <b>${sup}</b> confirmation clean — <b>no exception</b>, nothing for you`);
+  await sleep(2200);
+  liveNow("watching the buying inbox…");
+}
+async function scenarioTouchless(){
+  const amt=100+Math.floor(Math.random()*140);
+  liveNow(`Confirmation from <b>Little Wonders Ltd</b> — parsing…`);
+  await sleep(2200);
+  const e=spawnEx("Little Wonders Ltd","Price mismatch","red","1-line price delta vs contract",amt,97);
+  liveNow(`Price delta on <b>${e.id}</b> — drafting chase…`);
+  await sleep(2800);
+  e.status="awaiting_supplier";
+  e.timeline.push(["agent","just now","Chase auto-sent (within earned autonomy)"]);
+  renderQueue();
+  addFeed(`Chase sent to <b>Little Wonders</b> on ${e.id} — inside earned autonomy, no approval needed`);
+  liveNow(`Chase sent on <b>${e.id}</b> — tracking reply…`);
+  await sleep(5600);
+  e.status="resolved"; e.resolution="touchless"; e.risk=0;
+  e.timeline.push(["sys","just now","Corrected confirmation received"],["agent","just now",`Closed touchless · £${amt} protected`]);
+  kpi.open--; kpi.recoveredN+=amt; renderQueue();
+  addFeed(`Closed <b>${e.id}</b> touchless — corrected confirmation received, <b>£${amt} protected</b>`);
+  liveNow("watching the buying inbox…");
+}
+async function scenarioNeedsYou(){
+  liveNow(`Confirmation from <b>Brixworth Toys Ltd</b> — parsing…`);
+  await sleep(2400);
+  const amt=800+Math.floor(Math.random()*900);
+  const e=spawnEx("Brixworth Toys Ltd","Price mismatch","red","2 lines confirmed above contracted cost",amt,95);
+  liveNow(`2-line price mismatch on <b>${e.id}</b> — assembling evidence &amp; drafting…`);
+  await sleep(3400);
+  e.status="needs_approval";
+  e.draft=`To: orders@brixworthtoys.co.uk\nSubject: ${e.id} — confirmation pricing discrepancy (2 lines)\n\nHi Dawn,\n\nTwo lines on your confirmation for ${e.id} are priced above the contracted costs in amendment #7. Please reissue the confirmation at the contracted costs.\n\nBest regards,\nEmma\nBuying Operations`;
+  e.timeline.push(["agent","just now","Proposal drafted — queued for approval"]);
+  kpi.approval++; renderQueue(); renderBriefing();
+  addFeed(`Proposal ready on <b>${e.id}</b> (£${amt.toLocaleString("en-GB")}) — <b>queued for you</b>`);
+  liveNow("watching the buying inbox…");
+}
+async function runSim(){
+  await sleep(3500);
+  const loop=[scenarioClean,scenarioTouchless,scenarioClean,scenarioNeedsYou];
+  let i=0;
+  while(true){
+    const fn=loop[i%loop.length];
+    if(fn===scenarioNeedsYou && EX.filter(e=>e.status==="needs_approval").length>=9){ i++; continue; }
+    try{ await fn(); }catch(err){}
+    simN++; i++;
+    await sleep(6000+Math.random()*5000);
+  }
+}
+runSim();
+</script>
+</body>
+</html>
