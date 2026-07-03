@@ -113,7 +113,7 @@
   .draft{background:#fff;border:1px solid var(--line);border-radius:8px;margin-top:12px;overflow:hidden}
   .draft .dh{background:#f8fafc;border-bottom:1px solid var(--line);padding:9px 14px;font-size:12px;color:var(--ink2)}
   .draft .dh b{color:var(--ink)}
-  .draft textarea{width:100%;border:none;padding:13px 14px;font-family:inherit;font-size:13px;line-height:1.6;color:var(--ink);min-height:180px;resize:vertical;outline:none;background:#fff}
+  .draft textarea{width:100%;border:none;padding:13px 14px;font-family:inherit;font-size:13px;line-height:1.6;color:var(--ink);min-height:80px;resize:vertical;outline:none;background:#fff;overflow:hidden}
   .actions{display:flex;gap:9px;margin-top:14px;align-items:center}
   .evi{background:#f8fafc;border:1px solid var(--line);border-left:3px solid var(--ink3);border-radius:6px;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55;margin-top:10px}
   .evi b{color:var(--ink)}
@@ -928,11 +928,11 @@ function renderDetail(){
             <button class="btn ghost" onclick="toast('Escalated to Head of Buying with the full evidence pack.')">Escalate</button>
             <span class="note-sm" style="margin-left:auto">nothing is sent without you</span>
           </div>`:""}
-          <div class="mem"><b>Operational memory</b>${e.memory}</div>
         </div>
       </div>
 
       <div>
+        <div class="mem" style="margin-top:0;margin-bottom:18px"><b>Operational memory</b>${e.memory}</div>
         <div class="panel">
           <div class="hd"><h3>Resolution timeline</h3><span class="note">full audit trail</span></div>
           <div class="bd">
@@ -959,6 +959,7 @@ function renderDetail(){
         </div>
       </div>
     </div>`;
+  requestAnimationFrame(()=>{const ta=document.getElementById("draftBox");if(ta){ta.style.height="auto";ta.style.height=(ta.scrollHeight+6)+"px";}});
 }
 
 /* ================= BRIEFING ================= */
